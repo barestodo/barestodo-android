@@ -11,14 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.ListPlace;
+import com.barestodo.android.service.RepositoryFactory;
 
 public class AddPlaceActivity extends Activity {
 
 	EditText editLabel;
 	EditText editLocation;
 	Button validateAdd;
-	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
+	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
 	
 	@Override

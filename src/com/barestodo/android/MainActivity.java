@@ -2,7 +2,7 @@ package com.barestodo.android;
 
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.impl.ListPlace;
+import com.barestodo.android.service.RepositoryFactory;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,12 +15,10 @@ import android.widget.ListView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
-import com.barestodo.android.service.impl.RestServerRepository;
-import com.barestodo.android.service.remote.RestResourceClient;
 
 public class MainActivity extends Activity {
 
-	IPlaceRepository placeRepository = RestServerRepository.INSTANCE;
+	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
 	
 	

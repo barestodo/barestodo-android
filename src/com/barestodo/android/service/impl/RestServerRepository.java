@@ -2,15 +2,11 @@ package com.barestodo.android.service.impl;
 
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.remote.RestResourceClient;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
+import com.barestodo.android.service.remote.AsyncRetrievePlacesOperation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +18,6 @@ import java.util.List;
 public class RestServerRepository implements IPlaceRepository {
 
     public static final RestServerRepository INSTANCE=new RestServerRepository();
-    private RestResourceClient placeResourceClient= new RestResourceClient("place");
 
 
     private RestServerRepository(){
@@ -30,8 +25,14 @@ public class RestServerRepository implements IPlaceRepository {
     }
     @Override
     public List<Place> getListPlace() {
-        List<Place> places = new ArrayList<Place>();
-        places=placeResourceClient.get();
+        List<Place> places = new ArrayList<>();
+        try {
+            AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation();
+            places= task.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         return places;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

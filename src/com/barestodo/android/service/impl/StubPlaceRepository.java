@@ -6,10 +6,10 @@ import java.util.List;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 
-public class ListPlace implements IPlaceRepository {
-	public final static ListPlace INSTANCE = new ListPlace();
+public class StubPlaceRepository implements IPlaceRepository {
+	public final static StubPlaceRepository INSTANCE = new StubPlaceRepository();
 	private static List<Place> placeList = new ArrayList<Place>();
-	private ListPlace(){
+	private StubPlaceRepository(){
 		
 	}
 	static{

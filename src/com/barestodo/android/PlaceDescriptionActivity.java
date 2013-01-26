@@ -1,7 +1,7 @@
 package com.barestodo.android;
 
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.impl.ListPlace;
+import com.barestodo.android.service.RepositoryFactory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +17,8 @@ public class PlaceDescriptionActivity extends Activity {
 	private TextView placeLabel;
 	private Button homeButton;
 	
-	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
+	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		

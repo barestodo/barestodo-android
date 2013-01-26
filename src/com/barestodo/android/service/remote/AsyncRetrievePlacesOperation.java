@@ -26,17 +26,14 @@ import java.util.List;
  * Time: 21:43
  * To change this template use File | Settings | File Templates.
  */
-public class AsyncRetrievePlacesOperation extends AsyncTask<String, Void, List<Place>> {
+public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void, List<Place>> {
 
     @Override
     protected List<Place> doInBackground(String... strings) {
-        List<Place> result=new ArrayList<Place>();
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpContext localContext = new BasicHttpContext();
-        HttpGet httpGet = new HttpGet("http://service.barestodo.cloudbees.net/rest/place");
-        String text = null;
-        try {
+        List<Place> result=new ArrayList<>();
+        HttpGet httpGet = new HttpGet(BASE_URL.concat("place"));
 
+        try {
             HttpResponse response = httpClient.execute(httpGet, localContext);
             HttpEntity entity = response.getEntity();
 
@@ -45,14 +42,14 @@ public class AsyncRetrievePlacesOperation extends AsyncTask<String, Void, List<P
             JSONObject jsonResponse = new JSONObject(json);
 
             JSONArray finalResult = jsonResponse.getJSONArray("places");
-            Log.d("INFO", finalResult.toString());
+            Log.i("JSON", finalResult.toString());
             for(int index=0;index<finalResult.length();index++){
                 JSONObject jsonPlace = finalResult.getJSONObject(index);
                 Place place = new Place(jsonPlace.getString("id"),jsonPlace.getString("name"),jsonPlace.getString("location"));
                 result.add(place);
             }
         } catch (Exception e) {
-            Log.d("ERROR",e.getMessage());
+            Log.e("JSON",e.getMessage());
             return result;
         }
 
