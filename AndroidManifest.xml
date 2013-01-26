@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.barestodo.android.PlaceDescriptionActivity"
+            android:label="@string/title_activity_place_description" >
+        </activity>
+        <activity
+            android:name="com.barestodo.android.AddPlaceActivity"
+            android:label="@string/title_activity_add_place" >
+        </activity>
     </application>
 
 </manifest>
