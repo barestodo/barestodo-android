@@ -1,3 +1,9 @@
 .settings
 .project
 .classpath
+gen
+out
+.idea
+barestodo-android.iml
+barestodo-android.iml
+barestodo-android.iml
