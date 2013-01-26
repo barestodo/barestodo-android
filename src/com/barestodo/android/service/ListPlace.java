@@ -43,14 +43,5 @@ public class ListPlace implements IPlaceRepository {
 	public Place getPlaceById(String id){
 		return placeList.get(Integer.parseInt(id));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }

@@ -78,8 +78,8 @@ public class MainActivity extends Activity {
         	    intent.putExtras(b); 
 				startActivity(intent);
         	  }
-        	});
-        
+        });
+       
     }
     
     private void initAddButton() {
