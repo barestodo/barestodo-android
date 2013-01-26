@@ -7,6 +7,6 @@
     <string name="title_activity_place_description">PlaceDescriptionActivity</string>
     <string name="back_label">Back</string>
     <string name="title_activity_add_place">AddPlaceActivity</string>
-    
-	<string name="add_Label">Add</string>
+    <string name="validate_add">Validate</string>
+	<string name="add_label">Add</string>
 </resources>

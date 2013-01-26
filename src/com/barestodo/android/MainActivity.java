@@ -25,9 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class MainActivity extends Activity {
 
 	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
-	
-	
-	
+		
 	public Button addButton;
 	public ListView listView;
 	

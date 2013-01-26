@@ -34,4 +34,13 @@
         android:layout_below="@+id/editLabel"
         android:ems="10" />
 
+    <Button
+        android:id="@+id/validateAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editLocation"
+        android:layout_marginLeft="16dp"
+        android:text="@string/validate_add" />
+
 </RelativeLayout>

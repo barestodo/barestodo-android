@@ -1,17 +1,24 @@
 package com.barestodo.android;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.barestodo.android.service.IPlaceRepository;
+import com.barestodo.android.service.ListPlace;
 
 public class AddPlaceActivity extends Activity {
 
 	EditText editLabel;
 	EditText editLocation;
-	
+	Button validateAdd;
+	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
 	
 	
 	@Override
@@ -21,7 +28,8 @@ public class AddPlaceActivity extends Activity {
 	
 		editLabel = (EditText)findViewById(R.id.editLabel);
 		editLocation = (EditText)findViewById(R.id.editLocation);
-		
+		validateAdd  = (Button)findViewById(R.id.validateAddButton);
+		initValidateButton();
 	}
 
 	@Override
@@ -31,6 +39,21 @@ public class AddPlaceActivity extends Activity {
 		return true;
 	}
 	
-
+	private void initValidateButton() {
+		validateAdd.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				validateAdd();
+				Intent intent = new Intent(AddPlaceActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+	
+	public void validateAdd(){
+		Log.d("addActivity", editLabel.getText().toString());
+		placeRepository.addPlace(editLabel.getText().toString());
+	}
 
 }
