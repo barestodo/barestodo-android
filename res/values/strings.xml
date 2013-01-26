@@ -4,5 +4,7 @@
     <string name="app_name">barestodo_android</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_place_description">PlaceDescriptionActivity</string>
+    <string name="back_label">Back</string>
 
 </resources>
