@@ -8,8 +8,7 @@ public interface IPlaceRepository {
 
 	public abstract List<Place> getListPlace();
 	
-	public abstract void addPlace(String name);
-	
+	public abstract Place addPlace(Place place);
 	
 	public abstract Place getPlaceById(String id);
 }

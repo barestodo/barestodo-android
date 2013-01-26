@@ -1,8 +1,10 @@
 package com.barestodo.android.service.impl;
 
+import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.remote.AsyncRetrievePlacesOperation;
+import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
+import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +32,20 @@ public class RestServerRepository implements IPlaceRepository {
             AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation();
             places= task.execute().get();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            throw new AsyncCallerServiceException("Erreur during get place list",e);
         }
 
         return places;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void addPlace(String name) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public Place addPlace(Place place) {
+        try{
+            AsyncCreatePlaceOperation operation=new AsyncCreatePlaceOperation(place);
+            return operation.execute().get();
+        }catch(Exception e){
+            throw new AsyncCallerServiceException("Erreur during place creation",e);
+        }
     }
 
     @Override

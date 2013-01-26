@@ -11,7 +11,13 @@ public class Place {
         this.name = name;
         this.location=location;
     }
-	
+
+    public Place(String name,String location) {
+        super();
+        this.name = name;
+        this.location=location;
+    }
+
 	
 	public String getId(){
 		return id;

@@ -1,4 +1,4 @@
-package com.barestodo.android.service.remote;
+package com.barestodo.android.service.tasks;
 
 import android.os.AsyncTask;
 import org.apache.http.client.HttpClient;

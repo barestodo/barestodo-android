@@ -25,8 +25,10 @@ public class StubPlaceRepository implements IPlaceRepository {
 		return (placeList);
 	}
 	
-	public void addPlace(String name){
-		placeList.add(new Place(String.valueOf(placeList.size()),name,"location"));
+	public Place addPlace(Place place){
+        place = new Place(String.valueOf(placeList.size()), place.getName(), place.getLocation());
+        placeList.add(place);
+        return place;
 	}
 	
 	

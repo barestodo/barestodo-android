@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 
@@ -53,7 +54,8 @@ public class AddPlaceActivity extends Activity {
 	
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
-		placeRepository.addPlace(editLabel.getText().toString());
+        //TODO penser à mettre la placeretournée dans la liste (elle a l'id)
+		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
 	}
 
 }
