@@ -1,14 +1,11 @@
 package com.barestodo.android;
 
-import java.util.logging.Logger;
-
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.ListPlace;
+import com.barestodo.android.service.impl.ListPlace;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +29,7 @@ public class PlaceDescriptionActivity extends Activity {
 		placeLabel = (TextView) findViewById(R.id.placeLabel);
 		homeButton = (Button)findViewById(R.id.backButton);
 		initHomeButton();
-		placeLabel.setText(placeRepository.getPlaceById(b.getString("placeId")).getLabel());	
+		placeLabel.setText(placeRepository.getPlaceById(b.getString("placeId")).getName());
 	}
 
 	@Override

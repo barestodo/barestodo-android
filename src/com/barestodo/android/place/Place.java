@@ -2,12 +2,14 @@ package com.barestodo.android.place;
 
 public class Place {
 	private String id;
-	private String label;
-	
-	public Place(String id, String label) {
+	private String name;
+	private String location;
+
+	public Place(String id, String name,String location) {
         super();
         this.id = id;
-        this.label = label;
+        this.name = name;
+        this.location=location;
     }
 	
 	
@@ -15,22 +17,17 @@ public class Place {
 		return id;
 	}
 	
-	public String getLabel(){
-		return label;
+	public String getName(){
+		return name;
 	}
-	
-	public void setId(String newId){
-		id = newId;
-	}
-	
-	public void setLabel(String newLabel){
-		label = newLabel;
-	}
-	
-	
+
+    public String getLocation(){
+        return location;
+    }
+
 	 @Override
 	 public String toString() {
-	        return label;
+	        return name;
 	 }
 	
 }

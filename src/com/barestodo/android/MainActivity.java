@@ -1,31 +1,29 @@
 package com.barestodo.android;
 
-import java.util.logging.LogRecord;
-
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.ListPlace;
+import com.barestodo.android.service.impl.ListPlace;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.ClipData.Item;
 import android.content.Intent;
-import android.util.Log;
-import android.util.LogPrinter;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
+import com.barestodo.android.service.impl.RestServerRepository;
+import com.barestodo.android.service.remote.RestResourceClient;
 
 public class MainActivity extends Activity {
 
-	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
-		
+	IPlaceRepository placeRepository = RestServerRepository.INSTANCE;
+	
+	
+	
 	public Button addButton;
 	public ListView listView;
 	
