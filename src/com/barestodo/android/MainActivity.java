@@ -15,14 +15,21 @@ import android.util.LogPrinter;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends Activity {
 
 	IPlaceRepository placeRepository = ListPlace.INSTANCE ;
+	
+	
+	
+	public Button addButton;
+	public ListView listView;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +37,27 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         
-        ListView listView = (ListView) findViewById(R.id.listView1);
-        // Define a new Adapter
+        listView = (ListView) findViewById(R.id.listView1);
+        
+        initListView();
+        
+        addButton = (Button) findViewById(R.id.addButton);
+        
+        initAddButton();
+              
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    
+    
+    public void initListView(){
+    	 // Define a new Adapter
         // First parameter - Context
         // Second parameter - Layout for the row
         // Third parameter - ID of the TextView to which the data is written
@@ -39,12 +65,9 @@ public class MainActivity extends Activity {
 
         ArrayAdapter<Place> adapter = new ArrayAdapter<Place>(this,android.R.layout.simple_list_item_1, android.R.id.text1, placeRepository.getListPlace());
 
-
         // Assign adapter to ListView
         listView.setAdapter(adapter); 
-        
-       
-        
+               
         listView.setOnItemClickListener(new OnItemClickListener() {
         	  @Override
         	  public void onItemClick(AdapterView<?> parent, View view,
@@ -58,15 +81,17 @@ public class MainActivity extends Activity {
 				startActivity(intent);
         	  }
         	});
-              
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+        
     }
     
+    private void initAddButton() {
+		addButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this,
+						AddPlaceActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
 }
