@@ -9,4 +9,5 @@
     <string name="title_activity_add_place">AddPlaceActivity</string>
     <string name="validate_add">Validate</string>
 	<string name="add_label">Add</string>
+    <string name="error_place_creation">Création interrompue</string>
 </resources>
