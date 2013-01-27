@@ -26,7 +26,7 @@ public class AddPlaceActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_place);
-	
+	   
 		editLabel = (EditText)findViewById(R.id.editLabel);
 		editLocation = (EditText)findViewById(R.id.editLocation);
 		validateAdd  = (Button)findViewById(R.id.validateAddButton);

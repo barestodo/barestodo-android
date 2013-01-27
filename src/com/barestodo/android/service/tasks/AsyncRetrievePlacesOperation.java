@@ -24,7 +24,7 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
 
     @Override
     protected List<Place> doInBackground(String... strings) {
-        List<Place> result=new ArrayList<>();
+        List<Place> result=new ArrayList<Place>();
         HttpGet httpGet = new HttpGet(BASE_URL.concat("place"));
 
         try {

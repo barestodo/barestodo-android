@@ -28,11 +28,13 @@ public class RestServerRepository implements IPlaceRepository {
     }
     @Override
     public List<Place> getListPlace() {
-        List<Place> places = new ArrayList<>();
+        List<Place> places = new ArrayList<Place>();
         try {
             AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation();
             places= task.execute().get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException e){
+        	throw new AsyncCallerServiceException("Erreur during get place list",e);
+        }catch(ExecutionException e){
             throw new AsyncCallerServiceException("Erreur during get place list",e);
         }
 
@@ -52,7 +54,7 @@ public class RestServerRepository implements IPlaceRepository {
 
     @Override
     public Place getPlaceById(String id) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+       throw new UnsupportedOperationException("Not yet implemented");
     }
 
 

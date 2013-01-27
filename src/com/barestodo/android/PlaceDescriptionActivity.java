@@ -1,5 +1,6 @@
 package com.barestodo.android;
 
+import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 
@@ -30,7 +31,7 @@ public class PlaceDescriptionActivity extends Activity {
 		placeLabel = (TextView) findViewById(R.id.placeLabel);
 		homeButton = (Button)findViewById(R.id.backButton);
 		initHomeButton();
-		placeLabel.setText(placeRepository.getPlaceById(b.getString("placeId")).getName());
+		placeLabel.setText(((Place) b.get("placeToShow")).getName());
 	}
 
 	@Override

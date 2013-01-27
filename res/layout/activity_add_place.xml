@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
     </LinearLayout>
-
+ 
     <EditText
         android:id="@+id/editLabel"
         android:layout_width="wrap_content"

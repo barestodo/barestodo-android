@@ -1,10 +1,20 @@
 package com.barestodo.android.place;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3490633316443935678L;
+	
 	private String id;
 	private String name;
 	private String location;
 
+	private Place(){
+		//needed for serializations
+	}
 	public Place(String id, String name,String location) {
         super();
         this.id = id;
