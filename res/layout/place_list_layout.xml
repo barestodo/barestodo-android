@@ -16,7 +16,7 @@
 
             <TextView
                 android:id="@+id/nameText"
-                android:layout_width="223dp"
+                android:layout_width="284dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Sample Data"
@@ -24,19 +24,29 @@
 
             <TextView
                 android:id="@+id/locationText"
-                android:layout_width="223dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="Sample Data"
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <Button
+       <!--  <Button
             android:id="@+id/locationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="Button Text" />
+            android:text="Button Text" /> -->
+
+        <ImageButton
+            android:id="@+id/detailImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:contentDescription="@string/detail_img_desc"
+            android:src="@drawable/detail_button" />
+
     </LinearLayout>
 
 </LinearLayout>

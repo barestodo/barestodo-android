@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.barestodo.android.Adapter.PlaceListAdapter;
@@ -21,7 +22,7 @@ public class MainActivity extends Activity {
 
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 
-	public Button addButton;
+	public ImageButton addButton;
 	public ListView listView;
 
 	@Override
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
 		listView.setAdapter(placeListAdapter);
 
 
-		addButton = (Button) findViewById(R.id.addButton);
+		addButton = (ImageButton) findViewById(R.id.addImageButton);
 
 		initAddButton();
 	}

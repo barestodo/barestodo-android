@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
@@ -18,7 +19,7 @@ public class AddPlaceActivity extends Activity {
 
 	EditText editLabel;
 	EditText editLocation;
-	Button validateAdd;
+	ImageButton validateAdd;
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
 	
@@ -29,7 +30,7 @@ public class AddPlaceActivity extends Activity {
 	   
 		editLabel = (EditText)findViewById(R.id.editLabel);
 		editLocation = (EditText)findViewById(R.id.editLocation);
-		validateAdd  = (Button)findViewById(R.id.validateAddButton);
+		validateAdd  = (ImageButton)findViewById(R.id.validateAddButton);
 		initValidateButton();
 	}
 

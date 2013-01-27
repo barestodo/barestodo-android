@@ -34,13 +34,18 @@
         android:layout_below="@+id/editLabel"
         android:ems="10" />
 
-    <Button
+   
+
+    <ImageButton
         android:id="@+id/validateAddButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editLocation"
-        android:layout_marginLeft="16dp"
-        android:text="@string/validate_add" />
+        android:background="@null"
+        android:contentDescription="@string/check_img_desc"
+        android:gravity="center_horizontal"
+        android:paddingBottom="15dp"
+        android:src="@drawable/check_button" />
 
 </RelativeLayout>

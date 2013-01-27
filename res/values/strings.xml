@@ -9,4 +9,7 @@
     <string name="title_activity_add_place">AddPlaceActivity</string>
     <string name="validate_add">Validate</string>
 	<string name="add_label">Add</string>
+	<string name="detail_img_desc">Details</string>
+	<string name="add_img_desc">Details</string>
+	<string name="check_img_desc">Check</string>
 </resources>

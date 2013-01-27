@@ -1,21 +1,16 @@
 package com.barestodo.android.Adapter;
 
-import android.content.Context;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.barestodo.android.MainActivity;
 import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Place;
@@ -69,8 +64,7 @@ public class PlaceListAdapter extends BaseAdapter {
         TextView textLocation = (TextView) view.findViewById(R.id.locationText);
         textLocation.setText(place.getLocation());
 
-        Button button = (Button) view.findViewById(R.id.locationButton);
-        button.setText("" + place.getId());
+        ImageButton button = (ImageButton) view.findViewById(R.id.detailImageButton);
         
         // button click listener
         // this chunk of code will run, if user click the button
