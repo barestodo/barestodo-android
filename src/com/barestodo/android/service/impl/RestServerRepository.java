@@ -1,5 +1,6 @@
 package com.barestodo.android.service.impl;
 
+import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
@@ -41,6 +42,7 @@ public class RestServerRepository implements IPlaceRepository {
     @Override
     public Place addPlace(Place place) {
         try{
+            Log.d("RestServerRepo","Create place init");
             AsyncCreatePlaceOperation operation=new AsyncCreatePlaceOperation(place);
             return operation.execute().get();
         }catch(Exception e){

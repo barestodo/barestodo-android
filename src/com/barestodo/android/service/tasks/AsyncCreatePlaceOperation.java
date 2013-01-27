@@ -5,15 +5,13 @@ import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,9 +29,9 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
     }
     @Override
     protected Place doInBackground(String... strings) {
-        HttpPut httpPut = new HttpPut(constructUrl(place));
 
         try {
+            HttpPut httpPut = new HttpPut(constructSafeUrl(place));
             HttpResponse response = httpClient.execute(httpPut, localContext);
             //TODO checker response status
             HttpEntity entity = response.getEntity();
@@ -51,12 +49,13 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    private String constructUrl(Place place) {
-        StringBuilder url=new StringBuilder(BASE_URL)
-        .append("place/")
-        .append(place.getName())
+    private String constructSafeUrl(Place place) throws UnsupportedEncodingException {
+        StringBuilder url=new StringBuilder(place.getName())
         .append("/")
         .append(place.getLocation()) ;
-        return url.toString();
+
+        String safeUrl=BASE_URL.concat("place/").concat(url.toString().replace(" ","%20"));
+
+        return safeUrl;
     }
 }

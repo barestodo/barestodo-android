@@ -55,6 +55,7 @@ public class AddPlaceActivity extends Activity {
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
         //TODO penser à mettre la placeretournée dans la liste (elle a l'id)
+
 		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
 	}
 
