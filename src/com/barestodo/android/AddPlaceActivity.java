@@ -13,7 +13,9 @@ import android.widget.ImageButton;
 
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
+
 import com.barestodo.android.service.RepositoryFactory;
+
 
 public class AddPlaceActivity extends Activity {
 
