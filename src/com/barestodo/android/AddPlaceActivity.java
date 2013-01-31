@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import android.widget.Toast;
+import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 
@@ -58,8 +60,13 @@ public class AddPlaceActivity extends Activity {
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
         //TODO penser à mettre la placeretournée dans la liste (elle a l'id)
-
+        try{
 		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
-	}
+        }catch(AsyncCallerServiceException e){
+            Toast.makeText(AddPlaceActivity.this,
+                    getResources().getText(R.string.error_place_creation),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

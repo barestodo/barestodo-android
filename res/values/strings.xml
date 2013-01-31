@@ -12,4 +12,6 @@
 	<string name="detail_img_desc">Details</string>
 	<string name="add_img_desc">Details</string>
 	<string name="check_img_desc">Check</string>
+    <string name="error_place_creation">Création interrompue</string>
+
 </resources>
