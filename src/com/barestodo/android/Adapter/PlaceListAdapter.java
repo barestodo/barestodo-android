@@ -40,7 +40,8 @@ public class PlaceListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return listPlace.get(i);    // single item in the list
+        return listPlace.get(i);
+        // single item in the list
     }
 
     @Override
@@ -81,8 +82,6 @@ public class PlaceListAdapter extends BaseAdapter {
                 //Toast.makeText(parent.getContext(), "button clicked: " + place.getName(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
         return view;
     }
 }

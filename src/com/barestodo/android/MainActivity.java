@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.barestodo.android.Adapter.PlaceListAdapter;
 import com.barestodo.android.place.Place;
@@ -25,6 +26,9 @@ public class MainActivity extends Activity {
 	public ImageButton addButton;
 	public ListView listView;
 
+	public PlaceListAdapter placeListAdapter;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,14 +39,29 @@ public class MainActivity extends Activity {
 
         initListView();*/
 		listView = (ListView) findViewById(R.id.listView1);
-		PlaceListAdapter placeListAdapter = new PlaceListAdapter();
+		placeListAdapter = new PlaceListAdapter();
+		
 		listView.setAdapter(placeListAdapter);
 
 
 		addButton = (ImageButton) findViewById(R.id.addImageButton);
 
 		initAddButton();
+		
 	}
+	
+	
+	@Override
+	protected void onResume() {
+		try{placeListAdapter.notifyDataSetChanged();
+			super.onResume();
+			
+		}catch(Exception e){
+			Toast.makeText(MainActivity.this,e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+		}
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

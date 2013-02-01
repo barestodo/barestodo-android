@@ -13,5 +13,6 @@
 	<string name="add_img_desc">Details</string>
 	<string name="check_img_desc">Check</string>
     <string name="error_place_creation">Création interrompue</string>
+    <string name="error_back_to_main">Problème lors du retour à la liste des évenements</string>
 
 </resources>

@@ -24,11 +24,13 @@
         </activity> 
         <activity
             android:name="com.barestodo.android.PlaceDescriptionActivity"
-            android:label="@string/title_activity_place_description" >
+            android:label="@string/title_activity_place_description" 	
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name="com.barestodo.android.AddPlaceActivity"
-            android:label="@string/title_activity_add_place" >
+            android:label="@string/title_activity_add_place"
+            android:launchMode="singleTask">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

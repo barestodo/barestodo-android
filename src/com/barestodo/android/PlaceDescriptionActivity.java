@@ -1,17 +1,17 @@
 package com.barestodo.android;
 
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.barestodo.android.place.Place;
+import com.barestodo.android.service.IPlaceRepository;
+import com.barestodo.android.service.RepositoryFactory;
 
 public class PlaceDescriptionActivity extends Activity {
 	
@@ -45,9 +45,14 @@ public class PlaceDescriptionActivity extends Activity {
 		homeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(PlaceDescriptionActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+				try{
+					
+					finish();
+			        }catch (Throwable e) {
+			        	Toast.makeText(PlaceDescriptionActivity.this,
+			                    getResources().getText(R.string.error_back_to_main),
+			                    Toast.LENGTH_LONG).show();
+					}
 			}
 		});
 	}

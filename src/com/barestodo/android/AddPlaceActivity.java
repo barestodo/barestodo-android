@@ -49,10 +49,19 @@ public class AddPlaceActivity extends Activity {
 		validateAdd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				validateAdd();
-				Intent intent = new Intent(AddPlaceActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+				
+				try{
+					validateAdd();
+					finish();
+			        }catch(AsyncCallerServiceException e){
+			            Toast.makeText(AddPlaceActivity.this,
+			                    getResources().getText(R.string.error_place_creation),
+			                    Toast.LENGTH_LONG).show();
+			        }catch (Throwable e) {
+			        	Toast.makeText(AddPlaceActivity.this,
+			                    getResources().getText(R.string.error_place_creation),
+			                    Toast.LENGTH_LONG).show();
+					}
 			}
 		});
 	}
