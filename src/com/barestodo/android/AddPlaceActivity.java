@@ -57,7 +57,7 @@ public class AddPlaceActivity extends Activity {
 			            Toast.makeText(AddPlaceActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
 			                    Toast.LENGTH_LONG).show();
-			        }catch (Throwable e) {
+			        }catch (Exception e) {
 			        	Toast.makeText(AddPlaceActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
 			                    Toast.LENGTH_LONG).show();
@@ -68,7 +68,7 @@ public class AddPlaceActivity extends Activity {
 	
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
-        //TODO penser à mettre la placeretournée dans la liste (elle a l'id)
+        //TODO penser à mettre la place retournée dans la liste (elle a l'id)
         try{
 		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
         }catch(AsyncCallerServiceException e){

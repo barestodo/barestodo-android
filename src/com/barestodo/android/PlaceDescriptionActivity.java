@@ -48,13 +48,12 @@ public class PlaceDescriptionActivity extends Activity {
 				try{
 					
 					finish();
-			        }catch (Throwable e) {
-			        	Toast.makeText(PlaceDescriptionActivity.this,
+			    }catch (Exception e) {
+			       Toast.makeText(PlaceDescriptionActivity.this,
 			                    getResources().getText(R.string.error_back_to_main),
 			                    Toast.LENGTH_LONG).show();
 					}
 			}
 		});
 	}
-
 }

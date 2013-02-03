@@ -1,5 +1,6 @@
 package com.barestodo.android.service.impl;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
@@ -46,7 +47,9 @@ public class RestServerRepository implements IPlaceRepository {
         try{
             Log.d("RestServerRepo","Create place init");
             AsyncCreatePlaceOperation operation=new AsyncCreatePlaceOperation(place);
-            return operation.execute().get();
+            AsyncTask<String,Void,Place> task = operation.execute();
+
+            return task.get();
         }catch(Exception e){
             throw new AsyncCallerServiceException("Erreur during place creation",e);
         }

@@ -18,14 +18,18 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> 
+        </activity>
         <activity
-            android:name="com.barestodo.android.PlaceDescriptionActivity"
-            android:label="@string/title_activity_place_description" 	
-            android:launchMode="singleTask">
+                android:name="com.barestodo.android.PlaceDescriptionActivity"
+                android:label="@string/title_activity_place_description"
+                android:launchMode="singleTask">
+        </activity>
+        <activity
+                android:name="com.barestodo.android.PlacesListActivity"
+                android:label="@string/title_activity_places_list"
+                android:launchMode="singleTask">
         </activity>
         <activity
             android:name="com.barestodo.android.AddPlaceActivity"
@@ -34,4 +38,7 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+
 </manifest>

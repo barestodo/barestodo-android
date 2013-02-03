@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_place_creation">Création interrompue</string>
+    <string name="error_back_to_main">Problème lors du retour à la liste des évenements</string>
+    <string name="service_unavailable">Service indisponible</string>
+    <string name="authentication_problem">Echec d\'authentification</string>
+
+</resources>

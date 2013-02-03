@@ -5,6 +5,7 @@ import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpPut;
 import org.json.JSONObject;
 
@@ -33,7 +34,7 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
         try {
             HttpPut httpPut = new HttpPut(constructSafeUrl(place));
             HttpResponse response = httpClient.execute(httpPut, localContext);
-            //TODO checker response status
+            checkResponseStatus(response.getStatusLine().getStatusCode());
             HttpEntity entity = response.getEntity();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
@@ -48,6 +49,18 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
 
         //To change body of implemented methods use File | Settings | File Templates.
     }
+    private void checkResponseStatus(int statusCode){
+         switch(statusCode){
+             case 200: return;
+             case 400:;break;
+             case 403:;break;
+             case 404:;break;
+             case 500:;break;
+             //TODO checker response status
+
+         }
+    }
+
 
     private String constructSafeUrl(Place place) throws UnsupportedEncodingException {
         StringBuilder url=new StringBuilder(place.getName())

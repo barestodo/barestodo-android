@@ -54,7 +54,7 @@ public class PlaceListAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            view = inflater.inflate(R.layout.place_list_layout, parent, false);
+            view = inflater.inflate(R.layout.place_list_adapter_layout, parent, false);
         }
 
         final Place place = listPlace.get(index);
