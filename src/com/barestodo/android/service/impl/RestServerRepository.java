@@ -7,6 +7,7 @@ import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
+import com.barestodo.android.service.tasks.AsyncScheduleEventOperation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,19 @@ public class RestServerRepository implements IPlaceRepository {
     public Place getPlaceById(String id) {
        throw new UnsupportedOperationException("Not yet implemented");
     }
+    
+	@Override
+	public boolean scheduleEvent(String id, String date) {
+		// TODO Auto-generated method stub	
+		try{
+            Log.d("RestServerRepo","Schedule event");
+            AsyncScheduleEventOperation operation=new AsyncScheduleEventOperation(id, date);
+            AsyncTask<String,Void,Boolean> task = operation.execute();
+            return task.get();
+        }catch(Exception e){
+            throw new AsyncCallerServiceException("aborted",e);
+        }
+	}
 
 
 

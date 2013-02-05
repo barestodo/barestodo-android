@@ -2,6 +2,7 @@ package com.barestodo.android;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
@@ -16,8 +18,9 @@ import com.barestodo.android.service.RepositoryFactory;
 public class PlaceDescriptionActivity extends Activity {
 	
 	private TextView placeLabel;
-	private Button homeButton;
-	
+	private Button scheduleButton;
+	private String placeId;
+	private String scheduleDate = "2010-01-01";
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 
 	@Override
@@ -29,9 +32,10 @@ public class PlaceDescriptionActivity extends Activity {
 		Bundle b = getIntent().getExtras();
 				
 		placeLabel = (TextView) findViewById(R.id.placeLabel);
-		homeButton = (Button)findViewById(R.id.backButton);
-		initHomeButton();
-		placeLabel.setText(((Place) b.get("placeToShow")).getName());
+		scheduleButton = (Button)findViewById(R.id.scheduleButton);
+		placeLabel.setText(scheduleDate);
+		placeId = b.get("placeToShow").toString();
+		initScheduleButton();
 	}
 
 	@Override
@@ -41,11 +45,14 @@ public class PlaceDescriptionActivity extends Activity {
 		return true;
 	}
 	
-	private void initHomeButton() {
-		homeButton.setOnClickListener(new OnClickListener() {
+	private void initScheduleButton() {
+		scheduleButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				try{
+					Log.d("schedule On click", placeId);
+					placeRepository.scheduleEvent(placeId, scheduleDate);				
+					
 					finish();
 			    }catch (Exception e) {
 			       Toast.makeText(PlaceDescriptionActivity.this,
@@ -55,4 +62,6 @@ public class PlaceDescriptionActivity extends Activity {
 			}
 		});
 	}
+	
+	
 }

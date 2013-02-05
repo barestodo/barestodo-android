@@ -11,4 +11,6 @@ public interface IPlaceRepository {
 	public abstract Place addPlace(Place place);
 	
 	public abstract Place getPlaceById(String id);
+	
+	public abstract boolean scheduleEvent(String id, String date);
 }

@@ -1,6 +1,7 @@
 package com.barestodo.android.service;
 
 import com.barestodo.android.service.impl.RestServerRepository;
+import com.barestodo.android.service.impl.StubPlaceRepository;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +13,7 @@ import com.barestodo.android.service.impl.RestServerRepository;
 public class RepositoryFactory {
 
     public static IPlaceRepository getPlaceRepository(){
-        return RestServerRepository.INSTANCE;
+        //return RestServerRepository.INSTANCE;
+        return StubPlaceRepository.INSTANCE;
     }
 }

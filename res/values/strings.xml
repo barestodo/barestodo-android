@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_place_description">PlaceDescriptionActivity</string>
-    <string name="back_label">Back</string>
+    <string name="schedule_label">Schedule</string>
     <string name="title_activity_add_place">AddPlaceActivity</string>
     <string name="validate_add">Validate</string>
 	<string name="add_label">Add</string>

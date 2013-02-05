@@ -35,5 +35,11 @@ public class StubPlaceRepository implements IPlaceRepository {
 	public Place getPlaceById(String id){
 		return placeList.get(Integer.parseInt(id));
 	}
+
+	@Override
+	public boolean scheduleEvent(String id, String date) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 		
 }

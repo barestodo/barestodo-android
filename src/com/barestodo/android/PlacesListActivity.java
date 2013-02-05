@@ -20,38 +20,28 @@ public class PlacesListActivity extends Activity {
 	public ImageButton addButton;
 	public ListView listView;
 
-	public PlaceListAdapter placeListAdapter=new PlaceListAdapter();;
+	public PlaceListAdapter placeListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_places_list);
-
-		/*
-        listView = (ListView) findViewById(R.id.listView1);
-
-        initListView();*/
-		listView = (ListView) findViewById(R.id.placesListView);
-		listView.setAdapter(placeListAdapter);
-
-		addButton = (ImageButton) findViewById(R.id.addPlaceImageButton);
-		initAddButton();
-		
+		iniateActivity();
 	}
-	
-	
+
+
+
 	@Override
 	protected void onResume() {
 		try{
-            placeListAdapter.notifyDataSetChanged();
+			placeListAdapter.notifyDataSetChanged();
 			super.onResume();
-			
+
 		}catch(Exception e){
 			Toast.makeText(PlacesListActivity.this,e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+					Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,5 +60,22 @@ public class PlacesListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+
+
+	private void iniateActivity(){
+
+		placeListAdapter = new PlaceListAdapter();
+
+		setContentView(R.layout.activity_places_list);
+		/*
+        listView = (ListView) findViewById(R.id.listView1);
+
+        initListView();*/
+		listView = (ListView) findViewById(R.id.placesListView);
+		listView.setAdapter(placeListAdapter);
+
+		addButton = (ImageButton) findViewById(R.id.addPlaceImageButton);
+		initAddButton();
 	}
 }
