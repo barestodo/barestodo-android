@@ -1,15 +1,22 @@
 package com.barestodo.android.service.tasks;
 
+import android.R;
+import android.content.res.Resources;
 import android.util.Log;
+import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-
+import static com.barestodo.android.R.string.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +36,9 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
 
         try {
             HttpResponse response = httpClient.execute(httpGet, localContext);
+
+            checkResponseStatus(response.getStatusLine().getStatusCode());
+        
             HttpEntity entity = response.getEntity();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
@@ -42,11 +52,19 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
                 Place place = new Place(jsonPlace.getString("id"),jsonPlace.getString("name"),jsonPlace.getString("location"));
                 result.add(place);
             }
-        } catch (Exception e) {
-            Log.e("JSON",e.getMessage());
-            return result;
+        } catch (JSONException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
+        } catch (UnsupportedEncodingException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
+        } catch (ClientProtocolException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
+        } catch (IOException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
         }
 
         return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
+
 }

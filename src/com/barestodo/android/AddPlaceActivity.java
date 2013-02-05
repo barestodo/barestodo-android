@@ -72,9 +72,9 @@ public class AddPlaceActivity extends Activity {
         try{
 		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
         }catch(AsyncCallerServiceException e){
-            Toast.makeText(AddPlaceActivity.this,
-                    getResources().getText(R.string.error_place_creation),
-                    Toast.LENGTH_LONG).show();
+            StringBuilder builder = new StringBuilder(getResources().getText(R.string.error_place_creation));
+            builder.append(":").append(e.getMessage());
+            Toast.makeText(AddPlaceActivity.this,builder.toString(),Toast.LENGTH_LONG).show();
         }
     }
 

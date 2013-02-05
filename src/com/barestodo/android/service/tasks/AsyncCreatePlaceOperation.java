@@ -6,13 +6,19 @@ import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPut;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import static com.barestodo.android.R.string.connection_problem;
+import static com.barestodo.android.R.string.datas_corrupted;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,23 +49,17 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
 
             return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
 
-        } catch (Exception e) {
-            throw new AsyncCallerServiceException("Error during place creation",e);
+        } catch (JSONException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
+        } catch (UnsupportedEncodingException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
+        } catch (ClientProtocolException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
+        } catch (IOException e) {
+            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
         }
-
-        //To change body of implemented methods use File | Settings | File Templates.
     }
-    private void checkResponseStatus(int statusCode){
-         switch(statusCode){
-             case 200: return;
-             case 400:;break;
-             case 403:;break;
-             case 404:;break;
-             case 500:;break;
-             //TODO checker response status
 
-         }
-    }
 
 
     private String constructSafeUrl(Place place) throws UnsupportedEncodingException {

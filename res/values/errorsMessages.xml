@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- erreur de contexte -->
     <string name="error_place_creation">Création interrompue</string>
     <string name="error_back_to_main">Problème lors du retour à la liste des évenements</string>
-    <string name="service_unavailable">Service indisponible</string>
+
+    <!--  Causes  -->
+    <!-- erreur coté server -->
+    <string name="service_unavailable" >Service indisponible</string>
+    <!-- erreur de droits (aucun lien entre l'objet demandé et le user) -->
     <string name="authentication_problem">Echec d\'authentification</string>
+    <!-- problème http bas niveau -->
+    <string name="connection_problem">connection perdu</string>
+    <!-- bug coté android pour parser la réponse -->
+    <string name="datas_corrupted">réponse du server invalide</string>
+    <!-- mauvaise request envoyée au server -->
+    <string name="invalid_request">requête invalide</string>
+    <!-- mauvaise request envoyée au server -->
+    <string name="not_found">objet introuvable</string>
 
 </resources>

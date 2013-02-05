@@ -32,11 +32,12 @@ public class RestServerRepository implements IPlaceRepository {
         List<Place> places = new ArrayList<Place>();
         try {
             AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation();
+            String callback;
             places= task.execute().get();
         } catch (InterruptedException e){
-        	throw new AsyncCallerServiceException("Erreur during get place list",e);
+        	throw new AsyncCallerServiceException("aborted",e);
         }catch(ExecutionException e){
-            throw new AsyncCallerServiceException("Erreur during get place list",e);
+            throw new AsyncCallerServiceException("aborted",e);
         }
 
         return places;  //To change body of implemented methods use File | Settings | File Templates.
@@ -48,10 +49,9 @@ public class RestServerRepository implements IPlaceRepository {
             Log.d("RestServerRepo","Create place init");
             AsyncCreatePlaceOperation operation=new AsyncCreatePlaceOperation(place);
             AsyncTask<String,Void,Place> task = operation.execute();
-
             return task.get();
         }catch(Exception e){
-            throw new AsyncCallerServiceException("Erreur during place creation",e);
+            throw new AsyncCallerServiceException("aborted",e);
         }
     }
 

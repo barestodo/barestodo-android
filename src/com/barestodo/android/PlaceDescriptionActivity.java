@@ -46,7 +46,6 @@ public class PlaceDescriptionActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try{
-					
 					finish();
 			    }catch (Exception e) {
 			       Toast.makeText(PlaceDescriptionActivity.this,
