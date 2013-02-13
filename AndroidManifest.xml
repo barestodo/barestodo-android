@@ -36,6 +36,7 @@
             android:label="@string/title_activity_add_place"
             android:launchMode="singleTask">
         </activity>
+        <activity android:name=".CirclesListActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>

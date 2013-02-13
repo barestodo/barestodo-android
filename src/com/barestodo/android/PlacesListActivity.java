@@ -28,8 +28,6 @@ public class PlacesListActivity extends Activity {
 		iniateActivity();
 	}
 
-
-
 	@Override
 	protected void onResume() {
 		try{

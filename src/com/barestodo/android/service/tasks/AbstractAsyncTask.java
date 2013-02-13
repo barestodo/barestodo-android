@@ -17,7 +17,7 @@ import static com.barestodo.android.R.string.*;
  * Time: 23:04
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractAsyncTask<A,B,C> extends AsyncTask<A, B, C> {
+public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTask<Params,Progress,Results> {
 
     protected HttpClient httpClient = new DefaultHttpClient();
     protected HttpContext localContext = new BasicHttpContext();

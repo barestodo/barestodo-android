@@ -28,10 +28,10 @@ public class PlaceListAdapter extends BaseAdapter {
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
     private static final String TAG = PlaceListAdapter.class.getSimpleName();
-    // TODO déplacer...ici les erreurs ne peuvent être gérées.
-    List<Place> listPlace =  placeRepository.getListPlace();
+    List<Place> listPlace ;
 
     public PlaceListAdapter() {
+        listPlace=placeRepository.getListPlace();
     }
 
     @Override
