@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">barestodo_android</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">BaResToDo</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_place_description">PlaceDescriptionActivity</string>
-    <string name="schedule_label">Schedule</string>
-    <string name="title_activity_add_place">AddPlaceActivity</string>
+    <string name="title_activity_place_description">Détails</string>
+    <string name="schedule_label">Planifier">Ajouter un lieu</string>
     <string name="validate_add">Validate</string>
-    <string name="add_label">Add</string>
-    <string name="detail_img_desc">Details</string>
-    <string name="add_img_desc">Details</string>
-    <string name="check_img_desc">Check</string>
-    <string name="title_activity_places_list">PlacesListActivity</string>
-    <string name="title_activity_circle_content">CircleContentActivity</string>
+    <string name="add_label">Ajouter</string>
+    <string name="detail_img_desc">Détails</string>
+    <string name="add_img_desc">Détails</string>
+    <string name="check_img_desc">Voir</string>
+    <string name="title_activity_places_list">Lieux</string>
+    <string name="title_activity_circle_content">Cercle</string>
 
 </resources>

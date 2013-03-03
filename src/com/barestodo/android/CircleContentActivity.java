@@ -29,8 +29,8 @@ public class CircleContentActivity extends TabActivity {
         intent = new Intent().setClass(this, CirclePlacesListActivity.class);
         intent.putExtras(b);
         spec = tabHost
-                .newTabSpec("Widget")
-                .setIndicator("DateTime",
+                .newTabSpec("Lieux")
+                .setIndicator("Lieux",
                         res.getDrawable(android.R.drawable.ic_menu_today))
                 .setContent(intent);
         
@@ -40,8 +40,8 @@ public class CircleContentActivity extends TabActivity {
         intent = new Intent().setClass(this, CircleMemberActivity.class);
         intent.putExtras(b);
         spec = tabHost
-                .newTabSpec("Form")
-                .setIndicator("Form",
+                .newTabSpec("Membres")
+                .setIndicator("Membres",
                         res.getDrawable(android.R.drawable.ic_menu_manage))
                 .setContent(intent);
         tabHost.addTab(spec);
