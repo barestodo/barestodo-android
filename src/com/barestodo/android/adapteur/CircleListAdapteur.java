@@ -22,7 +22,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
 
     IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
     private static final String TAG = CircleListAdapteur.class.getSimpleName();
-    List<PlaceList> circles=new ArrayList<>();
+    List<PlaceList> circles=new ArrayList<PlaceList>();
 
     public CircleListAdapteur(Context context){
         try {
