@@ -17,13 +17,7 @@ import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Shahab
- * Date: 8/22/12
- * Time: 11:37 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class CirclePlaceListAdapter extends BaseAdapter {
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
