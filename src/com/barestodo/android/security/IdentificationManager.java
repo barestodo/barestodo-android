@@ -3,30 +3,22 @@ package com.barestodo.android.security;
 import android.accounts.*;
 import com.barestodo.android.app.MyApplication;
 
-/**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 29/01/13
- * Time: 21:16
- * To change this template use File | Settings | File Templates.
- */
+
 public class IdentificationManager {
 
     public static final IdentificationManager INSTANCE=new IdentificationManager();
     private String token;
 
     private IdentificationManager(){
-
+        retrieveToken();
     }
 
     public String getToken(){
-        /*if(token==null || token.isEmpty()){
+        if(token==null || token.trim().equals("")){
               retrieveToken();
         }
-        
-        return token;*/
-    	return "aricdestroy@gmail.com";
-        
+        return token;
+
     }
 
     private void retrieveToken() {
@@ -36,4 +28,7 @@ public class IdentificationManager {
        this.token=myAccount.name;
      }
 
+    public String getEmail() {
+        return token;
+    }
 }

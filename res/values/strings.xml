@@ -12,5 +12,7 @@
     <string name="check_img_desc">Voir</string>
     <string name="title_activity_places_list">Lieux</string>
     <string name="title_activity_circle_content">Cercle</string>
+    <string name="welcomeTitle">Bienvenue</string>
+    <string name="pseudoDefaultLabel">Entrez votre pseudo</string>
 
 </resources>
