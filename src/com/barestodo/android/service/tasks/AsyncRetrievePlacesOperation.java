@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import static com.barestodo.android.R.string.*;
+import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,7 +34,7 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
     @Override
     protected List<Place> doInBackground(String... strings) {
         List<Place> result=new ArrayList<Place>();
-        HttpGet httpGet = new HttpGet(BASE_URL.concat("place"));
+        HttpGet httpGet = getGetOperation("place");
 
         try {
             HttpResponse response = httpClient.execute(httpGet, localContext);

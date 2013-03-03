@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 
 import static com.barestodo.android.R.string.connection_problem;
 import static com.barestodo.android.R.string.datas_corrupted;
+import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +39,7 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
     protected Place doInBackground(String... strings) {
 
         try {
-            HttpPut httpPut = new HttpPut(constructSafeUrl(place));
+            HttpPut httpPut = getPutOperation(constructSafeUrl(place));
             HttpResponse response = httpClient.execute(httpPut, localContext);
             checkResponseStatus(response.getStatusLine().getStatusCode());
             HttpEntity entity = response.getEntity();

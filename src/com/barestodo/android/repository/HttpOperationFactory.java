@@ -1,6 +1,8 @@
 package com.barestodo.android.repository;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,4 +20,18 @@ public abstract class HttpOperationFactory {
         httpGet.setHeader("ident","fab.maury@gmail.com");
         return httpGet;
     }
+
+    public static HttpPut getPutOperation(String resource){
+        HttpPut httpPut = new HttpPut(BASE_URL.concat(resource));
+        httpPut.setHeader("ident", "fab.maury@gmail.com");
+        return httpPut;
+    }
+
+    public static HttpPost getPostOperation(String resource){
+        HttpPost httpPost = new HttpPost(BASE_URL.concat(resource));
+        httpPost.setHeader("ident", "fab.maury@gmail.com");
+        return httpPost;
+    }
+
+
 }

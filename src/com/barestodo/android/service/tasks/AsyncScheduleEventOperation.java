@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 
 import static com.barestodo.android.R.string.connection_problem;
 import static com.barestodo.android.R.string.datas_corrupted;
+import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,7 +42,7 @@ public class AsyncScheduleEventOperation extends AbstractAsyncTask<String, Void,
 
     	boolean schedulingResult = false;
         try {
-            HttpPut httpPut = new HttpPut(constructSafeUrl(id, date));
+            HttpPut httpPut = getPutOperation(constructSafeUrl(id, date));
             HttpResponse response = httpClient.execute(httpPut, localContext);
             checkResponseStatus(response.getStatusLine().getStatusCode());
             HttpEntity entity = response.getEntity();
