@@ -1,5 +1,6 @@
 package com.barestodo.android.repository;
 
+import com.barestodo.android.security.IdentificationManager;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -17,19 +18,19 @@ public abstract class HttpOperationFactory {
 
     public static HttpGet getGetOperation(String resource){
         HttpGet httpGet = new HttpGet(BASE_URL.concat(resource));
-        httpGet.setHeader("ident","fab.maury@gmail.com");
+        httpGet.setHeader("ident", IdentificationManager.INSTANCE.getToken());
         return httpGet;
     }
 
     public static HttpPut getPutOperation(String resource){
         HttpPut httpPut = new HttpPut(BASE_URL.concat(resource));
-        httpPut.setHeader("ident", "fab.maury@gmail.com");
+        httpPut.setHeader("ident", IdentificationManager.INSTANCE.getToken());
         return httpPut;
     }
 
     public static HttpPost getPostOperation(String resource){
         HttpPost httpPost = new HttpPost(BASE_URL.concat(resource));
-        httpPost.setHeader("ident", "fab.maury@gmail.com");
+        httpPost.setHeader("ident", IdentificationManager.INSTANCE.getToken());
         return httpPost;
     }
 

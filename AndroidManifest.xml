@@ -8,8 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
-    <application
-        android:allowBackup="true"
+   <application
+       android:name="com.barestodo.android.app.MyApplication"
+       android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
