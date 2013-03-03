@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import com.barestodo.android.Adapter.PlaceListAdapter;
+
+import com.barestodo.android.adapteur.PlaceListAdapter;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;

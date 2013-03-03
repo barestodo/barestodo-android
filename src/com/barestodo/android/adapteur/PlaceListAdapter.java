@@ -1,4 +1,4 @@
-package com.barestodo.android.Adapter;
+package com.barestodo.android.adapteur;
 
 import java.util.List;
 
