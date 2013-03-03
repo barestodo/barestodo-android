@@ -29,10 +29,10 @@ public class RestServerRepository implements IPlaceRepository {
 
     }
     @Override
-    public List<Place> getListPlace() {
+    public List<Place> getListPlace(Long circleId) {
         List<Place> places = new ArrayList<Place>();
         try {
-            AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation();
+            AsyncRetrievePlacesOperation task= new AsyncRetrievePlacesOperation(circleId);
             String callback;
             places= task.execute().get();
         } catch (InterruptedException e){

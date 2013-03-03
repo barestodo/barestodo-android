@@ -30,8 +30,8 @@ public class CirclePlaceListAdapter extends BaseAdapter {
     private static final String TAG = CirclePlaceListAdapter.class.getSimpleName();
     List<Place> listPlace ;
 
-    public CirclePlaceListAdapter() {
-        listPlace=placeRepository.getListPlace();
+    public CirclePlaceListAdapter(Long circleId) {
+        listPlace=placeRepository.getListPlace(circleId);
     }
 
     @Override

@@ -20,10 +20,13 @@ public class IdentificationManager {
     }
 
     public String getToken(){
-        if(token==null || token.isEmpty()){
+        /*if(token==null || token.isEmpty()){
               retrieveToken();
         }
-        return token;
+        
+        return token;*/
+    	return "aricdestroy@gmail.com";
+        
     }
 
     private void retrieveToken() {

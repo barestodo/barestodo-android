@@ -21,7 +21,7 @@ public class StubPlaceRepository implements IPlaceRepository {
 	
 
 	@Override
-	public List<Place> getListPlace(){
+	public List<Place> getListPlace(Long circleId){
 		return (placeList);
 	}
 	

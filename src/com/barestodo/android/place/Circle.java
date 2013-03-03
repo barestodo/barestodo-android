@@ -34,4 +34,8 @@ public class Circle implements Serializable {
     public String getName() {
         return name;
     }
+    
+    public Long getId() {
+        return id;
+    }
 }

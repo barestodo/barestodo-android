@@ -27,6 +27,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
 
     IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
     private static final String TAG = CircleListAdapteur.class.getSimpleName();
+    public static final String circleToShow = "circleToShow";
     List<Circle> circles=new ArrayList<Circle>();
 
     public CircleListAdapteur(Context context){
@@ -99,7 +100,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
             public void onClick(View view) {
             	Intent intent = new Intent(parent.getContext(),	CircleContentActivity.class);
             	Bundle b = new Bundle();
-				b.putSerializable("placeToShow",circle);
+				b.putSerializable(circleToShow,circle);
 				intent.putExtras(b); 
 				view.getContext().startActivity(intent);
                 //Toast.makeText(parent.getContext(), "button clicked: " + place.getName(), Toast.LENGTH_SHORT).show();

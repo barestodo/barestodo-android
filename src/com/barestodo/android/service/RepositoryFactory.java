@@ -13,7 +13,7 @@ import com.barestodo.android.service.impl.StubPlaceRepository;
 public class RepositoryFactory {
 
     public static IPlaceRepository getPlaceRepository(){
-        //return RestServerRepository.INSTANCE;
-        return StubPlaceRepository.INSTANCE;
+        return RestServerRepository.INSTANCE;
+        //return StubPlaceRepository.INSTANCE;
     }
 }
