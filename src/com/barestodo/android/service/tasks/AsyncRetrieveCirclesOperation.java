@@ -21,6 +21,7 @@ import java.util.List;
 
 import static com.barestodo.android.R.string.connection_problem;
 import static com.barestodo.android.R.string.datas_corrupted;
+import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
 
 public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<PlaceList>> {
@@ -37,7 +38,8 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
 
     @Override
     protected List<PlaceList> doInBackground(String... strings) {
-        HttpGet httpGet = new HttpGet(BASE_URL.concat("circle"));
+        HttpGet httpGet = getGetOperation("circle");
+
         List<PlaceList> result=new ArrayList<PlaceList>();
         try {
             HttpResponse response = httpClient.execute(httpGet, localContext);
