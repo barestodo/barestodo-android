@@ -3,6 +3,9 @@ package com.barestodo.android.app;
 import android.app.Application;
 import android.content.Context;
 
+/**
+ * use for access application context statically
+ */
 public class MyApplication extends Application {
 
     private static Context context;
