@@ -1,5 +1,6 @@
 package com.barestodo.android.place;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-public class PlaceList {
+public class Circle implements Serializable {
 
     private long id;
 
@@ -19,11 +20,11 @@ public class PlaceList {
     private List<User> members;
 
 
-    public PlaceList(String name){
+    public Circle(String name){
         super();
         this.name=name;
     }
-    public PlaceList(long id,String name){
+    public Circle(long id,String name){
         super();
         this.name=name;
         this.id=id;

@@ -19,28 +19,40 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name="com.barestodo.android.PlaceDescriptionActivity"
-                android:label="@string/title_activity_place_description"
-                android:launchMode="singleTask">
+            android:name="com.barestodo.android.PlaceDescriptionActivity"
+            android:label="@string/title_activity_place_description"
+            android:launchMode="singleTask" >
         </activity>
         <activity
-                android:name="com.barestodo.android.PlacesListActivity"
-                android:label="@string/title_activity_places_list"
-                android:launchMode="singleTask">
+            android:name="com.barestodo.android.CirclePlacesListActivity"
+            android:label="@string/title_activity_places_list"
+            android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name="com.barestodo.android.AddPlaceActivity"
+            android:name="com.barestodo.android.AddPlaceToCircleActivity"
             android:label="@string/title_activity_add_place"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
-        <activity android:name=".CirclesListActivity"/>
+        <activity android:name="com.barestodo.android.CirclesListActivity" />
+         <activity android:name="com.barestodo.android.CircleMemberActivity" />
+        <activity android:name="com.barestodo.android.CirclePlaceListActivity" />
+        <activity
+            android:name="com.barestodo.android.CircleContentActivity"
+            android:label="@string/title_activity_circle_content"
+            android:parentActivityName="android.app.TabActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.app.TabActivity" />
+        </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
 </manifest>

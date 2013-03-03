@@ -1,14 +1,19 @@
 package com.barestodo.android.adapteur;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import com.barestodo.android.CircleContentActivity;
+import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Place;
-import com.barestodo.android.place.PlaceList;
+import com.barestodo.android.place.Circle;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 import com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation;
@@ -22,7 +27,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
 
     IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
     private static final String TAG = CircleListAdapteur.class.getSimpleName();
-    List<PlaceList> circles=new ArrayList<PlaceList>();
+    List<Circle> circles=new ArrayList<Circle>();
 
     public CircleListAdapteur(Context context){
         try {
@@ -59,7 +64,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
     }
 
     @Override
-    public PlaceList getItem(int i) {
+    public Circle getItem(int i) {
         return circles.get(i);
     }
 
@@ -74,20 +79,33 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
     }
 
     @Override
-    public View getView(int index, View view, ViewGroup viewGroup) {
+    public View getView(int index, View view, final ViewGroup parent) {
         if (view == null) {
-            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            view = inflater.inflate(R.layout.circle_list_adapter_layout, viewGroup, false);
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            view = inflater.inflate(R.layout.circle_list_adapter_layout, parent, false);
         }
 
-        final PlaceList circle = circles.get(index);
+        final Circle circle = circles.get(index);
 
         TextView groupSize = (TextView) view.findViewById(R.id.groupSize);
         groupSize.setText("0");
         TextView circleName = (TextView) view.findViewById(R.id.circleName);
         circleName.setText(circle.getName());
 
-        ImageButton button = (ImageButton) view.findViewById(R.id.detailImageButton);
+        
+        
+        circleName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	Intent intent = new Intent(parent.getContext(),	CircleContentActivity.class);
+            	Bundle b = new Bundle();
+				b.putSerializable("placeToShow",circle);
+				intent.putExtras(b); 
+				view.getContext().startActivity(intent);
+                //Toast.makeText(parent.getContext(), "button clicked: " + place.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         return view;
     }
 
@@ -107,7 +125,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
     }
 
     @Override
-    public void update(List<PlaceList> result) {
+    public void update(List<Circle> result) {
 
     }
 }

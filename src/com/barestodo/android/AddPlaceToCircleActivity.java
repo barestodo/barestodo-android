@@ -19,7 +19,7 @@ import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 
 
-public class AddPlaceActivity extends Activity {
+public class AddPlaceToCircleActivity extends Activity {
 
 	EditText editLabel;
 	EditText editLocation;
@@ -30,7 +30,7 @@ public class AddPlaceActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_place);
+		setContentView(R.layout.activity_add_place_to_circle);
 	   
 		editLabel = (EditText)findViewById(R.id.editLabel);
 		editLocation = (EditText)findViewById(R.id.editLocation);
@@ -54,11 +54,11 @@ public class AddPlaceActivity extends Activity {
 					validateAdd();
 					finish();
 			        }catch(AsyncCallerServiceException e){
-			            Toast.makeText(AddPlaceActivity.this,
+			            Toast.makeText(AddPlaceToCircleActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
 			                    Toast.LENGTH_LONG).show();
 			        }catch (Exception e) {
-			        	Toast.makeText(AddPlaceActivity.this,
+			        	Toast.makeText(AddPlaceToCircleActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
 			                    Toast.LENGTH_LONG).show();
 					}
@@ -74,7 +74,7 @@ public class AddPlaceActivity extends Activity {
         }catch(AsyncCallerServiceException e){
             StringBuilder builder = new StringBuilder(getResources().getText(R.string.error_place_creation));
             builder.append(":").append(e.getMessage());
-            Toast.makeText(AddPlaceActivity.this,builder.toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPlaceToCircleActivity.this,builder.toString(),Toast.LENGTH_LONG).show();
         }
     }
 

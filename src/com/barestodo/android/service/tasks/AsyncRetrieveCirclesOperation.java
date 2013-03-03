@@ -3,7 +3,7 @@ package com.barestodo.android.service.tasks;
 import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
-import com.barestodo.android.place.PlaceList;
+import com.barestodo.android.place.Circle;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,10 +24,10 @@ import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
 
-public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<PlaceList>> {
+public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<Circle>> {
     public interface HasCircles {
 
-        void update(List<PlaceList> result);
+        void update(List<Circle> result);
     }
     private HasCircles hascircles;
 
@@ -37,10 +37,10 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
     }
 
     @Override
-    protected List<PlaceList> doInBackground(String... strings) {
+    protected List<Circle> doInBackground(String... strings) {
         HttpGet httpGet = getGetOperation("circle");
 
-        List<PlaceList> result=new ArrayList<PlaceList>();
+        List<Circle> result=new ArrayList<Circle>();
         try {
             HttpResponse response = httpClient.execute(httpGet, localContext);
 
@@ -56,7 +56,7 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
             Log.i("JSON", finalResult.toString());
             for(int index=0;index<finalResult.length();index++){
                 JSONObject jsonPlace = finalResult.getJSONObject(index);
-                PlaceList circle = new PlaceList(jsonPlace.getLong("id"),jsonPlace.getString("name"));
+                Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"));
                 result.add(circle);
             }
         } catch (JSONException e) {
@@ -72,7 +72,7 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
         return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
     @Override
-    protected void onPostExecute(List<PlaceList> result){
+    protected void onPostExecute(List<Circle> result){
        // hascircles.update(result);
     }
 

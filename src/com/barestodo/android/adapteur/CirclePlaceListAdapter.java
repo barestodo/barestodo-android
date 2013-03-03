@@ -24,13 +24,13 @@ import com.barestodo.android.service.RepositoryFactory;
  * Time: 11:37 AM
  * To change this template use File | Settings | File Templates.
  */
-public class PlaceListAdapter extends BaseAdapter {
+public class CirclePlaceListAdapter extends BaseAdapter {
 	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	
-    private static final String TAG = PlaceListAdapter.class.getSimpleName();
+    private static final String TAG = CirclePlaceListAdapter.class.getSimpleName();
     List<Place> listPlace ;
 
-    public PlaceListAdapter() {
+    public CirclePlaceListAdapter() {
         listPlace=placeRepository.getListPlace();
     }
 
@@ -55,7 +55,7 @@ public class PlaceListAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            view = inflater.inflate(R.layout.place_list_adapter_layout, parent, false);
+            view = inflater.inflate(R.layout.circle_place_list_adapter_layout, parent, false);
         }
 
         final Place place = listPlace.get(index);

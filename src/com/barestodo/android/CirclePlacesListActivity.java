@@ -9,19 +9,19 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.barestodo.android.adapteur.PlaceListAdapter;
+import com.barestodo.android.adapteur.CirclePlaceListAdapter;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 
-public class PlacesListActivity extends Activity {
+public class CirclePlacesListActivity extends Activity {
 
-	private IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
+	//private IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 
 	public ImageButton addButton;
 	public ListView listView;
 
-	public PlaceListAdapter placeListAdapter;
+	public CirclePlaceListAdapter placeListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class PlacesListActivity extends Activity {
 			super.onResume();
 
 		}catch(Exception e){
-			Toast.makeText(PlacesListActivity.this,e.getMessage(),
+			Toast.makeText(CirclePlacesListActivity.this,e.getMessage(),
 					Toast.LENGTH_LONG).show();
 		}
 	}
@@ -54,8 +54,8 @@ public class PlacesListActivity extends Activity {
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(PlacesListActivity.this,
-						AddPlaceActivity.class);
+				Intent intent = new Intent(CirclePlacesListActivity.this,
+						AddPlaceToCircleActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -64,9 +64,9 @@ public class PlacesListActivity extends Activity {
 
 	private void iniateActivity(){
 
-		placeListAdapter = new PlaceListAdapter();
+		placeListAdapter = new CirclePlaceListAdapter();
 
-		setContentView(R.layout.activity_places_list);
+		setContentView(R.layout.activity_circle_places_list);
 		/*
         listView = (ListView) findViewById(R.id.listView1);
 
