@@ -31,10 +31,18 @@ import java.util.List;
  */
 public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void, List<Place>> {
 
+
+    private final Long circleId;
+
+    public AsyncRetrievePlacesOperation(Long circleId){
+        this.circleId=circleId;
+    }
     @Override
     protected List<Place> doInBackground(String... strings) {
         List<Place> result=new ArrayList<Place>();
-        HttpGet httpGet = getGetOperation("place");
+        StringBuilder urlResource=new StringBuilder();
+        urlResource.append("circle/").append(circleId).append("/places");
+        HttpGet httpGet = getGetOperation(urlResource.toString());
 
         try {
             HttpResponse response = httpClient.execute(httpGet, localContext);
