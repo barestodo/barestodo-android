@@ -3,12 +3,14 @@ package com.barestodo.android.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.barestodo.android.place.Member;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.IPlaceRepository;
 
 public class StubPlaceRepository implements IPlaceRepository {
 	public final static StubPlaceRepository INSTANCE = new StubPlaceRepository();
 	private static List<Place> placeList = new ArrayList<Place>();
+	private static List<Member> memberList = new ArrayList<Member>();
 	private StubPlaceRepository(){
 		
 	}
@@ -19,6 +21,11 @@ public class StubPlaceRepository implements IPlaceRepository {
 		placeList.add(new Place("4","Quebecois","carriere"));
 	}
 	
+	
+	static{
+		memberList.add(new Member("paul.com","polo"));
+		memberList.add(new Member("jose.com","jojo"));
+	}
 
 	@Override
 	public List<Place> getListPlace(Long circleId){
@@ -40,6 +47,11 @@ public class StubPlaceRepository implements IPlaceRepository {
 	public boolean scheduleEvent(String id, String date) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	
+	@Override
+	public List<Member> getListMember(Long circleId){
+		return (memberList);
 	}
 		
 }

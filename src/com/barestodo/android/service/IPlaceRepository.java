@@ -2,6 +2,7 @@ package com.barestodo.android.service;
 
 import java.util.List;
 
+import com.barestodo.android.place.Member;
 import com.barestodo.android.place.Place;
 
 public interface IPlaceRepository {
@@ -13,4 +14,6 @@ public interface IPlaceRepository {
 	public abstract Place getPlaceById(String id);
 	
 	public abstract boolean scheduleEvent(String id, String date);
+	
+	public abstract List<Member> getListMember(Long circleId);
 }

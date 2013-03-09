@@ -2,6 +2,7 @@ package com.barestodo.android.service.tasks;
 
 import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
+import com.barestodo.android.place.Member;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,7 +30,7 @@ import static com.barestodo.android.repository.HttpOperationFactory.getGetOperat
  * Time: 21:43
  * To change this template use File | Settings | File Templates.
  */
-public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Void, List<Place>> {
+public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Void, List<Member>> {
 
 
     private final Long circleId;
@@ -38,8 +39,8 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
         this.circleId=circleId;
     }
     @Override
-    protected List<Place> doInBackground(String... strings) {
-        List<Place> result=new ArrayList<Place>();
+    protected List<Member> doInBackground(String... strings) {
+        List<Member> result=new ArrayList<Member>();
         StringBuilder urlResource=new StringBuilder();
         urlResource.append("circle/").append(circleId).append("/members");
         HttpGet httpGet = getGetOperation(urlResource.toString());
@@ -55,12 +56,12 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
             String json = reader.readLine();
             JSONObject jsonResponse = new JSONObject(json);
 
-            JSONArray finalResult = jsonResponse.getJSONArray("places");
+            JSONArray finalResult = jsonResponse.getJSONArray("members");
             Log.i("JSON", finalResult.toString());
             for(int index=0;index<finalResult.length();index++){
-                JSONObject jsonPlace = finalResult.getJSONObject(index);
-                Place place = new Place(jsonPlace.getString("id"),jsonPlace.getString("name"),jsonPlace.getString("location"));
-                result.add(place);
+                JSONObject jsonMember = finalResult.getJSONObject(index);
+                Member member = new Member(jsonMember.getString("pseudo"),jsonMember.getString("email"));
+                result.add(member);
             }
         } catch (JSONException e) {
             throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
