@@ -69,7 +69,6 @@ public class CircleMemberListAdapter  extends BaseAdapter {
         TextView textPseudo = (TextView) view.findViewById(R.id.pseudoText);
         textPseudo.setText(member.getPseudo());
         
-        Log.d("passagfe ici", "he ouais");
         ImageButton button = (ImageButton) view.findViewById(R.id.detailImageButton);
         
         // button click listener

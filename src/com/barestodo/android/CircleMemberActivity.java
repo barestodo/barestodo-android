@@ -70,9 +70,9 @@ public class CircleMemberActivity  extends Activity {
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(CircleMemberActivity.this,
+				/*Intent intent = new Intent(CircleMemberActivity.this,
 						AddPlaceToCircleActivity.class);
-				startActivity(intent);
+				startActivity(intent);*/
 			}
 		});
 	}
