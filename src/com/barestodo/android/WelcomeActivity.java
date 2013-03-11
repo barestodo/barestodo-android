@@ -1,87 +1,109 @@
 package com.barestodo.android;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.barestodo.android.security.IdentificationManager;
-import com.barestodo.android.service.tasks.AsyncRetrievecurrentUserPseudonymeOperation;
+import com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation;
+import com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperation;
+import com.barestodo.android.service.tasks.HttpStatus;
+import com.barestodo.android.utils.Crypto;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutionException;
+
+import static com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation.UserNameReceiver;
+import static com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperation.UserRegistrationReceiver;
 
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends Activity implements UserNameReceiver,UserRegistrationReceiver {
+
+    public String userName;
+
+
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AsyncRetrievecurrentUserPseudonymeOperation operation=new AsyncRetrievecurrentUserPseudonymeOperation();
-        operation.execute();
+        try{
+                super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_welcome);
-        String email=IdentificationManager.INSTANCE.getEmail();
-        String stamp=emailMd5Stamp(email);
-        String avatarUrl="http://www.gravatar.com/avatar/".concat(stamp).concat("?d=wavatar");
-        ImageView img= (ImageView) findViewById(R.id.avatar);
+                AsyncRetrieveCurrentUserNameOperation operation=new AsyncRetrieveCurrentUserNameOperation(this);
+                operation.execute();
 
-        try {
-            Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(avatarUrl).getContent());
-            img.setImageBitmap(bitmap);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                setContentView(R.layout.activity_welcome);
+                String email=IdentificationManager.INSTANCE.getEmail();
+                String stamp= Crypto.toMD5(email);
+                String avatarUrl="http://www.gravatar.com/avatar/".concat(stamp).concat("?d=wavatar");
+                ImageView img= (ImageView) findViewById(R.id.avatar);
+                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(avatarUrl).getContent());
+                img.setImageBitmap(bitmap);
 
-        String pseudonyme= null;
-        try {
-            pseudonyme = operation.get();
-            knowedUser(pseudonyme);
-        } catch (Exception e) {
-            firstConnection();
+        }catch(Exception e){
+            Toast.makeText(WelcomeActivity.this, "désarmement des tobogans",
+                    Toast.LENGTH_LONG).show();
         }
 
     }
 
-    private void firstConnection() {
+    private void formToRegisterNewUser() {
+        showFormFields();
+        final EditText input= (EditText) findViewById(R.id.pseudoInput);
 
-    }
-
-    private void knowedUser(String pseudonyme) {
-        TextView pseudo= (TextView) findViewById(R.id.pseudoLabel);
-        pseudo.setText(pseudonyme);
-
-        EditText pseudoInput= (EditText) findViewById(R.id.pseudoInput);
-        pseudoInput.setVisibility(View.INVISIBLE);
-    }
-
-    private String emailMd5Stamp(String email) {
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-            digest.update(email.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hexString.append(h);
+        ImageButton btnValidePseudonyme= (ImageButton) findViewById(R.id.validatePseudoButton);
+        btnValidePseudonyme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AsyncSetCurrentUserNameOperation operation = new AsyncSetCurrentUserNameOperation(input.getText().toString(),WelcomeActivity.this);
+                operation.execute();
             }
-            return hexString.toString();
-            } catch (NoSuchAlgorithmException e) {
-            return null;
+        });
+    }
+
+    private void prepareToNextScreen(String pseudonyme) {
+        TextView pseudo= (TextView) findViewById(R.id.pseudoLabel);
+        pseudo.setVisibility(View.VISIBLE);
+        pseudo.setText(pseudonyme);
+        hideFormFields();
+        SystemClock.sleep(5000);
+        gotoCircleActivity();
+    }
+
+    private void hideFormFields() {
+        findViewById(R.id.validatePseudoButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.pseudoInput).setVisibility(View.INVISIBLE);
+    }
+    private void showFormFields() {
+        findViewById(R.id.validatePseudoButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.pseudoInput).setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void receiveUserName(String name) {
+        userName=name;
+        prepareToNextScreen(userName);
+    }
+
+    @Override
+    public void onError(HttpStatus status) {
+        if(status==HttpStatus.NOT_FOUND){
+            formToRegisterNewUser();
+        }else {
+            Toast.makeText(WelcomeActivity.this,"votre compte n'a pu être retrouvé",
+                Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void isRegistered() {
+        gotoCircleActivity();
+    }
+
+    private void gotoCircleActivity() {
+        Intent intent = new Intent(WelcomeActivity.this, CirclesListActivity.class);
+        startActivity(intent);
     }
 }

@@ -10,31 +10,43 @@ import org.apache.http.protocol.HttpContext;
 
 import static com.barestodo.android.R.string.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 23:04
- * To change this template use File | Settings | File Templates.
- */
+
 public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTask<Params,Progress,Results> {
+
+    public interface OnAsynHttpError {
+        void onError(HttpStatus status);
+    }
+
+    private HttpStatus requestStatus;
 
     protected HttpClient httpClient = new DefaultHttpClient();
     protected HttpContext localContext = new BasicHttpContext();
     protected static final String BASE_URL="http://service.barestodo.cloudbees.net/rest/";
 
+    public HttpStatus getRequestStatus(){
+        return requestStatus;
+    }
+    public boolean isOk() {
+        return requestStatus==null;
+    }
+
     protected void checkResponseStatus(int statusCode){
         switch(statusCode){
-            case 200: return;
+            case 200:
+                requestStatus=null;break;
             case 400:
-                throw new AsyncCallerServiceException(getErrorMessage(invalid_request));
+                requestStatus=HttpStatus.BAD_REQUEST;
+                break;
             case 401:
             case 403:
-                throw new AsyncCallerServiceException(getErrorMessage(authentication_problem));
+                requestStatus=HttpStatus.FORBIDEN;
+                break;
             case 404:
-                throw new AsyncCallerServiceException(getErrorMessage(not_found));
+                requestStatus=HttpStatus.NOT_FOUND;
+                break;
             case 500:
-                throw new AsyncCallerServiceException(getErrorMessage(service_unavailable));
+                requestStatus=HttpStatus.SERVER_ERROR;
+                break;
         }
     }
 

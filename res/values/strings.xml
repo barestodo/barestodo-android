@@ -14,5 +14,6 @@
     <string name="title_activity_circle_content">Cercle</string>
     <string name="welcomeTitle">Bienvenue</string>
     <string name="pseudoDefaultLabel">Entrez votre pseudo</string>
+    <string name="tipsChangeAvatar">Vous pouvez personaliser votre avatar sur http://gravatar.com</string>
 
 </resources>

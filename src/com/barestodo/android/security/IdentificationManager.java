@@ -14,11 +14,15 @@ public class IdentificationManager {
     }
 
     public String getToken(){
-        if(token==null || token.trim().equals("")){
+        if(tokenIsNotSetted()){
               retrieveToken();
         }
         return token;
 
+    }
+
+    private boolean tokenIsNotSetted() {
+        return token==null || token.trim().equals("");
     }
 
     private void retrieveToken() {
@@ -26,7 +30,7 @@ public class IdentificationManager {
        Account[] accounts = accountManager.getAccountsByType("com.google");
        Account myAccount= accounts[0];
        this.token=myAccount.name;
-     }
+    }
 
     public String getEmail() {
         return token;

@@ -28,17 +28,38 @@
             android:gravity="center"
             android:paddingTop="15px"
             android:text="@string/pseudoDefaultLabel"
+            android:visibility="invisible"
      />
     <EditText
             android:id="@+id/pseudoInput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:ems="10" >
+            android:ems="5"
+            android:gravity="center"
+            android:visibility="invisible"
+            >
         <requestFocus />
     </EditText>
-
-
+    <ImageButton
+            android:id="@+id/validatePseudoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@null"
+            android:contentDescription="@string/check_img_desc"
+            android:gravity="center_horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="35dp"
+            android:src="@drawable/check_button"
+            android:visibility="invisible"
+            />
+    <TextView
+            android:id="@+id/tipsChangeAvatarLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tipsChangeAvatar"
+            android:paddingTop="20px"
+            android:textStyle="italic"
+    />
 </LinearLayout>
