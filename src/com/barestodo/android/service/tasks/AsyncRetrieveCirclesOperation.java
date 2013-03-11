@@ -25,13 +25,13 @@ import static com.barestodo.android.repository.HttpOperationFactory.getGetOperat
 
 
 public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<Circle>> {
-    public interface HasCircles {
-
-        void update(List<Circle> result);
+    public interface CirclesReceiver extends OnAsynHttpError{
+        void receiveCircles(List<Circle> result);
     }
-    private HasCircles hascircles;
 
-    public AsyncRetrieveCirclesOperation(HasCircles hascircles) {
+    private CirclesReceiver hascircles;
+
+    public AsyncRetrieveCirclesOperation(CirclesReceiver hascircles) {
         super();
         this.hascircles=hascircles;
     }
@@ -73,7 +73,7 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
     }
     @Override
     protected void onPostExecute(List<Circle> result){
-       // hascircles.update(result);
+       hascircles.receiveCircles(result);
     }
 
 }

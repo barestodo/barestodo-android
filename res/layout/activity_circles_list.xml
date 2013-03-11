@@ -21,7 +21,15 @@
              android:layout_height="306dp"
              android:layout_weight="0.97" >
          </ListView>
-
+         <TextView
+                 android:id="@+id/tipsAddCircleLabel"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:text="@string/tipsAddCircle"
+                 android:paddingTop="20px"
+                 android:textStyle="italic"
+                 />
 
      <ImageButton
              android:id="@+id/createCircleImageButton"

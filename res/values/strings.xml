@@ -15,5 +15,8 @@
     <string name="welcomeTitle">Bienvenue</string>
     <string name="pseudoDefaultLabel">Entrez votre pseudo</string>
     <string name="tipsChangeAvatar">Vous pouvez personaliser votre avatar sur http://gravatar.com</string>
+    <string name="tipsAddCircle">Pas encore de cercle ? créez en un autour d\'un thème (bar à biéres, resto
+        végétariens,ect)\n et invitez vos amis pour partager vos bon plans et recevoir leurs propositions.\n
+    </string>
 
 </resources>

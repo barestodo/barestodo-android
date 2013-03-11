@@ -2,11 +2,9 @@ package com.barestodo.android;
 
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CircleMemberListAdapter;
-import com.barestodo.android.adapteur.CirclePlaceListAdapter;
 import com.barestodo.android.place.Circle;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +24,7 @@ public class CircleMemberActivity  extends Activity {
 		
 		Bundle b = getIntent().getExtras();
 		
-		circle = (Circle)b.get(CircleListAdapteur.circleToShow);
+		circle = (Circle)b.get(CircleListAdapteur.CIRCLE_TO_SHOW);
 
 		iniateActivity();
 		

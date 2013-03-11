@@ -10,35 +10,31 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 import com.barestodo.android.CircleContentActivity;
-import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
-import com.barestodo.android.place.Place;
 import com.barestodo.android.place.Circle;
 import com.barestodo.android.service.IPlaceRepository;
 import com.barestodo.android.service.RepositoryFactory;
 import com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 //extends ArrayAdapter<PlaceList>
-public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirclesOperation.HasCircles {
+public class CircleListAdapteur extends BaseAdapter {
 
     IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
     private static final String TAG = CircleListAdapteur.class.getSimpleName();
-    public static final String circleToShow = "circleToShow";
+    public static final String CIRCLE_TO_SHOW = "circleToShow";
+
     List<Circle> circles=new ArrayList<Circle>();
 
-    public CircleListAdapteur(Context context){
-        try {
-            circles = new AsyncRetrieveCirclesOperation(this).execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (ExecutionException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+
+    public void addAll(Collection<Circle> items){
+        circles.addAll(items);
     }
+
     @Override
     public boolean areAllItemsEnabled() {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
@@ -100,7 +96,7 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
             public void onClick(View view) {
             	Intent intent = new Intent(parent.getContext(),	CircleContentActivity.class);
             	Bundle b = new Bundle();
-				b.putSerializable(circleToShow,circle);
+				b.putSerializable(CIRCLE_TO_SHOW,circle);
 				intent.putExtras(b); 
 				view.getContext().startActivity(intent);
                 //Toast.makeText(parent.getContext(), "button clicked: " + place.getName(), Toast.LENGTH_SHORT).show();
@@ -125,8 +121,5 @@ public class CircleListAdapteur extends BaseAdapter implements AsyncRetrieveCirc
         return circles.isEmpty();
     }
 
-    @Override
-    public void update(List<Circle> result) {
 
-    }
 }

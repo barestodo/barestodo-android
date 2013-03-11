@@ -33,7 +33,7 @@ public class CirclePlacesListActivity extends Activity {
 
 		Bundle b = getIntent().getExtras();
 		
-		circle = (Circle)b.get(CircleListAdapteur.circleToShow);
+		circle = (Circle)b.get(CircleListAdapteur.CIRCLE_TO_SHOW);
 
 
 		iniateActivity();
