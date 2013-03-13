@@ -2,6 +2,7 @@ package com.barestodo.android.service.tasks;
 
 import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
+import com.barestodo.android.place.Circle;
 import com.barestodo.android.place.Member;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
@@ -32,11 +33,16 @@ import static com.barestodo.android.repository.HttpOperationFactory.getGetOperat
  */
 public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Void, List<Member>> {
 
+    public interface CircleMembersReceiver extends OnAsynHttpError{
+          void receiveMembers(List<Member> members);
+    }
 
     private final Long circleId;
+    private CircleMembersReceiver receiver;
 
-    public AsyncRetrieveMembersOperation(Long circleId){
+    public AsyncRetrieveMembersOperation(CircleMembersReceiver receiver,Long circleId){
         this.circleId=circleId;
+        this.receiver=receiver;
     }
     @Override
     protected List<Member> doInBackground(String... strings) {
@@ -60,7 +66,7 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
             Log.i("JSON", finalResult.toString());
             for(int index=0;index<finalResult.length();index++){
                 JSONObject jsonMember = finalResult.getJSONObject(index);
-                Member member = new Member(jsonMember.getString("pseudo"),jsonMember.getString("email"));
+                Member member = new Member(jsonMember.getString("email"),jsonMember.getString("pseudo"));
                 result.add(member);
             }
         } catch (JSONException e) {
@@ -76,6 +82,10 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
         return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    protected void onPostExecute(List<Member> result){
+        receiver.receiveMembers(result);
+    }
 
 
 }

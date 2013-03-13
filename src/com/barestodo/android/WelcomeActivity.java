@@ -13,7 +13,9 @@ import com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation
 import com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 import com.barestodo.android.utils.Crypto;
+import com.barestodo.android.utils.Gravatar;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -34,12 +36,9 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
                 operation.execute();
 
                 setContentView(R.layout.activity_welcome);
-                String email=IdentificationManager.INSTANCE.getEmail();
-                String stamp= Crypto.toMD5(email);
-                String avatarUrl="http://www.gravatar.com/avatar/".concat(stamp).concat("?d=wavatar");
                 ImageView img= (ImageView) findViewById(R.id.avatar);
-                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(avatarUrl).getContent());
-                img.setImageBitmap(bitmap);
+                String email=IdentificationManager.INSTANCE.getEmail();
+                Gravatar.setImageContentWithGravatar(img, email);
 
         }catch(Exception e){
             Toast.makeText(WelcomeActivity.this, "désarmement des tobogans",
@@ -47,6 +46,7 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
         }
 
     }
+
 
     private void formToRegisterNewUser() {
         showFormFields();

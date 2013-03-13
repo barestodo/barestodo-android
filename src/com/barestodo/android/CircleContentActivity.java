@@ -32,7 +32,7 @@ public class CircleContentActivity extends TabActivity {
         spec = tabHost
                 .newTabSpec("Lieux")
                 .setIndicator("Lieux",
-                        res.getDrawable(android.R.drawable.ic_menu_today))
+                        res.getDrawable(R.drawable.ideas))
                 .setContent(intent);
         
        
@@ -44,7 +44,7 @@ public class CircleContentActivity extends TabActivity {
         spec = tabHost
                 .newTabSpec("Membres")
                 .setIndicator("Membres",
-                        res.getDrawable(android.R.drawable.ic_menu_manage))
+                        res.getDrawable(R.drawable.people))
                 .setContent(intent);
         tabHost.addTab(spec);
  

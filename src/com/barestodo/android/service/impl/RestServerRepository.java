@@ -79,16 +79,6 @@ public class RestServerRepository implements IPlaceRepository {
 	@Override
 	public List<Member> getListMember(Long circleId) {
 		List<Member> members = new ArrayList<Member>();
-		try {
-			AsyncRetrieveMembersOperation task= new AsyncRetrieveMembersOperation(circleId);
-			String callback;
-			members= task.execute().get();
-		} catch (InterruptedException e){
-			throw new AsyncCallerServiceException("aborted",e);
-		}catch(ExecutionException e){
-			throw new AsyncCallerServiceException("aborted",e);
-		}
-
 		return members;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 

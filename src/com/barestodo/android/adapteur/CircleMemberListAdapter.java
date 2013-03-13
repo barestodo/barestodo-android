@@ -1,7 +1,10 @@
 package com.barestodo.android.adapteur;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import android.widget.ImageView;
 import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Member;
@@ -19,25 +22,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import com.barestodo.android.utils.Gravatar;
 
 public class CircleMemberListAdapter  extends BaseAdapter {
 	
-	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 	private static final String TAG = CircleMemberListAdapter.class.getSimpleName();
-	List<Member> listMember;
+	List<Member> listMember=new ArrayList<>();
 
-    public CircleMemberListAdapter(Long circleId) {
-        listMember =placeRepository.getListMember(circleId);
-        System.out.println(listMember);
-    }
-    
-   
     @Override
     public long getItemId(int i) {
         return i;
     }
-
-
 
 
 	@Override
@@ -68,27 +63,24 @@ public class CircleMemberListAdapter  extends BaseAdapter {
 
         TextView textPseudo = (TextView) view.findViewById(R.id.pseudoText);
         textPseudo.setText(member.getPseudo());
-        
-        ImageButton button = (ImageButton) view.findViewById(R.id.detailImageButton);
-        
-        // button click listener
-        // this chunk of code will run, if user click the button
-        // because, we set the click listener on the button only
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            	/*Intent intent = new Intent(parent.getContext(),	PlaceDescriptionActivity.class);
-            	Bundle b = new Bundle();
-				b.putSerializable("placeToShow",member);
-				intent.putExtras(b); 
-				view.getContext().startActivity(intent);
-                //Toast.makeText(parent.getContext(), "button clicked: " + place.getName(), Toast.LENGTH_SHORT).show();*/
-            }
-        });
+        ImageView img=(ImageView)view.findViewById(R.id.avatar) ;
+        try {
+            Gravatar.setImageContentWithGravatar(img, member.getEmail());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return view;
 	}
 
-   
 
+    public void addAll(List<Member> members) {
+        listMember.addAll(members);
+    }
+
+    public void set(List<Member> members) {
+        listMember.clear();
+        listMember.addAll(members);
+    }
 }
