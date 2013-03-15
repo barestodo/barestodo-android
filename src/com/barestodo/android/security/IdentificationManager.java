@@ -5,7 +5,7 @@ import com.barestodo.android.app.MyApplication;
 
 
 public class IdentificationManager {
-    private boolean devMode=false;
+    private boolean devMode=true;
 
     public static final IdentificationManager INSTANCE=new IdentificationManager();
     private String token;
