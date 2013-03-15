@@ -5,12 +5,17 @@ import com.barestodo.android.app.MyApplication;
 
 
 public class IdentificationManager {
+    private boolean devMode=false;
 
     public static final IdentificationManager INSTANCE=new IdentificationManager();
     private String token;
 
     private IdentificationManager(){
-        retrieveToken();
+        if(!devMode){
+            retrieveToken();
+        }else{
+            token="jean@bidule.net";
+        }
     }
 
     public String getToken(){
@@ -18,7 +23,6 @@ public class IdentificationManager {
               retrieveToken();
         }
         return token;
-
     }
 
     private boolean tokenIsNotSetted() {

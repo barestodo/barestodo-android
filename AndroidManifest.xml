@@ -36,7 +36,7 @@
        
         <activity android:name="com.barestodo.android.CirclesListActivity" />
          <activity android:name="com.barestodo.android.CircleMemberActivity" />
-        <activity android:name="com.barestodo.android.CirclePlaceListActivity" />
+        <activity android:name="com.barestodo.android.CirclePlacesListActivity" />
         <activity
             android:name="com.barestodo.android.CircleContentActivity"
             android:label="@string/title_activity_circle_content"
@@ -48,10 +48,11 @@
        <activity android:name=".WelcomeActivity" android:label="welcome"/>
    </application>
 
+    <!-- Pour télécharger images gravatar -->
+    <!-- Pour les appels HTTP -->
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <!-- Pour télécharger images gravatar -->
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
 
 </manifest>

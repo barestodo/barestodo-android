@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import static com.barestodo.android.R.drawable.detail_button;
 import static com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation.UserNameReceiver;
 import static com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperation.UserRegistrationReceiver;
 
@@ -44,7 +45,6 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
             Toast.makeText(WelcomeActivity.this, "désarmement des tobogans",
                     Toast.LENGTH_LONG).show();
         }
-
     }
 
 
@@ -62,17 +62,23 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
         });
     }
 
-    private void prepareToNextScreen(String pseudonyme) {
-        TextView pseudo= (TextView) findViewById(R.id.pseudoLabel);
-        pseudo.setVisibility(View.VISIBLE);
-        pseudo.setText(pseudonyme);
+    private void setLoginLabel(String pseudonyme) {
         hideFormFields();
-        SystemClock.sleep(5000);
-        gotoCircleActivity();
+        TextView pseudo= (TextView) findViewById(R.id.pseudoLabel);
+        pseudo.setText(pseudonyme);
+        pseudo.setVisibility(View.VISIBLE);
     }
 
     private void hideFormFields() {
-        findViewById(R.id.validatePseudoButton).setVisibility(View.INVISIBLE);
+        ImageButton button=(ImageButton)findViewById(R.id.validatePseudoButton);
+        button.setImageResource(detail_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoCircleActivity();
+            }
+        });
+        button.setVisibility(View.VISIBLE);
         findViewById(R.id.pseudoInput).setVisibility(View.INVISIBLE);
     }
     private void showFormFields() {
@@ -84,7 +90,7 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
     @Override
     public void receiveUserName(String name) {
         userName=name;
-        prepareToNextScreen(userName);
+        setLoginLabel(userName);
     }
 
     @Override
