@@ -21,11 +21,7 @@ import static com.barestodo.android.repository.HttpOperationFactory.getGetOperat
 import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * enregistre l'utilisateur auprès du site,en lui assignant un pseudo
  */
 public class AsyncSetCurrentUserNameOperation extends AbstractAsyncTask<String, Void, Void> {
 
@@ -41,21 +37,13 @@ public class AsyncSetCurrentUserNameOperation extends AbstractAsyncTask<String, 
         this.receiver=receiver;
     }
 
-    @Override
-    protected Void doInBackground(String... strings) {
-        try {
-            HttpPut httpRequest = getPutOperation("user/".concat(pseudo));
-            HttpResponse response = httpClient.execute(httpRequest, localContext);
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        }
 
+    @Override
+    Void concreteOperation(String... params) throws Exception {
+        HttpPut httpRequest = getPutOperation("user/".concat(pseudo));
+        HttpResponse response = httpClient.execute(httpRequest, localContext);
+        checkResponseStatus(response.getStatusLine().getStatusCode());
+        return Void.class.newInstance();
     }
 
     @Override

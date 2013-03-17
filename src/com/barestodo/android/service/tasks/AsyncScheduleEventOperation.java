@@ -22,11 +22,7 @@ import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * planifie un événement pur une date donnée
  */
 public class AsyncScheduleEventOperation extends AbstractAsyncTask<String, Void, Boolean> {
 
@@ -37,45 +33,32 @@ public class AsyncScheduleEventOperation extends AbstractAsyncTask<String, Void,
         this.id=placeId;
         this.date=scheduleDate;
     }
+
+
     @Override
-    protected Boolean doInBackground(String... strings) {
+    Boolean concreteOperation(String... params) throws Exception {
+        boolean schedulingResult = true;
+        HttpPut httpPut = getPutOperation(constructSafeUrl(id, date));
+        HttpResponse response = httpClient.execute(httpPut, localContext);
+        checkResponseStatus(response.getStatusLine().getStatusCode());
+        HttpEntity entity = response.getEntity();
 
-    	boolean schedulingResult = false;
-        try {
-            HttpPut httpPut = getPutOperation(constructSafeUrl(id, date));
-            HttpResponse response = httpClient.execute(httpPut, localContext);
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-            HttpEntity entity = response.getEntity();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            String json = reader.readLine();
-            Log.d("Task scheduling", json);
-            JSONObject jsonResponse = new JSONObject(json);
-            schedulingResult=true;
-            
-            //return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
-
-        } catch (JSONException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        String json = reader.readLine();
+        Log.d("Task scheduling", json);
+        JSONObject jsonResponse = new JSONObject(json);
+        if(hasFail()){
+            schedulingResult=false;
         }
-        
         return(schedulingResult);
     }
-
-
 
     private String constructSafeUrl(String placeId, String scheduleDate) throws UnsupportedEncodingException {
         StringBuilder url=new StringBuilder(placeId)
         .append("/plan/")
         .append(scheduleDate) ;
 
-        String safeUrl=BASE_URL.concat("place/").concat(url.toString().replace(" ","%20"));
+        String safeUrl="place/".concat(url.toString().replace(" ","%20"));
 
         return safeUrl;
     }

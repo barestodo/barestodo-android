@@ -23,11 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * permet de retrouver la liste de Places d'un cercle
  */
 public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void, List<Place>> {
 
@@ -37,44 +33,32 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
     public AsyncRetrievePlacesOperation(Long circleId){
         this.circleId=circleId;
     }
+
+
     @Override
-    protected List<Place> doInBackground(String... strings) {
+    List<Place> concreteOperation(String... params) throws Exception {
         List<Place> result=new ArrayList<Place>();
         StringBuilder urlResource=new StringBuilder();
         urlResource.append("circle/").append(circleId).append("/places");
         HttpGet httpGet = getGetOperation(urlResource.toString());
 
-        try {
-            HttpResponse response = httpClient.execute(httpGet, localContext);
+        HttpResponse response = httpClient.execute(httpGet, localContext);
 
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-        
-            HttpEntity entity = response.getEntity();
+        checkResponseStatus(response.getStatusLine().getStatusCode());
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONObject jsonResponse = new JSONObject(json);
+        HttpEntity entity = response.getEntity();
 
-            JSONArray finalResult = jsonResponse.getJSONArray("places");
-            Log.i("JSON", finalResult.toString());
-            for(int index=0;index<finalResult.length();index++){
-                JSONObject jsonPlace = finalResult.getJSONObject(index);
-                Place place = new Place(jsonPlace.getString("id"),jsonPlace.getString("name"),jsonPlace.getString("location"));
-                result.add(place);
-            }
-        } catch (JSONException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        String json = reader.readLine();
+        JSONObject jsonResponse = new JSONObject(json);
+
+        JSONArray finalResult = jsonResponse.getJSONArray("places");
+        Log.i("JSON", finalResult.toString());
+        for(int index=0;index<finalResult.length();index++){
+            JSONObject jsonPlace = finalResult.getJSONObject(index);
+            Place place = new Place(jsonPlace.getString("id"),jsonPlace.getString("name"),jsonPlace.getString("location"));
+            result.add(place);
         }
-
-        return result;  //To change body of implemented methods use File | Settings | File Templates.
+        return result;
     }
-
-
-
 }

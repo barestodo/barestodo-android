@@ -22,11 +22,7 @@ import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * Crée une place
  */
 public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, Place> {
 
@@ -35,32 +31,20 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
     public AsyncCreatePlaceOperation(Place place){
         this.place=place;
     }
+
     @Override
-    protected Place doInBackground(String... strings) {
+    Place concreteOperation(String... params) throws Exception {
+        HttpPut httpPut = getPutOperation(constructSafeUrl(place));
+        HttpResponse response = httpClient.execute(httpPut, localContext);
+        checkResponseStatus(response.getStatusLine().getStatusCode());
+        HttpEntity entity = response.getEntity();
 
-        try {
-            HttpPut httpPut = getPutOperation(constructSafeUrl(place));
-            HttpResponse response = httpClient.execute(httpPut, localContext);
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-            HttpEntity entity = response.getEntity();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        String json = reader.readLine();
+        JSONObject jsonResponse = new JSONObject(json);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONObject jsonResponse = new JSONObject(json);
-
-            return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
-
-        } catch (JSONException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        }
+        return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
     }
-
 
 
     private String constructSafeUrl(Place place) throws UnsupportedEncodingException {
@@ -68,7 +52,7 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
         .append("/")
         .append(place.getLocation()) ;
 
-        String safeUrl=BASE_URL.concat("place/").concat(url.toString().replace(" ","%20"));
+        String safeUrl="place/".concat(url.toString().replace(" ","%20"));
 
         return safeUrl;
     }

@@ -33,34 +33,26 @@ public class AsyncRetrieveCurrentUserNameOperation extends AbstractAsyncTask<Str
     public AsyncRetrieveCurrentUserNameOperation(UserNameReceiver receiver){
           this.receiver =receiver;
     }
+
+
     @Override
-    protected String doInBackground(String... strings) {
+    String concreteOperation(String... params) throws Exception {
+        HttpGet httpRequest = getGetOperation("user/pseudo");
+        HttpResponse response = httpClient.execute(httpRequest, localContext);
+        checkResponseStatus(response.getStatusLine().getStatusCode());
+        HttpEntity entity = response.getEntity();
 
-        try {
-            HttpGet httpRequest = getGetOperation("user/pseudo");
-            HttpResponse response = httpClient.execute(httpRequest, localContext);
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-            HttpEntity entity = response.getEntity();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            return reader.readLine();
-
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        return reader.readLine();
     }
 
 
     @Override
     protected void onPostExecute(String pseudo){
-        if(getRequestStatus()==null){
-            receiver.receiveUserName(pseudo);
-        }else{
+        if(hasFail()){
             receiver.onError(getRequestStatus());
+        }else{
+            receiver.receiveUserName(pseudo);
         }
     }
 

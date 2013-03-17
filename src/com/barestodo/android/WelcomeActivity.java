@@ -39,7 +39,7 @@ public class WelcomeActivity extends Activity implements UserNameReceiver,UserRe
                 setContentView(R.layout.activity_welcome);
                 ImageView img= (ImageView) findViewById(R.id.avatar);
                 String email=IdentificationManager.INSTANCE.getEmail();
-                Gravatar.setImageContentWithGravatar(img, email);
+                Gravatar.setImageContentWithGravatar(img, email,200);
 
         }catch(Exception e){
             Toast.makeText(WelcomeActivity.this, "désarmement des tobogans",

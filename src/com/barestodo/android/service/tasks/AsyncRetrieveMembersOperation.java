@@ -25,16 +25,12 @@ import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 26/01/13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * retrouve la liste des memberes du cercle
  */
 public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Void, List<Member>> {
 
     public interface CircleMembersReceiver extends OnAsynHttpError{
-          void receiveMembers(List<Member> members);
+        void receiveMembers(List<Member> members);
     }
 
     private final Long circleId;
@@ -44,42 +40,33 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
         this.circleId=circleId;
         this.receiver=receiver;
     }
+
+
     @Override
-    protected List<Member> doInBackground(String... strings) {
+    List<Member> concreteOperation(String... params) throws Exception {
         List<Member> result=new ArrayList<Member>();
         StringBuilder urlResource=new StringBuilder();
         urlResource.append("circle/").append(circleId).append("/members");
         HttpGet httpGet = getGetOperation(urlResource.toString());
 
-        try {
-            HttpResponse response = httpClient.execute(httpGet, localContext);
+        HttpResponse response = httpClient.execute(httpGet, localContext);
 
-            checkResponseStatus(response.getStatusLine().getStatusCode());
-        
-            HttpEntity entity = response.getEntity();
+        checkResponseStatus(response.getStatusLine().getStatusCode());
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONObject jsonResponse = new JSONObject(json);
+        HttpEntity entity = response.getEntity();
 
-            JSONArray finalResult = jsonResponse.getJSONArray("members");
-            Log.i("JSON", finalResult.toString());
-            for(int index=0;index<finalResult.length();index++){
-                JSONObject jsonMember = finalResult.getJSONObject(index);
-                Member member = new Member(jsonMember.getString("email"),jsonMember.getString("pseudo"));
-                result.add(member);
-            }
-        } catch (JSONException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        String json = reader.readLine();
+        JSONObject jsonResponse = new JSONObject(json);
+
+        JSONArray finalResult = jsonResponse.getJSONArray("members");
+        Log.i("JSON", finalResult.toString());
+        for(int index=0;index<finalResult.length();index++){
+            JSONObject jsonMember = finalResult.getJSONObject(index);
+            Member member = new Member(jsonMember.getString("email"),jsonMember.getString("pseudo"));
+            result.add(member);
         }
-
-        return result;  //To change body of implemented methods use File | Settings | File Templates.
+        return result;
     }
 
     @Override

@@ -23,7 +23,9 @@ import static com.barestodo.android.R.string.connection_problem;
 import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
-
+/**
+ * retrouve la liste de cercle de l'utilisateur
+ */
 public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<Circle>> {
     public interface CirclesReceiver extends OnAsynHttpError{
         void receiveCircles(List<Circle> result);
@@ -37,15 +39,15 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
     }
 
     @Override
-    protected List<Circle> doInBackground(String... strings) {
+    List<Circle> concreteOperation(String... params) throws Exception {
         HttpGet httpGet = getGetOperation("circle");
 
         List<Circle> result=new ArrayList<Circle>();
-        try {
+
             HttpResponse response = httpClient.execute(httpGet, localContext);
 
             checkResponseStatus(response.getStatusLine().getStatusCode());
-        
+
             HttpEntity entity = response.getEntity();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
@@ -59,18 +61,10 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
                 Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"));
                 result.add(circle);
             }
-        } catch (JSONException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (UnsupportedEncodingException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(datas_corrupted));
-        } catch (ClientProtocolException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        } catch (IOException e) {
-            throw new AsyncCallerServiceException(getErrorMessage(connection_problem));
-        }
 
-        return result;  //To change body of implemented methods use File | Settings | File Templates.
+        return result;
     }
+
     @Override
     protected void onPostExecute(List<Circle> result){
        hascircles.receiveCircles(result);
