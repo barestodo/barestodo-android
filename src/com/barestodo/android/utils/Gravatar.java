@@ -10,11 +10,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Created with IntelliJ IDEA.
- * User: hp008
- * Date: 13/03/13
- * Time: 07:48
- * To change this template use File | Settings | File Templates.
+ * permet d'interragir avec Gravatar, le site d'avatars
  */
 public class Gravatar {
 
@@ -23,23 +19,46 @@ public class Gravatar {
         new RetreiveGravatarTask(stamp,img).execute();
     }
 
+    public static void setImageContentWithGravatar(ImageView img, String email,int size) throws IOException {
+        String stamp= Crypto.toMD5(email);
+        new RetreiveGravatarTask(stamp,img,size).execute();
+    }
+
+
     static class RetreiveGravatarTask extends AsyncTask<String, Void, Bitmap> {
 
-        private Exception exception;
         private final String stamp;
         private final ImageView imageView;
+        private final int size;
 
-        public RetreiveGravatarTask(String stamp,ImageView view)  {
-            this.stamp=stamp;
-            this.imageView=view;
+        /**
+         * cré une tâche asynchrone pour retrouver une image sur le site gravatar (avec un tailel de 80 par defaut)
+         * @param stamp empreinte de l'adresse mail de l'utilisateur dont on souhaite récupérer le profil
+         * @param image l'image view dotn il faut setter la source.
+         */
+        public RetreiveGravatarTask(String stamp,ImageView image)  {
+            this(stamp, image,80);
         }
+        /**
+         * cré une tâche asynchrone pour retrouver une image sur le site gravatar
+         * @param stamp empreinte de l'adresse mail de l'utilisateur dont on souhaite récupérer le profil
+         * @param image l'image view dotn il faut setter la source.
+         * @param size  la taile de l'image (la longueur en px d'un coté du carré)
+         *
+         */
+        public RetreiveGravatarTask(String stamp,ImageView image,int size)  {
+            this.stamp=stamp;
+            this.imageView=image;
+            this.size=size;
+        }
+
         protected Bitmap doInBackground(String... urls) {
             try {
-                String avatarUrl="http://www.gravatar.com/avatar/".concat(stamp).concat("?d=wavatar");
-                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(avatarUrl).getContent());
+                StringBuilder builder=new StringBuilder("http://www.gravatar.com/avatar/").append(stamp);
+                builder.append("?d=wavatar").append("&s=").append(size);
+                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(builder.toString()).getContent());
                 return bitmap;
             } catch (Exception e) {
-                this.exception = e;
                 return null;
             }
         }
