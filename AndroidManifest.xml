@@ -34,10 +34,11 @@
             android:launchMode="singleTask" >
         </activity>
        
-        <activity android:name="com.barestodo.android.CirclesListActivity" />
-         <activity android:name="com.barestodo.android.CircleMemberActivity" />
-        <activity android:name="com.barestodo.android.CirclePlacesListActivity" />
-        <activity
+       <activity android:name="com.barestodo.android.CirclesListActivity" />
+       <activity android:name="com.barestodo.android.CircleMemberActivity" />
+       <activity android:name="com.barestodo.android.CirclePlacesListActivity" />
+       <activity android:name="com.barestodo.android.AddPlaceToCircleActivity" />
+       <activity
             android:name="com.barestodo.android.CircleContentActivity"
             android:label="@string/title_activity_circle_content"
             android:parentActivityName="android.app.TabActivity" >

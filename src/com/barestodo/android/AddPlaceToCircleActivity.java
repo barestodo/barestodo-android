@@ -41,19 +41,14 @@ public class AddPlaceToCircleActivity extends Activity {
 		validateAdd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-				try{
-					validateAdd();
-					finish();
-			        }catch(AsyncCallerServiceException e){
-			            Toast.makeText(AddPlaceToCircleActivity.this,
-			                    getResources().getText(R.string.error_place_creation),
-			                    Toast.LENGTH_LONG).show();
-			        }catch (Exception e) {
+			try{
+				validateAdd();
+				finish();
+			}catch (Exception e) {
 			        	Toast.makeText(AddPlaceToCircleActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
 			                    Toast.LENGTH_LONG).show();
-					}
+            }
 			}
 		});
 	}

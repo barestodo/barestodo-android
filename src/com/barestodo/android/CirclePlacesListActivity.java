@@ -31,13 +31,9 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		Bundle b = getIntent().getExtras();
-		
+        Bundle b = getIntent().getExtras();
 		circle = (Circle)b.get(CircleListAdapteur.CIRCLE_TO_SHOW);
-
-
-		initiateActivity();
+        initiateActivity();
 	}
 
 	@Override
@@ -45,8 +41,7 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 		try{
 			placeListAdapter.notifyDataSetChanged();
 			super.onResume();
-
-		}catch(Exception e){
+        }catch(Exception e){
 			Toast.makeText(CirclePlacesListActivity.this,e.getMessage(),
 					Toast.LENGTH_LONG).show();
 		}
@@ -65,8 +60,7 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(CirclePlacesListActivity.this,
-						AddPlaceToCircleActivity.class);
+				Intent intent = new Intent(CirclePlacesListActivity.this,AddPlaceToCircleActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -96,6 +90,7 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 
     @Override
     public void onError(HttpStatus status) {
-        //TODO toaster une erreur
+        Toast.makeText(CirclePlacesListActivity.this,status.getErrorMessage(),
+                Toast.LENGTH_LONG).show();
     }
 }
