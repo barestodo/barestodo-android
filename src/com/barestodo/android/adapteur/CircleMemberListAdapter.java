@@ -17,8 +17,7 @@ import com.barestodo.android.utils.Gravatar;
 
 public class CircleMemberListAdapter  extends BaseAdapter {
 	
-	private static final String TAG = CircleMemberListAdapter.class.getSimpleName();
-	List<Member> listMember=new ArrayList<Member>();
+	private List<Member> listMember=new ArrayList<Member>();
 
     @Override
     public long getItemId(int i) {

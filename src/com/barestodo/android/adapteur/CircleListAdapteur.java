@@ -20,14 +20,10 @@ import java.util.List;
 public class CircleListAdapteur extends BaseAdapter {
 
     public static final String CIRCLE_TO_SHOW = "circleToShow";
-    private static final String TAG = CircleListAdapteur.class.getSimpleName();
 
     private List<Circle> circles=new ArrayList<Circle>();
 
 
-    public void addAll(Collection<Circle> items){
-        circles.addAll(items);
-    }
 
     @Override
     public boolean areAllItemsEnabled() {

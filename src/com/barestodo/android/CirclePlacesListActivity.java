@@ -23,13 +23,10 @@ import java.util.List;
 public class CirclePlacesListActivity extends Activity implements AsyncRetrievePlacesOperation.CirclePlacesReceiver {
 
 
-	public ImageButton addButton;
-	public ListView listView;
-	public Circle circle;
-
-    //TODO private
-
-	public CirclePlaceListAdapter placeListAdapter;
+	private ImageButton addButton;
+	private ListView listView;
+	private Circle circle;
+	private CirclePlaceListAdapter placeListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

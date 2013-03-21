@@ -19,7 +19,6 @@ import com.barestodo.android.place.Place;
 
 public class CirclePlaceListAdapter extends BaseAdapter {
 
-    private static final String TAG = CirclePlaceListAdapter.class.getSimpleName();
     private List<Place> listPlace = new ArrayList<Place>();
 
 

@@ -15,9 +15,9 @@ import com.barestodo.android.exception.AsyncCallerServiceException;
 
 public class AddPlaceToCircleActivity extends Activity {
 
-	EditText editLabel;
-	EditText editLocation;
-	ImageButton validateAdd;
+	private EditText editLabel;
+	private EditText editLocation;
+	private ImageButton validateAdd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

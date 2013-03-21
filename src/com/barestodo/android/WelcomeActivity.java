@@ -26,7 +26,7 @@ import static com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperati
 
 public class WelcomeActivity extends Activity implements UserNameReceiver,UserRegistrationReceiver {
 
-    public String userName;
+    private String userName;
 
 
     public void onCreate(Bundle savedInstanceState) {
