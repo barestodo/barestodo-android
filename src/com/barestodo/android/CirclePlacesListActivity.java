@@ -14,16 +14,20 @@ import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CirclePlaceListAdapter;
 import com.barestodo.android.place.Circle;
+import com.barestodo.android.place.Place;
+import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
+import com.barestodo.android.service.tasks.HttpStatus;
 
-public class CirclePlacesListActivity extends Activity {
+import java.util.List;
 
-	//private IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
+public class CirclePlacesListActivity extends Activity implements AsyncRetrievePlacesOperation.CirclePlacesReceiver {
+
 
 	public ImageButton addButton;
 	public ListView listView;
 	public Circle circle;
 
-
+    //TODO private
 
 	public CirclePlaceListAdapter placeListAdapter;
 
@@ -36,7 +40,7 @@ public class CirclePlacesListActivity extends Activity {
 		circle = (Circle)b.get(CircleListAdapteur.CIRCLE_TO_SHOW);
 
 
-		iniateActivity();
+		initiateActivity();
 	}
 
 	@Override
@@ -72,23 +76,29 @@ public class CirclePlacesListActivity extends Activity {
 	}
 
 
-	private void iniateActivity(){
+	private void initiateActivity(){
 
-
-		Log.d("Id du cercle", circle.getId().toString());
-		if (circle != null){
-			placeListAdapter = new CirclePlaceListAdapter(circle.getId());
-		}
+        Log.d("Id du cercle", circle.getId().toString());
+		placeListAdapter = new CirclePlaceListAdapter();
+		new AsyncRetrievePlacesOperation(circle.getId(),this).execute();
 
 		setContentView(R.layout.activity_circle_places_list);
-		/*
-        listView = (ListView) findViewById(R.id.listView1);
 
-        initListView();*/
 		listView = (ListView) findViewById(R.id.placesListView);
 		listView.setAdapter(placeListAdapter);
 
 		addButton = (ImageButton) findViewById(R.id.addPlaceImageButton);
 		initAddButton();
 	}
+
+    @Override
+    public void receivePlaces(List<Place> places) {
+        placeListAdapter.addAll(places);
+        listView.invalidateViews();
+    }
+
+    @Override
+    public void onError(HttpStatus status) {
+        //TODO toaster une erreur
+    }
 }

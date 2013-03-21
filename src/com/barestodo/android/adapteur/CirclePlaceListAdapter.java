@@ -1,5 +1,6 @@
 package com.barestodo.android.adapteur;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -14,19 +15,13 @@ import android.widget.TextView;
 import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Place;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
 
 
 public class CirclePlaceListAdapter extends BaseAdapter {
-	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
-	
-    private static final String TAG = CirclePlaceListAdapter.class.getSimpleName();
-    List<Place> listPlace ;
 
-    public CirclePlaceListAdapter(Long circleId) {
-        listPlace=placeRepository.getListPlace(circleId);
-    }
+    private static final String TAG = CirclePlaceListAdapter.class.getSimpleName();
+    private List<Place> listPlace = new ArrayList<Place>();
+
 
     @Override
     public int getCount() {
@@ -78,6 +73,15 @@ public class CirclePlaceListAdapter extends BaseAdapter {
             }
         });
         return view;
+    }
+
+    public void addAll(List<Place> places) {
+        listPlace.addAll(places);
+    }
+
+    public void set(List<Place> places) {
+        listPlace.clear();
+        listPlace.addAll(places);
     }
 }
 

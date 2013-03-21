@@ -69,9 +69,13 @@ public class AsyncRetrieveMembersOperation extends AbstractAsyncTask<String, Voi
         return result;
     }
 
-    @Override
+   @Override
     protected void onPostExecute(List<Member> result){
-        receiver.receiveMembers(result);
+        if(hasFail()){
+            receiver.onError(getRequestStatus());
+        }else{
+            receiver.receiveMembers(result);
+        }
     }
 
 

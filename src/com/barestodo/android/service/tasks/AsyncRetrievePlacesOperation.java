@@ -4,6 +4,8 @@ import android.R;
 import android.content.res.Resources;
 import android.util.Log;
 import com.barestodo.android.exception.AsyncCallerServiceException;
+import com.barestodo.android.place.Circle;
+import com.barestodo.android.place.Member;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,11 +29,16 @@ import java.util.List;
  */
 public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void, List<Place>> {
 
+    public interface CirclePlacesReceiver extends OnAsynHttpError{
+        void receivePlaces(List<Place> members);
+    }
 
     private final Long circleId;
+    private CirclePlacesReceiver receiver;
 
-    public AsyncRetrievePlacesOperation(Long circleId){
+    public AsyncRetrievePlacesOperation(Long circleId,CirclePlacesReceiver receiver){
         this.circleId=circleId;
+        this.receiver=receiver;
     }
 
 
@@ -61,4 +68,14 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
         }
         return result;
     }
+
+    @Override
+    protected void onPostExecute(List<Place> result){
+        if(hasFail()){
+            receiver.onError(getRequestStatus());
+        }else{
+            receiver.receivePlaces(result);
+        }
+    }
+
 }

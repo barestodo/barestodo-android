@@ -1,6 +1,5 @@
 package com.barestodo.android.adapteur;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -12,23 +11,18 @@ import android.widget.*;
 import com.barestodo.android.CircleContentActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Circle;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
-import com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 //extends ArrayAdapter<PlaceList>
 public class CircleListAdapteur extends BaseAdapter {
 
-    IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
-    private static final String TAG = CircleListAdapteur.class.getSimpleName();
     public static final String CIRCLE_TO_SHOW = "circleToShow";
+    private static final String TAG = CircleListAdapteur.class.getSimpleName();
 
-    List<Circle> circles=new ArrayList<Circle>();
+    private List<Circle> circles=new ArrayList<Circle>();
 
 
     public void addAll(Collection<Circle> items){
@@ -121,5 +115,12 @@ public class CircleListAdapteur extends BaseAdapter {
         return circles.isEmpty();
     }
 
+    public void addAll(List<Circle> circles) {
+        this.circles.addAll(circles);
+    }
 
+    public void set(List<Circle> circles) {
+        this.circles.clear();
+        this.circles.addAll(circles);
+    }
 }

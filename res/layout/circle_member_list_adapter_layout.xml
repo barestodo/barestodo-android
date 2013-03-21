@@ -23,7 +23,7 @@
                     android:paddingLeft="15dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
-                    android:src="@drawable/add_button"
+                    android:src="@drawable/person"
              />
 
             <TextView

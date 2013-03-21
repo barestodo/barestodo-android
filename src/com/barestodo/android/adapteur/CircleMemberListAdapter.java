@@ -5,22 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.widget.ImageView;
-import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Member;
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
 
-import android.content.Intent;
-import android.database.DataSetObserver;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import com.barestodo.android.utils.Gravatar;
 

@@ -10,18 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.barestodo.android.exception.AsyncCallerServiceException;
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
-
 public class PlaceDescriptionActivity extends Activity {
 	
 	private TextView placeLabel;
 	private Button scheduleButton;
 	private String placeId;
 	private String scheduleDate = "2010-01-01";
-	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +45,8 @@ public class PlaceDescriptionActivity extends Activity {
 			public void onClick(View v) {
 				try{
 					Log.d("schedule On click", placeId);
-					placeRepository.scheduleEvent(placeId, scheduleDate);				
-					
+					//placeRepository.scheduleEvent(placeId, scheduleDate);
+					//FIXME fix that, bitch !
 					finish();
 			    }catch (Exception e) {
 			       Toast.makeText(PlaceDescriptionActivity.this,

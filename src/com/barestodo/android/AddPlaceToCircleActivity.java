@@ -11,9 +11,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.barestodo.android.exception.AsyncCallerServiceException;
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.IPlaceRepository;
-import com.barestodo.android.service.RepositoryFactory;
 
 
 public class AddPlaceToCircleActivity extends Activity {
@@ -21,9 +18,7 @@ public class AddPlaceToCircleActivity extends Activity {
 	EditText editLabel;
 	EditText editLocation;
 	ImageButton validateAdd;
-	IPlaceRepository placeRepository = RepositoryFactory.getPlaceRepository();
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +62,8 @@ public class AddPlaceToCircleActivity extends Activity {
 		Log.d("addActivity", editLabel.getText().toString());
         //TODO penser à mettre la place retournée dans la liste (elle a l'id)
         try{
-		placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
+		//placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
+        //FIXME FIX THAT !
         }catch(AsyncCallerServiceException e){
             StringBuilder builder = new StringBuilder(getResources().getText(R.string.error_place_creation));
             builder.append(":").append(e.getMessage());

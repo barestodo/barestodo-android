@@ -27,6 +27,7 @@ import static com.barestodo.android.repository.HttpOperationFactory.getGetOperat
  * retrouve la liste de cercle de l'utilisateur
  */
 public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Void, List<Circle>> {
+
     public interface CirclesReceiver extends OnAsynHttpError{
         void receiveCircles(List<Circle> result);
     }
@@ -44,30 +45,33 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
 
         List<Circle> result=new ArrayList<Circle>();
 
-            HttpResponse response = httpClient.execute(httpGet, localContext);
+        HttpResponse response = httpClient.execute(httpGet, localContext);
 
-            checkResponseStatus(response.getStatusLine().getStatusCode());
+        checkResponseStatus(response.getStatusLine().getStatusCode());
 
-            HttpEntity entity = response.getEntity();
+        HttpEntity entity = response.getEntity();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONObject jsonResponse = new JSONObject(json);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+        String json = reader.readLine();
+        JSONObject jsonResponse = new JSONObject(json);
 
-            JSONArray finalResult = jsonResponse.getJSONArray("Circles");
-            Log.i("JSON", finalResult.toString());
-            for(int index=0;index<finalResult.length();index++){
-                JSONObject jsonPlace = finalResult.getJSONObject(index);
-                Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"));
-                result.add(circle);
-            }
-
+        JSONArray finalResult = jsonResponse.getJSONArray("Circles");
+        Log.i("JSON", finalResult.toString());
+        for(int index=0;index<finalResult.length();index++){
+            JSONObject jsonPlace = finalResult.getJSONObject(index);
+            Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"));
+            result.add(circle);
+        }
         return result;
     }
 
     @Override
     protected void onPostExecute(List<Circle> result){
-       hascircles.receiveCircles(result);
+        if(hasFail()){
+            hascircles.onError(getRequestStatus());
+        }else{
+            hascircles.receiveCircles(result);
+        }
     }
 
 }

@@ -33,7 +33,6 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
 
     protected HttpClient httpClient = new DefaultHttpClient();
     protected HttpContext localContext = new BasicHttpContext();
-    //protected static final String BASE_URL="http://service.barestodo.cloudbees.net/rest/";
 
     public HttpStatus getRequestStatus(){
         return requestStatus;
@@ -46,6 +45,9 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
     protected void checkResponseStatus(int statusCode){
         switch(statusCode){
             case 200:
+            case 201:
+            case 202:
+            case 204:
                 requestStatus=HttpStatus.OK;break;
             case 400:
                 requestStatus=HttpStatus.BAD_REQUEST;
@@ -57,9 +59,8 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
             case 404:
                 requestStatus=HttpStatus.NOT_FOUND;
                 break;
-            case 500:
+            default:
                 requestStatus=HttpStatus.SERVER_ERROR;
-                break;
         }
     }
 
