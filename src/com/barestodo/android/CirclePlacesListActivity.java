@@ -15,15 +15,22 @@ import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CirclePlaceListAdapter;
 import com.barestodo.android.place.Circle;
 import com.barestodo.android.place.Place;
+import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
-public class CirclePlacesListActivity extends Activity implements AsyncRetrievePlacesOperation.CirclePlacesReceiver {
+import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.PlaceReceiver;
+import static com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation.CirclePlacesReceiver;
+
+public class CirclePlacesListActivity extends Activity implements CirclePlacesReceiver {
 
 
-	private ImageButton addButton;
+    public static final String NEW_PLACE_CREATED = "list.place.new";
+    public static final int RETURN_PLACE_ID=12345;
+
+    private ImageButton addButton;
 	private ListView listView;
 	private Circle circle;
 	private CirclePlaceListAdapter placeListAdapter;
@@ -39,8 +46,8 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 	@Override
 	protected void onResume() {
 		try{
-			placeListAdapter.notifyDataSetChanged();
-			super.onResume();
+            super.onResume();
+			placeListAdapter.notifyDataSetInvalidated();
         }catch(Exception e){
 			Toast.makeText(CirclePlacesListActivity.this,e.getMessage(),
 					Toast.LENGTH_LONG).show();
@@ -61,11 +68,26 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(CirclePlacesListActivity.this,AddPlaceToCircleActivity.class);
-				startActivity(intent);
+
+                intent.putExtra(AddPlaceToCircleActivity.CIRCLE_ID,circle.getId())    ;
+                startActivityForResult(intent, RETURN_PLACE_ID);
 			}
 		});
 	}
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (RETURN_PLACE_ID) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Place newPlace = (Place) data.getSerializableExtra(NEW_PLACE_CREATED);
+                    placeListAdapter.add(newPlace);
+                    placeListAdapter.notifyDataSetInvalidated();
+                }
+                break;
+            }
+        }
+    }
 
 	private void initiateActivity(){
 
@@ -93,4 +115,6 @@ public class CirclePlacesListActivity extends Activity implements AsyncRetrieveP
         Toast.makeText(CirclePlacesListActivity.this,status.getErrorMessage(),
                 Toast.LENGTH_LONG).show();
     }
+
+
 }

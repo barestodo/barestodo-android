@@ -13,17 +13,14 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.UnknownHostException;
 
 import static com.barestodo.android.R.string.*;
 import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
 
-public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTask<Params,Progress,Results> {
+public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTask<Params,Progress,Results> implements Serializable {
 
     public interface OnAsynHttpError {
         void onError(HttpStatus status);

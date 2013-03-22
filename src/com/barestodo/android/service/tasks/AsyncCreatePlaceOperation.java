@@ -1,24 +1,17 @@
 package com.barestodo.android.service.tasks;
 
-import android.util.Log;
-import com.barestodo.android.exception.AsyncCallerServiceException;
 import com.barestodo.android.place.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPut;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.List;
 
-import static com.barestodo.android.R.string.connection_problem;
-import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
 
 /**
@@ -26,11 +19,20 @@ import static com.barestodo.android.repository.HttpOperationFactory.getPutOperat
  */
 public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, Place> {
 
-    private Place place;
-
-    public AsyncCreatePlaceOperation(Place place){
-        this.place=place;
+    public interface PlaceReceiver extends OnAsynHttpError,Serializable{
+        void receivePlace(Place place);
     }
+
+    private Place place;
+    private PlaceReceiver placeReceiver;
+    private Long circleId;
+
+    public AsyncCreatePlaceOperation(Long circleId,Place place,PlaceReceiver receiver){
+        this.place=place;
+        this.placeReceiver=receiver;
+        this.circleId=circleId;
+    }
+
 
     @Override
     Place concreteOperation(String... params) throws Exception {
@@ -46,14 +48,20 @@ public class AsyncCreatePlaceOperation extends AbstractAsyncTask<String, Void, P
         return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
     }
 
+    @Override
+    protected void onPostExecute(Place result){
+        if(hasFail()){
+            placeReceiver.onError(getRequestStatus());
+        }else{
+            placeReceiver.receivePlace(result);
+        }
+    }
 
     private String constructSafeUrl(Place place) throws UnsupportedEncodingException {
         StringBuilder url=new StringBuilder(place.getName())
         .append("/")
         .append(place.getLocation()) ;
-
-        String safeUrl="place/".concat(url.toString().replace(" ","%20"));
-
+        String safeUrl="circle/".concat(String.valueOf(circleId)).concat("/place/").concat(url.toString().replace(" ","%20"));
         return safeUrl;
     }
-}
+}      // /rest/circle/:circleId/place/:name/:location

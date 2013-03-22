@@ -55,5 +55,7 @@
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <!-- pour enregistrer la place ??? WTF TODO tirer ça au clair -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
 
 </manifest>

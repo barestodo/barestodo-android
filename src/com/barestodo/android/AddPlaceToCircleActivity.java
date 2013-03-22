@@ -1,6 +1,7 @@
 package com.barestodo.android;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,15 +12,23 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.barestodo.android.exception.AsyncCallerServiceException;
+import com.barestodo.android.place.Place;
+import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
+import com.barestodo.android.service.tasks.HttpStatus;
+
+import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.PlaceReceiver;
 
 
-public class AddPlaceToCircleActivity extends Activity {
+public class AddPlaceToCircleActivity extends Activity implements PlaceReceiver {
+
+    public static final String CIRCLE_ID="circle.id";
 
 	private EditText editLabel;
 	private EditText editLocation;
 	private ImageButton validateAdd;
+    private Long circleId;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_place_to_circle);
@@ -27,7 +36,9 @@ public class AddPlaceToCircleActivity extends Activity {
 		editLabel = (EditText)findViewById(R.id.nameEdit);
 		editLocation = (EditText)findViewById(R.id.editLocation);
 		validateAdd  = (ImageButton)findViewById(R.id.validateAddButton);
-		initValidateButton();
+        Bundle b = getIntent().getExtras();
+        circleId=b.getLong(CIRCLE_ID);
+    	initValidateButton();
 	}
 
 	@Override
@@ -43,7 +54,6 @@ public class AddPlaceToCircleActivity extends Activity {
 			public void onClick(View v) {
 			try{
 				validateAdd();
-				finish();
 			}catch (Exception e) {
 			        	Toast.makeText(AddPlaceToCircleActivity.this,
 			                    getResources().getText(R.string.error_place_creation),
@@ -55,15 +65,21 @@ public class AddPlaceToCircleActivity extends Activity {
 	
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
-        //TODO penser à mettre la place retournée dans la liste (elle a l'id)
-        try{
-		//placeRepository.addPlace(new Place(editLabel.getText().toString(),editLocation.getText().toString()));
-        //FIXME FIX THAT !
-        }catch(AsyncCallerServiceException e){
-            StringBuilder builder = new StringBuilder(getResources().getText(R.string.error_place_creation));
-            builder.append(":").append(e.getMessage());
-            Toast.makeText(AddPlaceToCircleActivity.this,builder.toString(),Toast.LENGTH_LONG).show();
-        }
+        new AsyncCreatePlaceOperation(circleId,new Place(editLabel.getText().toString(),editLocation.getText().toString()),this).execute();
     }
 
+    @Override
+    public void receivePlace(Place place) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(CirclePlacesListActivity.NEW_PLACE_CREATED,place);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+    }
+
+    @Override
+    public void onError(HttpStatus status) {
+        Toast.makeText(AddPlaceToCircleActivity.this,
+                getResources().getText(R.string.error_place_creation),
+                Toast.LENGTH_LONG).show();
+    }
 }

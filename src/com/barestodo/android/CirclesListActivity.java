@@ -11,11 +11,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.place.Circle;
+import com.barestodo.android.place.Place;
+import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
+import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.*;
 import static com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation.CirclesReceiver;
 
 
@@ -24,7 +27,7 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
     private ListView listView;
     private ImageButton addButton;
     private CircleListAdapteur circleListAdapter;
-
+    private int nbTry=0;
 
     public void onCreate(Bundle savedInstanceState) {
         retrieveCircles();
@@ -55,8 +58,12 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
 
     @Override
     public void onError(HttpStatus status) {
-        Toast.makeText(CirclesListActivity.this, "Impossible de retrouver vos cercles (nous reéssayons)",
+        Toast.makeText(CirclesListActivity.this, "Problème de communication avec le server",
                 Toast.LENGTH_LONG).show();
+       if(nbTry<3){
         retrieveCircles();
+        nbTry++;
+       }
     }
+
 }

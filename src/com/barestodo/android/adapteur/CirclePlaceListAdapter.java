@@ -82,5 +82,9 @@ public class CirclePlaceListAdapter extends BaseAdapter {
         listPlace.clear();
         listPlace.addAll(places);
     }
+
+    public void add(Place place) {
+        listPlace.add(place);
+    }
 }
 
