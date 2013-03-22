@@ -3,35 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddPlaceActivity" >
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
-    </LinearLayout>
- 
+    <TextView
+            android:id="@+id/addPlaceTitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="5px"
+            android:ems="20"
+            android:text="@string/addPlaceTitleLabel">
+    </TextView>
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:ems="10"
+            android:paddingTop="30px"
+            android:text="@string/addPlaceNameLabel">
+   </TextView>
     <EditText
-        android:id="@+id/editLabel"
-        android:layout_width="wrap_content"
+        android:id="@+id/nameEdit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
 
+    <TextView
+            android:id="@+id/locationLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:ems="10"
+            android:paddingTop="30px"
+            android:text="@string/addPlaceLocationLabel">
+    </TextView>
     <EditText
         android:id="@+id/editLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editLabel"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/nameEdit"
         android:ems="10" />
 
    
@@ -46,6 +66,9 @@
         android:contentDescription="@string/check_img_desc"
         android:gravity="center_horizontal"
         android:paddingBottom="15dp"
+        android:paddingTop="20px"
         android:src="@drawable/check_button" />
+
+    </LinearLayout>
 
 </RelativeLayout>

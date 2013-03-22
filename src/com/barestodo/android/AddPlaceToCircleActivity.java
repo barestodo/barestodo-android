@@ -24,7 +24,7 @@ public class AddPlaceToCircleActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_place_to_circle);
 	   
-		editLabel = (EditText)findViewById(R.id.editLabel);
+		editLabel = (EditText)findViewById(R.id.nameEdit);
 		editLocation = (EditText)findViewById(R.id.editLocation);
 		validateAdd  = (ImageButton)findViewById(R.id.validateAddButton);
 		initValidateButton();
