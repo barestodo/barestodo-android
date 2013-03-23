@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPlaceActivity" >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+    <TextView
+            android:id="@+id/addCircleTitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="5px"
+            android:ems="20"
+            android:text="@string/addCircleTitleLabel">
+    </TextView>
+
+        <TextView
+            android:id="@+id/circleNameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:ems="10"
+            android:paddingTop="30px"
+            android:text="@string/addCircleNameLabel">
+   </TextView>
+    <EditText
+        android:id="@+id/circleNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/validateAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editLocation"
+        android:background="@null"
+        android:contentDescription="@string/check_img_desc"
+        android:gravity="center_horizontal"
+        android:paddingBottom="15dp"
+        android:paddingTop="20px"
+        android:src="@drawable/check_button" />
+
+    </LinearLayout>
+
+</RelativeLayout>

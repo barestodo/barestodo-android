@@ -114,6 +114,9 @@ public class CircleListAdapteur extends BaseAdapter {
     public void addAll(List<Circle> circles) {
         this.circles.addAll(circles);
     }
+    public void add(Circle circle) {
+        this.circles.add(circle);
+    }
 
     public void set(List<Circle> circles) {
         this.circles.clear();

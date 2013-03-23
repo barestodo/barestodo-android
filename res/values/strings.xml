@@ -21,5 +21,9 @@
     <string name="addPlaceNameLabel">Nom</string>
     <string name="addPlaceLocationLabel">Dans quel coin ?</string>
     <string name="addPlaceTitleLabel">Partagez une idée !</string>
+    <string name="addCircleTitleLabel">Quel thème pour votre cercle ?</string>
+    <string name="addCircleNameLabel">Nom</string>
+    <string name="addCircleDescriptionLabel">Description</string>
+    <string name="error_circle_creation">cercle non enregistré</string>
 
 </resources>
