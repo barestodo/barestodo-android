@@ -26,7 +26,7 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
         void onError(HttpStatus status);
     }
 
-    private HttpStatus requestStatus;
+    protected HttpStatus requestStatus;
 
     protected HttpClient httpClient = new DefaultHttpClient();
     protected HttpContext localContext = new BasicHttpContext();

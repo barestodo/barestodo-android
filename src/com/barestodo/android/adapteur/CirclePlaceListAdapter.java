@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.joda.time.DateTime;
+import org.ocpsoft.prettytime.PrettyTime;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,6 +77,7 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 
 		final String placeName = place.getName();
 		final String placeLocation = place.getLocation();
+		final DateTime placeScheduleDate = place.getScheduleDate();
 
 
 		TextView textName = (TextView) view.findViewById(R.id.nameText);
@@ -82,6 +87,14 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 		TextView textLocation = (TextView) view.findViewById(R.id.locationText);
 		textLocation.setText(placeLocation);
 		textLocation.setTypeface(null,Typeface.ITALIC);
+
+		if (placeScheduleDate != null){
+			TextView textScheduleDate = (TextView) view.findViewById(R.id.scheduleDate);
+			PrettyTime p = new PrettyTime();
+			textScheduleDate.setText(p.format(placeScheduleDate.toDate()));
+			textScheduleDate.setTypeface(null,Typeface.BOLD_ITALIC);
+			view.setBackgroundColor(Color.GREEN);
+		}
 
 		placeId = place.getId();
 		// button click listener
@@ -130,8 +143,8 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 					public void onClick(DialogInterface dialog, int which) {
 						new AsyncDeletePlaceOperation(placeId).execute();
 						listPlace.remove(place);
-						}}
-					)
+					}}
+						)
 						.setNegativeButton(R.string.deletion_cancel, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
 

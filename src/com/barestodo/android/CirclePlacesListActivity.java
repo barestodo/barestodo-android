@@ -112,7 +112,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     @Override
     public void onError(HttpStatus status) {
-        Toast.makeText(CirclePlacesListActivity.this,status.getErrorMessage(),
+        Toast.makeText(CirclePlacesListActivity.this,status.name(),
                 Toast.LENGTH_LONG).show();
     }
 
