@@ -1,6 +1,8 @@
 package com.barestodo.android.repository;
 
 import com.barestodo.android.security.IdentificationManager;
+
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -26,6 +28,12 @@ public abstract class HttpOperationFactory {
         HttpPut httpPut = new HttpPut(BASE_URL.concat(resource));
         httpPut.setHeader("ident", IdentificationManager.INSTANCE.getToken());
         return httpPut;
+    }
+    
+    public static HttpDelete getDeleteOperation(String resource){
+    	HttpDelete httpDelete = new HttpDelete(BASE_URL.concat(resource));
+    	httpDelete.setHeader("ident", IdentificationManager.INSTANCE.getToken());
+        return httpDelete;
     }
 
     public static HttpPost getPostOperation(String resource){

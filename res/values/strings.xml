@@ -7,7 +7,7 @@
     <string name="schedule_label">Planifier">Ajouter un lieu</string>
     <string name="validate_add">Validate</string>
     <string name="add_label">Ajouter</string>
-    <string name="detail_img_desc">Détails</string>
+    <string name="delete_img_desc">Détails</string>
     <string name="add_img_desc">Détails</string>
     <string name="check_img_desc">Voir</string>
     <string name="title_activity_places_list">Lieux</string>
@@ -25,5 +25,7 @@
     <string name="addCircleNameLabel">Nom</string>
     <string name="addCircleDescriptionLabel">Description</string>
     <string name="error_circle_creation">cercle non enregistré</string>
-
+    <string name="deletion_confirmation">Supprimer ?</string>
+	<string name="deletion_ok">oui</string>
+	<string name="deletion_cancel">non</string>
 </resources>

@@ -5,14 +5,14 @@ import com.barestodo.android.app.MyApplication;
 
 
 public class IdentificationManager {
-    private boolean runOnVm =false;
+    private boolean runOnVm =true;
 
     public static final IdentificationManager INSTANCE=new IdentificationManager();
     private String token;
 
     private IdentificationManager(){
         if(runOnVm){
-            token="jean@bidule.net";
+            token="aricdestroy@gmail.com";
         }else{
             retrieveToken();
         }
