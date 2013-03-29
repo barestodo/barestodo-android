@@ -19,6 +19,8 @@ public class Circle implements Serializable {
 
     private List<User> members;
 
+    private int nbMembers;
+    private int nbPlaces;
 
     public Circle(String name){
         super();
@@ -29,13 +31,28 @@ public class Circle implements Serializable {
         this.name=name;
         this.id=id;
     }
+    public Circle(long id,String name,int nbPlaces,int nbMembers){
+        super();
+        this.name=name;
+        this.id=id;
+        this.nbMembers=nbMembers;
+        this.nbPlaces=nbPlaces;
+    }
 
 
     public String getName() {
         return name;
     }
-    
+
     public Long getId() {
         return id;
+    }
+
+    public int getPlaceCount() {
+        return nbPlaces;
+    }
+
+    public int getMemberCount() {
+        return nbMembers;
     }
 }
