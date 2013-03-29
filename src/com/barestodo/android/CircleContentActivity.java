@@ -4,7 +4,6 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TabHost;
 
 public class CircleContentActivity extends TabActivity {
@@ -32,7 +31,7 @@ public class CircleContentActivity extends TabActivity {
         spec = tabHost
                 .newTabSpec("Lieux")
                 .setIndicator("Lieux",
-                        res.getDrawable(R.drawable.ideas))
+                        res.getDrawable(R.drawable.check))
                 .setContent(intent);
         
        
@@ -44,7 +43,7 @@ public class CircleContentActivity extends TabActivity {
         spec = tabHost
                 .newTabSpec("Membres")
                 .setIndicator("Membres",
-                        res.getDrawable(R.drawable.people))
+                        res.getDrawable(R.drawable.users))
                 .setContent(intent);
         tabHost.addTab(spec);
  
