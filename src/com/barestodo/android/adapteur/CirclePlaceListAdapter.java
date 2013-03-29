@@ -22,14 +22,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.barestodo.android.PlaceDescriptionActivity;
 import com.barestodo.android.R;
 import com.barestodo.android.place.Place;
 import com.barestodo.android.service.tasks.AsyncDeletePlaceOperation;
+import com.barestodo.android.service.tasks.AsyncSchedulePlaceOperation;
 
 
 public class CirclePlaceListAdapter extends BaseAdapter {
@@ -71,8 +74,6 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 			view = inflater.inflate(R.layout.circle_place_list_adapter_layout, parent, false);
 		}
 
-		
-		
 		final Place place = listPlace.get(index);
 
 		final String placeName = place.getName();
@@ -104,38 +105,6 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				/*
-				// TODO Auto-generated method stub
-				confirmDeletionDialog = new Dialog(parent.getContext());
-				confirmDeletionDialog.setContentView(R.layout.confirm_deletion_dialog);
-				confirmDeletionDialog.setTitle(R.string.deletion_confirmation);
-
-				deletionPLaceName=(TextView)confirmDeletionDialog.findViewById(R.id.place_to_delate_name);
-				deletionPLaceName.setText(placeLocation);
-
-				deletionPLaceLocation=(TextView)confirmDeletionDialog.findViewById(R.id.place_to_delete_location);
-				deletionPLaceLocation.setText(placeLocation);
-
-				validateDeletion=(Button)confirmDeletionDialog.findViewById(R.id.button_confirm_place_deletion);
-				validateDeletion.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						confirmDeletionDialog.cancel();
-					}
-				});
-				cancelDeletion=(Button)confirmDeletionDialog.findViewById(R.id.button_cancel_place_deletion);
-				cancelDeletion.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						confirmDeletionDialog.cancel();
-					}
-				});
-
-				confirmDeletionDialog.show();*/
-
-
 				AlertDialog deleteDialog = new AlertDialog.Builder(parent.getContext())
 				.setMessage(R.string.deletion_confirmation)
 				.setTitle(placeName)
@@ -155,6 +124,51 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 				deleteDialog.show();
 			}
 		});
+		
+		view.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				final Dialog myDialog = new Dialog(parent.getContext());
+                myDialog.setContentView(R.layout.dialog_schedule_place);
+                myDialog.setTitle("My Custom Dialog Title");
+                TextView placeNameTV=(TextView)myDialog.findViewById(R.id.place_to_schedule_name);
+                placeNameTV.setText(placeName);
+                TextView placeLocationTV=(TextView)myDialog.findViewById(R.id.place_to_schedule_name);
+                placeLocationTV.setText(placeLocation);
+                
+                final DatePicker scheduleDP = (DatePicker)myDialog.findViewById(R.id.place_to_schedule_datepicker);
+                Button confirm_button=(Button)myDialog.findViewById(R.id.button_confirm_place_schedule);
+                confirm_button.setOnClickListener(new OnClickListener() {
+                    @Override
+                     public void onClick(View v) {
+                           Toast.makeText(parent.getContext(), "Scheduling de la plce au"+scheduleDP.getDrawingTime(), Toast.LENGTH_SHORT).show();
+                           System.out.println(scheduleDP.getYear());
+                           System.out.println(scheduleDP.getMonth());
+                           System.out.println();
+                           DateTime sendDT = new DateTime(scheduleDP.getYear(),scheduleDP.getMonth()+1,scheduleDP.getDayOfMonth(),0,0);
+                           
+                           
+                           
+                           new AsyncSchedulePlaceOperation(placeId, sendDT).execute();
+                           myDialog.dismiss();
+                           
+                     }
+               });
+                
+                Button cancel_button=(Button)myDialog.findViewById(R.id.button_cancel_place_schedule);
+                cancel_button.setOnClickListener(new OnClickListener() {
+                     @Override
+                      public void onClick(View v) {
+                            // TODO Auto-generated method stub
+                            myDialog.cancel();
+                      }
+                });
+                myDialog.show();	
+			}
+		});
+		
+		
 		return view;
 	}
 
