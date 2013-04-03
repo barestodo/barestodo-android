@@ -3,21 +3,14 @@ package com.barestodo.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.*;
 import com.barestodo.android.security.IdentificationManager;
 import com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation;
 import com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
-import com.barestodo.android.utils.Crypto;
 import com.barestodo.android.utils.Gravatar;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import static com.barestodo.android.R.drawable.detail_button;
 import static com.barestodo.android.service.tasks.AsyncRetrieveCurrentUserNameOperation.UserNameReceiver;
@@ -27,20 +20,21 @@ import static com.barestodo.android.service.tasks.AsyncSetCurrentUserNameOperati
 public class WelcomeActivity extends Activity implements UserNameReceiver,UserRegistrationReceiver {
 
     private String userName;
+    private Bitmap avatarBitmap;
 
 
     public void onCreate(Bundle savedInstanceState) {
         try{
-                super.onCreate(savedInstanceState);
-
-                AsyncRetrieveCurrentUserNameOperation operation=new AsyncRetrieveCurrentUserNameOperation(this);
-                operation.execute();
-
-                setContentView(R.layout.activity_welcome);
-                ImageView img= (ImageView) findViewById(R.id.avatar);
-                String email=IdentificationManager.INSTANCE.getEmail();
-                Gravatar.setImageContentWithGravatar(img, email,200);
-
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_welcome);
+            ImageView img= (ImageView) findViewById(R.id.avatar);
+            String email= IdentificationManager.INSTANCE.getEmail();
+            if(userName==null){
+               AsyncRetrieveCurrentUserNameOperation operation=new AsyncRetrieveCurrentUserNameOperation(this);
+               operation.execute();
+                avatarBitmap= Gravatar.getSyncGravatarImage(email, 200);
+                img.setImageBitmap(avatarBitmap);
+            }
         }catch(Exception e){
             Toast.makeText(WelcomeActivity.this, "désarmement des tobogans",
                     Toast.LENGTH_LONG).show();

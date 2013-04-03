@@ -28,4 +28,6 @@
     <string name="deletion_confirmation">Supprimer ?</string>
 	<string name="deletion_ok">oui</string>
 	<string name="deletion_cancel">non</string>
+    <string name="invitePeopleTitle">Invite un amis dans ton cercle</string>
+
 </resources>

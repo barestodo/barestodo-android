@@ -48,6 +48,7 @@
                 android:value="android.app.TabActivity" />
         </activity>
        <activity android:name=".WelcomeActivity" android:label="welcome"/>
+       <activity android:name=".InvitePeopleActivity" android:label="Inviter un amis"/>
    </application>
 
     <!-- Pour télécharger images gravatar -->

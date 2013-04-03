@@ -24,11 +24,20 @@ public class Gravatar {
         new RetreiveGravatarTask(stamp,img,size).execute();
     }
 
+    public static Bitmap getSyncGravatarImage(String email,int size) throws IOException {
+        String stamp= Crypto.toMD5(email);
+        try {
+            return new RetreiveGravatarTask(stamp,size).execute().get();
+        }catch(Exception e){
+            return null;
+        }
+    }
+
 
     static class RetreiveGravatarTask extends AsyncTask<String, Void, Bitmap> {
 
         private final String stamp;
-        private final ImageView imageView;
+        private ImageView imageView;
         private final int size;
 
         /**
@@ -39,6 +48,7 @@ public class Gravatar {
         public RetreiveGravatarTask(String stamp,ImageView image)  {
             this(stamp, image,80);
         }
+
         /**
          * cré une tâche asynchrone pour retrouver une image sur le site gravatar
          * @param stamp empreinte de l'adresse mail de l'utilisateur dont on souhaite récupérer le profil
@@ -49,6 +59,11 @@ public class Gravatar {
         public RetreiveGravatarTask(String stamp,ImageView image,int size)  {
             this.stamp=stamp;
             this.imageView=image;
+            this.size=size;
+        }
+
+        public RetreiveGravatarTask(String stamp,int size)  {
+            this.stamp=stamp;
             this.size=size;
         }
 
@@ -64,7 +79,9 @@ public class Gravatar {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
-            imageView.setImageBitmap(bitmap);
+           if(imageView!=null){
+               imageView.setImageBitmap(bitmap);
+           }
         }
     }
 

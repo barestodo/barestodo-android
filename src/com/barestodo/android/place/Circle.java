@@ -22,6 +22,9 @@ public class Circle implements Serializable {
     private int nbMembers;
     private int nbPlaces;
 
+    private Circle(){
+
+    }
     public Circle(String name){
         super();
         this.name=name;

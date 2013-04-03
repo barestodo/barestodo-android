@@ -1,10 +1,7 @@
 package com.barestodo.android;
 
-import com.barestodo.android.adapteur.CircleListAdapteur;
-import com.barestodo.android.adapteur.CircleMemberListAdapter;
-import com.barestodo.android.place.Circle;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,7 +10,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.barestodo.android.adapteur.CircleListAdapteur;
+import com.barestodo.android.adapteur.CircleMemberListAdapter;
+import com.barestodo.android.place.Circle;
 import com.barestodo.android.place.Member;
+import com.barestodo.android.place.User;
 import com.barestodo.android.service.tasks.AsyncRetrieveMembersOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
@@ -23,6 +24,9 @@ import static com.barestodo.android.service.tasks.AsyncRetrieveMembersOperation.
 
 public class CircleMemberActivity  extends Activity implements CircleMembersReceiver {
 
+    public static final String CIRCLE_TO_INVITE_ON = "circle_to_invite_on";
+    public static final String NEW_PEOPLE_INVITED = "new_people_invited";
+    private static final int RETURN_MEMBER_ID = 120;
 
 
     private ImageButton addButton;
@@ -38,7 +42,6 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
         Bundle b = getIntent().getExtras();
 		circle = (Circle)b.get(CircleListAdapteur.CIRCLE_TO_SHOW);
         iniateActivity();
-		
 	}
 
 
@@ -65,12 +68,16 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
 	private void initAddButton() {
 		addButton.setOnClickListener(new OnClickListener() {
-			@Override
+
+            @Override
 			public void onClick(View v) {
-				/*Intent intent = new Intent(CircleMemberActivity.this,
-						AddPlaceToCircleActivity.class);
-				startActivity(intent);*/
-			}
+                Intent intent = new Intent(CircleMemberActivity.this,
+                InvitePeopleActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable(CIRCLE_TO_INVITE_ON,circle);
+                intent.putExtra(CIRCLE_TO_INVITE_ON,circle);
+                CircleMemberActivity.this.startActivityForResult(intent, RETURN_MEMBER_ID);
+            }
 		});
 	}
 
@@ -88,6 +95,21 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
         addButton = (ImageButton) findViewById(R.id.addMemberImageButton);
 		initAddButton();
 	}
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (RETURN_MEMBER_ID) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    User newPlace = (User) data.getSerializableExtra(CircleMemberActivity.NEW_PEOPLE_INVITED);
+                    memberListAdapter.add(newPlace);
+                    memberListAdapter.notifyDataSetInvalidated();
+                }
+                break;
+            }
+        }
+    }
 
     @Override
     public void receiveMembers(List<Member> members) {

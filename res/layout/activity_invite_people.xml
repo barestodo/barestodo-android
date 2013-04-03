@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity" >
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" >
+        <TextView  android:id="@+id/invitePeopleViewTitle"
+                   android:layout_height="wrap_content"
+                   android:layout_width="match_parent"
+                   android:text="@string/invitePeopleTitle"
+                   android:gravity="center"
+                   android:paddingTop="28px"
+                />
+        <TextView  android:id="@+id/invitePeopleViewTitle"
+                   android:layout_height="wrap_content"
+                   android:layout_width="match_parent"
+                   android:text="cette version alpha permet uniquement d'inviter un alpha-tester référencé"
+                   android:gravity="center"
+                   android:padding="5px"
+                   android:textSize="18px"
+                   android:textStyle="italic"
+                />
+
+   <!--     <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/filter"  />
+
+            <EditText android:id="@+id/emailAdresstoInviteInput"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:width="150px"
+                      android:gravity="center_horizontal"
+                      android:layout_gravity="center"
+                    />
+
+        </LinearLayout>
+        -->
+        <ListView
+                android:id="@+id/potentialsUsersListView"
+                android:layout_width="wrap_content"
+                android:layout_height="306dp"
+                android:layout_weight="0.97" >
+        </ListView>
+
+    </LinearLayout>
+
+</RelativeLayout>
