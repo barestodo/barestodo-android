@@ -1,7 +1,7 @@
 package com.barestodo.android.service.tasks;
 
 import android.util.Log;
-import com.barestodo.android.place.Member;
+import com.barestodo.android.model.Member;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

@@ -12,7 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Place;
 
 public class AsyncSchedulePlaceOperation extends AbstractAsyncTask<String, Void, Place> {
 

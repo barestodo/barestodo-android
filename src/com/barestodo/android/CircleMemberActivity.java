@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CircleMemberListAdapter;
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Member;
-import com.barestodo.android.place.User;
+import com.barestodo.android.model.Circle;
+import com.barestodo.android.model.Member;
+import com.barestodo.android.model.User;
 import com.barestodo.android.service.tasks.AsyncRetrieveMembersOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 

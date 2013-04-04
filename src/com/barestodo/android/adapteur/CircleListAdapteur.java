@@ -10,10 +10,9 @@ import android.widget.*;
 
 import com.barestodo.android.CircleContentActivity;
 import com.barestodo.android.R;
-import com.barestodo.android.place.Circle;
+import com.barestodo.android.model.Circle;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 //extends ArrayAdapter<PlaceList>

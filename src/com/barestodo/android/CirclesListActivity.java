@@ -1,25 +1,19 @@
 package com.barestodo.android;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
+import com.barestodo.android.model.Circle;
 import com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
-import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.*;
 import static com.barestodo.android.service.tasks.AsyncRetrieveCirclesOperation.CirclesReceiver;
 
 

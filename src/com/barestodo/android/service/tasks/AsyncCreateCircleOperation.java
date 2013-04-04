@@ -1,7 +1,6 @@
 package com.barestodo.android.service.tasks;
 
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Circle;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;

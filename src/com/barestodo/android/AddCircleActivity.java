@@ -10,13 +10,9 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Circle;
 import com.barestodo.android.service.tasks.AsyncCreateCircleOperation;
-import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
-
-import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.PlaceReceiver;
 
 
 public class AddCircleActivity extends Activity implements AsyncCreateCircleOperation.CircleReceiver {

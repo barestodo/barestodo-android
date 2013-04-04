@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.barestodo.android.R;
-import com.barestodo.android.place.Member;
+import com.barestodo.android.model.Member;
 import com.barestodo.android.service.tasks.AsyncInvitePeopleOnCircleOperation;
 import com.barestodo.android.utils.Gravatar;
 

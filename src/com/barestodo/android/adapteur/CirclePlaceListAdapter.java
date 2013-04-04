@@ -1,52 +1,30 @@
 package com.barestodo.android.adapteur;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import org.joda.time.DateTime;
-import org.ocpsoft.prettytime.PrettyTime;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.barestodo.android.PlaceDescriptionActivity;
+import android.widget.*;
 import com.barestodo.android.R;
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncDeletePlaceOperation;
 import com.barestodo.android.service.tasks.AsyncSchedulePlaceOperation;
+import org.joda.time.DateTime;
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CirclePlaceListAdapter extends BaseAdapter {
 
 	private List<Place> listPlace = new ArrayList<Place>();
-	/*
-	private TextView deletionPLaceName;
-	private TextView deletionPLaceLocation;
 
-	private Dialog confirmDeletionDialog;
-
-	private Button validateDeletion;
-	private Button cancelDeletion;
-	 */
 	private String placeId;
 
 

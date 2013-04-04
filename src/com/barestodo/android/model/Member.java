@@ -1,4 +1,4 @@
-package com.barestodo.android.place;
+package com.barestodo.android.model;
 
 public class Member extends User{
 

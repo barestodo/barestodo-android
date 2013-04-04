@@ -1,4 +1,4 @@
-package com.barestodo.android.place;
+package com.barestodo.android.model;
 
 import java.io.Serializable;
 

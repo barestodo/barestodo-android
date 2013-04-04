@@ -1,6 +1,6 @@
 package com.barestodo.android.service.tasks;
 
-import com.barestodo.android.place.User;
+import com.barestodo.android.model.User;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;

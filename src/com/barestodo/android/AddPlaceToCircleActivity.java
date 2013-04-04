@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.barestodo.android.exception.AsyncCallerServiceException;
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 

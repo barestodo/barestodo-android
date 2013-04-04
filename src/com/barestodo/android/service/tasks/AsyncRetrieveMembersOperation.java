@@ -1,27 +1,18 @@
 package com.barestodo.android.service.tasks;
 
 import android.util.Log;
-import com.barestodo.android.exception.AsyncCallerServiceException;
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Member;
-import com.barestodo.android.place.Place;
+import com.barestodo.android.model.Member;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.barestodo.android.R.string.connection_problem;
-import static com.barestodo.android.R.string.datas_corrupted;
 import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
 
 /**

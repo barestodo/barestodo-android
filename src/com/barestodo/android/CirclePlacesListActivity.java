@@ -13,15 +13,13 @@ import android.widget.Toast;
 
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CirclePlaceListAdapter;
-import com.barestodo.android.place.Circle;
-import com.barestodo.android.place.Place;
-import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
+import com.barestodo.android.model.Circle;
+import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
-import static com.barestodo.android.service.tasks.AsyncCreatePlaceOperation.PlaceReceiver;
 import static com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation.CirclePlacesReceiver;
 
 public class CirclePlacesListActivity extends Activity implements CirclePlacesReceiver {
