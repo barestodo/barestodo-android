@@ -51,7 +51,7 @@ public class AsyncRetrieveCirclesOperation extends AbstractAsyncTask<String, Voi
         Log.i("JSON", finalResult.toString());
         for(int index=0;index<finalResult.length();index++){
             JSONObject jsonPlace = finalResult.getJSONObject(index);
-            Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"));
+            Circle circle = new Circle(jsonPlace.getLong("id"),jsonPlace.getString("name"),jsonPlace.getInt("nbPlaces"),jsonPlace.getInt("nbMembers"));
             result.add(circle);
         }
         return result;

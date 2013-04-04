@@ -73,8 +73,12 @@ public class CircleListAdapteur extends BaseAdapter {
 
         final Circle circle = circles.get(index);
 
+        TextView placeCount = (TextView) view.findViewById(R.id.placesCount);
+        placeCount.setText(String.valueOf(circle.getPlaceCount()));
+
         TextView groupSize = (TextView) view.findViewById(R.id.groupSize);
-        groupSize.setText("0");
+        groupSize.setText(String.valueOf(circle.getMemberCount()));
+
         TextView circleName = (TextView) view.findViewById(R.id.circleName);
         circleName.setText(circle.getName());
 
