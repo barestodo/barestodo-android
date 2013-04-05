@@ -1,0 +1,55 @@
+
+apply plugin: 'java'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.2'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+    target = 'android-17'
+    android {
+        sourceSets {
+            main {
+                manifest {
+                    srcFile 'AndroidManifest.xml'
+                }
+                java {
+                    srcDir 'src'
+                }
+                res {
+                    srcDir 'res'
+                }
+                assets {
+                    srcDir 'assets'
+                }
+                resources {
+                    srcDir 'src'
+                }
+            }
+        }
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '2.1.2.Final'
+    compile group: 'joda-time', name: 'joda-time', version: '2.2'
+}
+
+
+version = '0.1.0-SNAPSHOT'
+group = 'fr.barestodo'
+
+def artifact = 'barestodo'
+def isReleaseVersion = !version.endsWith('SNAPSHOT')
+
+}

@@ -1,0 +1,13 @@
+# Installation #
+
+Installer la version 1.2 de [Gradle](http://www.gradle.org/downloads "Gradle") (ne pas prendre de version supérieure)
+ 
+Dans vos variables d'environnement:
+
+- renseigner la variable ANDROID_HOME avec  le chemin du sdk (ex:C:\adt-bundle-\sdk)
+- Ajouter GRADLE_HOME/bin au PATH
+
+
+# Utilisation #
+Nous utilisons le [plugins Google pour Gradle](http://tools.android.com/tech-docs/new-build-system/using-the-new-build-system#TOC-Using-the-new-Android-plugin-for-Gradle).
+toutes les commandes y sont décrites
