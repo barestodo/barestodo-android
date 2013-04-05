@@ -1,5 +1,7 @@
 package com.barestodo.android.service.tasks;
 
+import android.util.Log;
+
 import com.barestodo.android.model.Place;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,8 +37,9 @@ public class AsyncDeletePlaceOperation extends AbstractAsyncTask<String, Void, P
 		BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
 		String json = reader.readLine();
 		JSONObject jsonResponse = new JSONObject(json);
-
-		return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
+		
+		//return new Place(jsonResponse.getString("id"),jsonResponse.getString("name"),jsonResponse.getString("location"));
+		return null;
 	}
 
 	@Override
@@ -47,6 +50,7 @@ public class AsyncDeletePlaceOperation extends AbstractAsyncTask<String, Void, P
 
 	private String constructSafeUrl() throws UnsupportedEncodingException {
 		String safeUrl="place/".concat(placeId).replace(" ","%20");
+		Log.d("requete de suppression",safeUrl);
 		return safeUrl;
 	}
 }      // /rest/circle/:circleId/place/:name/:location

@@ -1,15 +1,19 @@
 package com.barestodo.android.adapteur;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
+
 import com.barestodo.android.R;
 import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncDeletePlaceOperation;
@@ -24,10 +28,9 @@ import java.util.List;
 public class CirclePlaceListAdapter extends BaseAdapter {
 
 	private List<Place> listPlace = new ArrayList<Place>();
-
-	private String placeId;
-
-
+	private DateTime sentDT = DateTime.now();
+	private DatePickerDialog dialog = null;
+	private boolean schedule = false;
 	@Override
 	public int getCount() {
 		return listPlace.size();    // total number of elements in the list
@@ -52,11 +55,12 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 			view = inflater.inflate(R.layout.circle_place_list_adapter_layout, parent, false);
 		}
 
-		final Place place = listPlace.get(index);
+		final Place place = (Place)getItem(index);
 
 		final String placeName = place.getName();
 		final String placeLocation = place.getLocation();
 		final DateTime placeScheduleDate = place.getScheduleDate();
+		final String placeId = place.getId();
 
 
 		TextView textName = (TextView) view.findViewById(R.id.nameText);
@@ -75,7 +79,7 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 			view.setBackgroundColor(Color.GREEN);
 		}
 
-		placeId = place.getId();
+
 		// button click listener
 		// this chunk of code will run, if user click the button
 		// because, we set the click listener on the button only
@@ -90,6 +94,7 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 					public void onClick(DialogInterface dialog, int which) {
 						new AsyncDeletePlaceOperation(placeId).execute();
 						listPlace.remove(place);
+						notifyDataSetChanged();
 					}}
 						)
 						.setNegativeButton(R.string.deletion_cancel, new DialogInterface.OnClickListener() {
@@ -102,51 +107,56 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 				deleteDialog.show();
 			}
 		});
-		
-		view.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				final Dialog myDialog = new Dialog(parent.getContext());
-                myDialog.setContentView(R.layout.dialog_schedule_place);
-                myDialog.setTitle("My Custom Dialog Title");
-                TextView placeNameTV=(TextView)myDialog.findViewById(R.id.place_to_schedule_name);
-                placeNameTV.setText(placeName);
-                TextView placeLocationTV=(TextView)myDialog.findViewById(R.id.place_to_schedule_name);
-                placeLocationTV.setText(placeLocation);
-                
-                final DatePicker scheduleDP = (DatePicker)myDialog.findViewById(R.id.place_to_schedule_datepicker);
-                Button confirm_button=(Button)myDialog.findViewById(R.id.button_confirm_place_schedule);
-                confirm_button.setOnClickListener(new OnClickListener() {
-                    @Override
-                     public void onClick(View v) {
-                           Toast.makeText(parent.getContext(), "Scheduling de la plce au"+scheduleDP.getDrawingTime(), Toast.LENGTH_SHORT).show();
-                           System.out.println(scheduleDP.getYear());
-                           System.out.println(scheduleDP.getMonth());
-                           System.out.println();
-                           DateTime sendDT = new DateTime(scheduleDP.getYear(),scheduleDP.getMonth()+1,scheduleDP.getDayOfMonth(),0,0);
-                           
-                           
-                           
-                           new AsyncSchedulePlaceOperation(placeId, sendDT).execute();
-                           myDialog.dismiss();
-                           
-                     }
-               });
-                
-                Button cancel_button=(Button)myDialog.findViewById(R.id.button_cancel_place_schedule);
-                cancel_button.setOnClickListener(new OnClickListener() {
-                     @Override
-                      public void onClick(View v) {
-                            // TODO Auto-generated method stub
-                            myDialog.cancel();
-                      }
-                });
-                myDialog.show();	
-			}
-		});
-		
-		
+
+		if (place.getScheduleDate() == null){
+			view.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View view) {
+
+
+					if(dialog == null){
+						dialog = new DatePickerDialog(parent.getContext(),new DatePickerDialog.OnDateSetListener(){
+							public void onDateSet(DatePicker datepicker, int year, int monthOfYear,
+									int dayOfMonth) {
+
+								
+								if (schedule){
+									sentDT = new DateTime(datepicker.getYear(),datepicker.getMonth()+1,datepicker.getDayOfMonth(),0,0);
+									datepicker.updateDate(year, monthOfYear, dayOfMonth);
+									Log.d("month",Integer.toString(datepicker.getMonth()));
+									Toast.makeText(parent.getContext(), "Scheduling de la place "+placeName+"au"+sentDT, Toast.LENGTH_SHORT).show();
+									Log.d("sd",sentDT.toString());
+									new AsyncSchedulePlaceOperation(placeId, sentDT).execute();
+									schedule = false;
+									notifyDataSetChanged();
+								}
+								dialog.hide();
+							}
+						},sentDT.getYear(),sentDT.getMonthOfYear(),
+						sentDT.getDayOfMonth());
+					}
+
+					dialog.updateDate(sentDT.getYear(),sentDT.getMonthOfYear(),sentDT.getDayOfMonth());
+					dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							if (which == DialogInterface.BUTTON_NEGATIVE) {
+								dialog.cancel();
+							}
+						}
+					});
+					dialog.setButton(DialogInterface.BUTTON_POSITIVE, "validate", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							if (which == DialogInterface.BUTTON_POSITIVE) {
+								schedule = true;
+								
+							}
+						}
+					});
+					dialog.show();
+				}
+			});
+		}
 		return view;
 	}
 
@@ -162,5 +172,10 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 	public void add(Place place) {
 		listPlace.add(place);
 	}
+	
+
+	
+	
+	
 }
 

@@ -58,6 +58,7 @@ public class AsyncRetrievePlacesOperation extends AbstractAsyncTask<String, Void
 			
 			DateTime eventTime = null;
 			try {
+				Log.d("Place"+index, jsonPlace.toString());
 				if(jsonPlace.has("eventTime")){
 					eventTime= DateTime.parse(jsonPlace.getString("eventTime"));
 				}

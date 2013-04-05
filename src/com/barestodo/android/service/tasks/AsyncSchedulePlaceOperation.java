@@ -12,6 +12,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.barestodo.android.model.Place;
 
 public class AsyncSchedulePlaceOperation extends AbstractAsyncTask<String, Void, Place> {
@@ -45,9 +47,11 @@ public class AsyncSchedulePlaceOperation extends AbstractAsyncTask<String, Void,
 		if(hasFail()){
 		}
 	}
-
+	
 	private String constructSafeUrl() throws UnsupportedEncodingException {
+		
 		String safeUrl="place/".concat(placeId).concat("/plan/").concat(placeScheduleDate).replace(" ","%20");
+		Log.d("safeUrl schedule", safeUrl);
 		return safeUrl;
 	}
 

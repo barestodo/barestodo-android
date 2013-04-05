@@ -2,6 +2,7 @@ package com.barestodo.android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation.CirclePlacesReceiver;
@@ -69,6 +71,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
                 intent.putExtra(AddPlaceToCircleActivity.CIRCLE_ID,circle.getId())    ;
                 startActivityForResult(intent, RETURN_PLACE_ID);
+                
 			}
 		});
 	}
@@ -81,6 +84,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
                     Place newPlace = (Place) data.getSerializableExtra(NEW_PLACE_CREATED);
                     placeListAdapter.add(newPlace);
                     placeListAdapter.notifyDataSetInvalidated();
+                    placeListAdapter.notifyDataSetChanged();
                 }
                 break;
             }
@@ -97,6 +101,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
 		listView = (ListView) findViewById(R.id.placesListView);
 		listView.setAdapter(placeListAdapter);
+		
 
 		addButton = (ImageButton) findViewById(R.id.addPlaceImageButton);
 		initAddButton();
@@ -106,6 +111,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
     public void receivePlaces(List<Place> places) {
         placeListAdapter.addAll(places);
         listView.invalidateViews();
+        placeListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -113,6 +119,5 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
         Toast.makeText(CirclePlacesListActivity.this,status.name(),
                 Toast.LENGTH_LONG).show();
     }
-
-
+   
 }
