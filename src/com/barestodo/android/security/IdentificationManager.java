@@ -5,7 +5,7 @@ import com.barestodo.android.app.MyApplication;
 
 
 public class IdentificationManager {
-    private boolean runOnVm =true;
+    private boolean runOnVm =false;
 
     public static final IdentificationManager INSTANCE=new IdentificationManager();
     private String token;
