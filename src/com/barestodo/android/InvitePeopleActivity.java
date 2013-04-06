@@ -25,6 +25,14 @@ public class InvitePeopleActivity extends Activity implements MembersReceiver,As
     private Circle circle;
     private UserListAdapter userListAdapter;
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        new AsyncRetrieveAvailableUsersOperation(this).execute();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new AsyncRetrieveAvailableUsersOperation(this).execute();
@@ -38,8 +46,10 @@ public class InvitePeopleActivity extends Activity implements MembersReceiver,As
 
     @Override
     public void receiveMembers(List<Member> members) {
-        userListAdapter.addAll(members);
-        userListAdapter.notifyDataSetInvalidated();
+        if(members!=null && !members.isEmpty()){
+            userListAdapter.set(members);
+            userListAdapter.notifyDataSetInvalidated();
+        }
     }
 
     @Override

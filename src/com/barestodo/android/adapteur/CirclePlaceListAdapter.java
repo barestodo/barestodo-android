@@ -2,18 +2,14 @@ package com.barestodo.android.adapteur;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
-
 import com.barestodo.android.R;
 import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncDeletePlaceOperation;
@@ -31,7 +27,8 @@ public class CirclePlaceListAdapter extends BaseAdapter {
 	private DateTime sentDT = DateTime.now();
 	private DatePickerDialog dialog = null;
 	private boolean schedule = false;
-	@Override
+
+    @Override
 	public int getCount() {
 		return listPlace.size();    // total number of elements in the list
 	}

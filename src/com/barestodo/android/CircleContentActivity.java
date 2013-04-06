@@ -25,11 +25,8 @@ public class CircleContentActivity extends TabActivity {
                 .setIndicator(null,
                         res.getDrawable(R.drawable.check))
                 .setContent(intent);
-
         tabHost.addTab(spec);
- 
         intent = new Intent().setClass(this, CircleMemberActivity.class);
-       
         intent.putExtras(b);
         spec = tabHost
                 .newTabSpec("Membres")
@@ -37,7 +34,6 @@ public class CircleContentActivity extends TabActivity {
                         res.getDrawable(R.drawable.users))
                 .setContent(intent);
         tabHost.addTab(spec);
- 
         tabHost.setCurrentTab(0);
  
     }

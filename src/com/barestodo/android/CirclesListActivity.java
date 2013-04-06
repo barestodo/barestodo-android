@@ -27,6 +27,14 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
     private CircleListAdapteur circleListAdapter;
     private int nbTry=0;
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        retrieveCircles();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         retrieveCircles();
         super.onCreate(savedInstanceState);
@@ -69,9 +77,9 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
     public void receiveCircles(List<Circle> result) {
         if(!result.isEmpty()){
             findViewById(R.id.tipsAddCircleLabel).setVisibility(View.INVISIBLE);
+            circleListAdapter.set(result);
+            listView.invalidateViews();
         }
-        circleListAdapter.addAll(result);
-        listView.invalidateViews();
     }
 
     @Override

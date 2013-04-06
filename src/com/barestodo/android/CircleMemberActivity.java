@@ -44,16 +44,10 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
         iniateActivity();
 	}
 
-
+    @Override
 	protected void onResume() {
-		try{
-			memberListAdapter.notifyDataSetChanged();
-			super.onResume();
-
-		}catch(Exception e){
-			Toast.makeText(CircleMemberActivity.this,e.getMessage(),
-					Toast.LENGTH_LONG).show();
-		}
+        new AsyncRetrieveMembersOperation(this,circle.getId()).execute();
+		super.onResume();
 	}
 
 
@@ -113,8 +107,10 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
     @Override
     public void receiveMembers(List<Member> members) {
-        memberListAdapter.set(members);
-        memberListAdapter.notifyDataSetInvalidated();
+        if(members!=null && !members.isEmpty()){
+            memberListAdapter.set(members);
+            memberListAdapter.notifyDataSetInvalidated();
+        }
     }
 
     @Override

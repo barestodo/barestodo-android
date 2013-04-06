@@ -2,7 +2,6 @@ package com.barestodo.android;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CirclePlaceListAdapter;
 import com.barestodo.android.model.Circle;
@@ -19,7 +17,6 @@ import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation.CirclePlacesReceiver;
@@ -47,7 +44,8 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 	protected void onResume() {
 		try{
             super.onResume();
-			placeListAdapter.notifyDataSetInvalidated();
+            new AsyncRetrievePlacesOperation(circle.getId(),this).execute();
+            placeListAdapter.notifyDataSetInvalidated();
         }catch(Exception e){
 			Toast.makeText(CirclePlacesListActivity.this,e.getMessage(),
 					Toast.LENGTH_LONG).show();
@@ -109,9 +107,11 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     @Override
     public void receivePlaces(List<Place> places) {
-        placeListAdapter.addAll(places);
-        listView.invalidateViews();
-        placeListAdapter.notifyDataSetChanged();
+        if(places!=null && !places.isEmpty()){
+            placeListAdapter.set(places);
+            listView.invalidateViews();
+            placeListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
