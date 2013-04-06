@@ -18,23 +18,14 @@ public class CircleContentActivity extends TabActivity {
         Intent intent; 
  
 		Bundle b = getIntent().getExtras();		
-		
-		
-		
-		
-		
-		
-
-        
-        intent = new Intent().setClass(this, CirclePlacesListActivity.class);
+		intent = new Intent().setClass(this, CirclePlacesListActivity.class);
         intent.putExtras(b);
         spec = tabHost
                 .newTabSpec("Lieux")
-                .setIndicator("Lieux",
+                .setIndicator(null,
                         res.getDrawable(R.drawable.check))
                 .setContent(intent);
-        
-       
+
         tabHost.addTab(spec);
  
         intent = new Intent().setClass(this, CircleMemberActivity.class);
@@ -42,7 +33,7 @@ public class CircleContentActivity extends TabActivity {
         intent.putExtras(b);
         spec = tabHost
                 .newTabSpec("Membres")
-                .setIndicator("Membres",
+                .setIndicator(null,
                         res.getDrawable(R.drawable.users))
                 .setContent(intent);
         tabHost.addTab(spec);
