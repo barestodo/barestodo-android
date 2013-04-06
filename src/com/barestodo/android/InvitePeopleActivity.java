@@ -35,13 +35,11 @@ public class InvitePeopleActivity extends Activity implements MembersReceiver,As
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new AsyncRetrieveAvailableUsersOperation(this).execute();
         circle = (Circle) getIntent().getSerializableExtra(CircleMemberActivity.CIRCLE_TO_INVITE_ON);   //savedInstanceState.get(CircleListAdapteur.CIRCLE_TO_SHOW);
         userListAdapter=new UserListAdapter(this,circle.getId());
         setContentView(R.layout.activity_invite_people);
         ListView listView = (ListView) findViewById(R.id.potentialsUsersListView);
         listView.setAdapter(userListAdapter);
-
     }
 
     @Override

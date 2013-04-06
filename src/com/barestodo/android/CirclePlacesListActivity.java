@@ -93,8 +93,6 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
         Log.d("Id du cercle", circle.getId().toString());
 		placeListAdapter = new CirclePlaceListAdapter();
-		new AsyncRetrievePlacesOperation(circle.getId(),this).execute();
-
 		setContentView(R.layout.activity_circle_places_list);
 
 		listView = (ListView) findViewById(R.id.placesListView);

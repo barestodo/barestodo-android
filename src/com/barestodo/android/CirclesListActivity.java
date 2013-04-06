@@ -36,7 +36,6 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        retrieveCircles();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circles_list);
         listView = (ListView) findViewById(R.id.circlesListView);

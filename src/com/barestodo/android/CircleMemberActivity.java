@@ -79,10 +79,8 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
 	private void iniateActivity(){
 
-        new AsyncRetrieveMembersOperation(this,circle.getId()).execute();
         Log.d("Id du cercle", circle.getId().toString());
-
-		setContentView(R.layout.activity_circle_member);
+        setContentView(R.layout.activity_circle_member);
         listView = (ListView) findViewById(R.id.membersListView);
         listView.setAdapter(memberListAdapter);
 
