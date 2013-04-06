@@ -12,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getDeleteOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getDeleteOperation;
 
 /**
  * Crée une place

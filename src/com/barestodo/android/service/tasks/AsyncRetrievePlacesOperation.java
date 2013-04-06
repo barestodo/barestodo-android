@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getGetOperation;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

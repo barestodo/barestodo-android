@@ -1,6 +1,6 @@
 package com.barestodo.android.service.tasks;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getPostOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getPostOperation;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

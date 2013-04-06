@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getPutOperation;
 
 /**
  * planifie un événement pur une date donnée

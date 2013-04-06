@@ -7,7 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getGetOperation;
 
 
 public class AsyncRetrieveCurrentUserNameOperation extends AbstractAsyncTask<String, Void, String> {

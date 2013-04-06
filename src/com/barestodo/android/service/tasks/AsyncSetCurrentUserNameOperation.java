@@ -3,7 +3,7 @@ package com.barestodo.android.service.tasks;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getPutOperation;
 
 /**
  * enregistre l'utilisateur auprès du site,en lui assignant un pseudo

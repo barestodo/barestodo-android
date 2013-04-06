@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getPutOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getPutOperation;
 
 /**
  * Crée une place

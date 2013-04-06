@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.barestodo.android.repository.HttpOperationFactory.getGetOperation;
+import static com.barestodo.android.service.tasks.HttpOperationFactory.getGetOperation;
 
 /**
  * retrouve la liste des memberes invitables dans le cerclee
