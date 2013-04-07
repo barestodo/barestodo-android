@@ -43,10 +43,12 @@ public class AddCircleActivity extends Activity implements AsyncCreateCircleOper
             }
 			}
 		});
+        validateAdd.setEnabled(true);
 	}
 	
 	public void validateAdd(){
 		Log.d("addActivity", nameInput.getText().toString());
+        validateAdd.setEnabled(false);
         new AsyncCreateCircleOperation(nameInput.getText().toString(),this).execute();
     }
 
@@ -60,6 +62,7 @@ public class AddCircleActivity extends Activity implements AsyncCreateCircleOper
 
     @Override
     public void onError(HttpStatus status) {
+        validateAdd.setEnabled(true);
         Toast.makeText(AddCircleActivity.this,
                 getResources().getText(R.string.error_place_creation),
                 Toast.LENGTH_LONG).show();

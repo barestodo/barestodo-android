@@ -53,10 +53,12 @@ public class AddPlaceToCircleActivity extends Activity implements PlaceReceiver 
             }
 			}
 		});
+        validateAdd.setEnabled(true);
 	}
 	
 	public void validateAdd(){
 		Log.d("addActivity", editLabel.getText().toString());
+        validateAdd.setEnabled(false);
         new AsyncCreatePlaceOperation(circleId,new Place(editLabel.getText().toString(),editLocation.getText().toString()),this).execute();
     }
 
@@ -70,6 +72,7 @@ public class AddPlaceToCircleActivity extends Activity implements PlaceReceiver 
 
     @Override
     public void onError(HttpStatus status) {
+        validateAdd.setEnabled(true);
         Toast.makeText(AddPlaceToCircleActivity.this,
                 getResources().getText(R.string.error_place_creation),
                 Toast.LENGTH_LONG).show();
