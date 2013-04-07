@@ -14,8 +14,8 @@ import com.barestodo.android.R;
 import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncDeletePlaceOperation;
 import com.barestodo.android.service.tasks.AsyncSchedulePlaceOperation;
+import com.ocpsoft.pretty.time.PrettyTime;
 import org.joda.time.DateTime;
-import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.ArrayList;
 import java.util.List;
