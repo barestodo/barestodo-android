@@ -3,7 +3,6 @@ package com.barestodo.android;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,13 +31,7 @@ public class PlaceDescriptionActivity extends Activity {
 		initScheduleButton();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_place_description, menu);
-		return true;
-	}
-	
+
 	private void initScheduleButton() {
 		scheduleButton.setOnClickListener(new OnClickListener() {
 			@Override

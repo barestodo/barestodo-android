@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.barestodo.android.model.Place;
 import com.barestodo.android.service.tasks.AsyncCreatePlaceOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
@@ -40,12 +38,7 @@ public class AddPlaceToCircleActivity extends Activity implements PlaceReceiver 
     	initValidateButton();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_add_place, menu);
-		return true;
-	}
+
 	
 	private void initValidateButton() {
 		validateAdd.setOnClickListener(new OnClickListener() {

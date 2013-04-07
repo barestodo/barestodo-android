@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -31,13 +30,6 @@ public class AddCircleActivity extends Activity implements AsyncCreateCircleOper
         initValidateButton();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_add_place, menu);
-		return true;
-	}
-	
 	private void initValidateButton() {
 		validateAdd.setOnClickListener(new OnClickListener() {
 			@Override
