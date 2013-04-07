@@ -29,5 +29,7 @@
 	<string name="deletion_ok">oui</string>
 	<string name="deletion_cancel">non</string>
     <string name="invitePeopleTitle">Invite un amis dans ton cercle</string>
+    <string name="leave_circle">quitter un cercle</string>
+    <string name="leave_circle_confirmation">êtes vous sûr de vouloir quitter le cercle %1$s ?</string>
 
 </resources>

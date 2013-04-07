@@ -10,12 +10,14 @@
     <!-- erreur de droits (aucun lien entre l'objet demandé et le user) -->
     <string name="authentication_problem">Echec d\'authentification</string>
     <!-- problème http bas niveau -->
-    <string name="connection_problem">connection perdu</string>
+    <string name="connection_problem">connection perdue</string>
     <!-- bug coté android pour parser la réponse -->
-    <string name="datas_corrupted">réponse du server invalide</string>
+    <string name="datas_corrupted">réponse du server invalide: vérifiez les mises à jours</string>
     <!-- mauvaise request envoyée au server -->
-    <string name="invalid_request">requête invalide</string>
+    <string name="invalid_request">Votre requête ne peut aboutir: vérifiez les mises à jours</string>
     <!-- mauvaise request envoyée au server -->
-    <string name="not_found">objet introuvable</string>
+    <string name="not_found">Notre server ne connait pas cet objet</string>
+    <!-- bug coté android -->
+    <string name="application_error">Un bug s\'est faufilé dans l\'application, veuillez nous en excuser</string>
 
 </resources>
