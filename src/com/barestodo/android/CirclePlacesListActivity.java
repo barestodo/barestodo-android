@@ -1,6 +1,8 @@
 package com.barestodo.android;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,27 +14,32 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CirclePlaceListAdapter;
+import com.barestodo.android.app.MyApplication;
 import com.barestodo.android.model.Circle;
 import com.barestodo.android.model.Place;
+import com.barestodo.android.service.tasks.AsyncLeaveCircleOperation;
 import com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
+import static com.barestodo.android.service.tasks.AsyncLeaveCircleOperation.*;
 import static com.barestodo.android.service.tasks.AsyncRetrievePlacesOperation.CirclePlacesReceiver;
 
-public class CirclePlacesListActivity extends Activity implements CirclePlacesReceiver {
+public class CirclePlacesListActivity extends Activity implements CirclePlacesReceiver,LeaveCaller {
 
 
     public static final String NEW_PLACE_CREATED = "list.place.new";
     public static final int RETURN_PLACE_ID=12345;
 
     private ImageButton addButton;
+    private ImageButton leaveCircleButton;
+
 	private ListView listView;
 	private Circle circle;
 	private CirclePlaceListAdapter placeListAdapter;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         Bundle b = getIntent().getExtras();
@@ -101,7 +108,38 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
 		addButton = (ImageButton) findViewById(R.id.addPlaceImageButton);
 		initAddButton();
-	}
+        leaveCircleButton = (ImageButton) findViewById(R.id.leaveCircleImageButton);
+        initLeaveButton();
+
+    }
+
+    private void initLeaveButton() {
+        leaveCircleButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog leavecircleDialog = new AlertDialog.Builder(v.getContext())
+                        .setMessage(MyApplication.getAppContext().getString(R.string.leave_circle_confirmation,circle.getName()))
+                        .setTitle(R.string.leave_circle)
+                        .setPositiveButton(R.string.deletion_ok, new AlertDialog.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new AsyncLeaveCircleOperation(CirclePlacesListActivity.this,circle.getId()).execute();
+                            }
+                        }
+                        )
+                        .setNegativeButton(R.string.deletion_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create();
+                leavecircleDialog.show();
+            }
+        });
+    }
 
     @Override
     public void receivePlaces(List<Place> places) {
@@ -114,8 +152,11 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     @Override
     public void onError(HttpStatus status) {
-        Toast.makeText(CirclePlacesListActivity.this,status.name(),
+        Toast.makeText(CirclePlacesListActivity.this,"création interrompue:"+status.getErrorMessage(),
                 Toast.LENGTH_LONG).show();
     }
-   
+    @Override
+    public void leaveSuccess() {
+        finish();
+    }
 }

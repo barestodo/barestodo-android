@@ -1,6 +1,8 @@
 package com.barestodo.android;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,17 +14,20 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.barestodo.android.adapteur.CircleListAdapteur;
 import com.barestodo.android.adapteur.CircleMemberListAdapter;
+import com.barestodo.android.app.MyApplication;
 import com.barestodo.android.model.Circle;
 import com.barestodo.android.model.Member;
 import com.barestodo.android.model.User;
+import com.barestodo.android.service.tasks.AsyncLeaveCircleOperation;
 import com.barestodo.android.service.tasks.AsyncRetrieveMembersOperation;
 import com.barestodo.android.service.tasks.HttpStatus;
 
 import java.util.List;
 
+import static com.barestodo.android.service.tasks.AsyncLeaveCircleOperation.LeaveCaller;
 import static com.barestodo.android.service.tasks.AsyncRetrieveMembersOperation.CircleMembersReceiver;
 
-public class CircleMemberActivity  extends Activity implements CircleMembersReceiver {
+public class CircleMemberActivity  extends Activity implements CircleMembersReceiver,LeaveCaller {
 
     public static final String CIRCLE_TO_INVITE_ON = "circle_to_invite_on";
     public static final String NEW_PEOPLE_INVITED = "new_people_invited";
@@ -30,6 +35,7 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
 
     private ImageButton addButton;
+    private ImageButton leaveCircleButton;
     private ListView listView;
     private Circle circle;
 
@@ -75,9 +81,35 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 		});
 	}
 
+    private void initLeaveButton() {
+        leaveCircleButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                AlertDialog leavecircleDialog = new AlertDialog.Builder(v.getContext())
+                        .setMessage(MyApplication.getAppContext().getString(R.string.leave_circle_confirmation,circle.getName()))
+                        .setTitle(R.string.leave_circle)
+                        .setPositiveButton(R.string.deletion_ok, new AlertDialog.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new AsyncLeaveCircleOperation(CircleMemberActivity.this,circle.getId()).execute();
+                            }
+                        }
+                        )
+                        .setNegativeButton(R.string.deletion_cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create();
+                leavecircleDialog.show();
+            }
+        });
+    }
 
 
-	private void iniateActivity(){
+
+    private void iniateActivity(){
 
         Log.d("Id du cercle", circle.getId().toString());
         setContentView(R.layout.activity_circle_member);
@@ -85,8 +117,10 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
         listView.setAdapter(memberListAdapter);
 
         addButton = (ImageButton) findViewById(R.id.addMemberImageButton);
-		initAddButton();
-	}
+        leaveCircleButton = (ImageButton) findViewById(R.id.leaveCircleImageButton);
+        initAddButton();
+        initLeaveButton();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,8 +147,13 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
     @Override
     public void onError(HttpStatus status) {
-        Toast.makeText(CircleMemberActivity.this,"vos amis n'ont pu être  retrouvés",
+        Toast.makeText(CircleMemberActivity.this,"vos amis n'ont pu être  retrouvés:".concat(status.getErrorMessage()),
                 Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void leaveSuccess() {
+        finish();
     }
 }
 

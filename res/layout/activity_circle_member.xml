@@ -23,33 +23,38 @@
          </ListView>
 
          <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:gravity="center_horizontal"
+                 >
 
-             <LinearLayout
-                 android:layout_width="wrap_content"
-                 android:layout_height="match_parent" >
-             </LinearLayout>
+             <ImageButton
+                     android:id="@+id/addMemberImageButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:paddingRight="15dp"
+                     android:paddingLeft="15dp"
+                     android:paddingBottom="5px"
+                     android:background="@null"
+                     android:contentDescription="@string/check_img_desc"
+                     android:gravity="center_horizontal"
+                     android:src="@drawable/add_member" />
+
+             <ImageButton
+                     android:id="@+id/leaveCircleImageButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:paddingRight="15dp"
+                     android:paddingLeft="15dp"
+                     android:paddingBottom="5px"
+                     android:background="@null"
+                     android:contentDescription="@string/leave_circle"
+                     android:gravity="center_horizontal"
+                     android:src="@drawable/leave" />
          </LinearLayout>
 
-         <!--
-              <Button
-             android:id="@+id/addButton"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/add_label" />
-         -->
 
-         <ImageButton
-             android:id="@+id/addMemberImageButton"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="5dp"
-             android:paddingBottom="15dp"
-             android:background="@null"
-             android:contentDescription="@string/check_img_desc"
-             android:gravity="center_horizontal"
-             android:src="@drawable/add_button" />
-     </LinearLayout>
+  </LinearLayout>
 
 </RelativeLayout>
