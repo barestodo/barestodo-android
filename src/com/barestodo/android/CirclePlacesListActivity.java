@@ -139,8 +139,8 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
     public void receivePlaces(List<Place> places) {
         if(places!=null && !places.isEmpty()){
             placeListAdapter.set(places);
-            listView.invalidateViews();
-            placeListAdapter.notifyDataSetChanged();
+            //listView.invalidateViews();
+           // placeListAdapter.notifyDataSetInvalidated();
         }
     }
 

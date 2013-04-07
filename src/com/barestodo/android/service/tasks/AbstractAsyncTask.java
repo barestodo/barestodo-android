@@ -1,6 +1,5 @@
 package com.barestodo.android.service.tasks;
 
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -8,7 +7,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 
 public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTask<Params,Progress,Results> implements Serializable {
@@ -70,11 +71,6 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
     }
 
     abstract Results concreteOperation(Params... params) throws Exception;
-
-
-    protected String getErrorMessage(int messageId) {
-        return Resources.getSystem().getString(messageId);
-    }
 
 
 }

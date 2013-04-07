@@ -1,8 +1,9 @@
 package com.barestodo.android.model;
 
-import java.io.Serializable;
-
+import com.ocpsoft.pretty.time.PrettyTime;
 import org.joda.time.DateTime;
+
+import java.io.Serializable;
 
 public class Place implements Serializable{
 	/**
@@ -58,5 +59,13 @@ public class Place implements Serializable{
 	 public String toString() {
 	        return name;
 	 }
-	
+
+    public boolean isPlaned() {
+        return scheduleDate!=null;
+    }
+
+    public String getRelativeScheduledDateLabel() {
+        PrettyTime p = new PrettyTime();
+        return isPlaned()?p.format(scheduleDate.toDate()):"";
+    }
 }
