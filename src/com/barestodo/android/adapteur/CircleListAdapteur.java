@@ -82,9 +82,7 @@ public class CircleListAdapteur extends BaseAdapter {
         TextView circleName = (TextView) view.findViewById(R.id.circleName);
         circleName.setText(circle.getName());
 
-        
-        
-        circleName.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             	Intent intent = new Intent(parent.getContext(),	CircleContentActivity.class);
