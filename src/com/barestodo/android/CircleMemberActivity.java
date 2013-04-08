@@ -35,6 +35,7 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
     private ImageButton addButton;
     private ImageButton leaveCircleButton;
+    private ImageButton refreshButton;
     private ListView listView;
     private Circle circle;
 
@@ -51,13 +52,17 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
     @Override
 	protected void onResume() {
-        new AsyncRetrieveMembersOperation(this,circle.getId()).execute();
-		super.onResume();
+        refresh();
+        super.onResume();
 	}
 
+    private void refresh() {
+        refreshButton.setVisibility(View.INVISIBLE);
+        new AsyncRetrieveMembersOperation(this,circle.getId()).execute();
+    }
 
 
-	private void initAddButton() {
+    private void initAddButton() {
 		addButton.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -109,6 +114,13 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
 
         addButton = (ImageButton) findViewById(R.id.addMemberImageButton);
         leaveCircleButton = (ImageButton) findViewById(R.id.leaveCircleImageButton);
+        refreshButton = (ImageButton) findViewById(R.id.refreshMemberListImageButton);
+        refreshButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
         initAddButton();
         initLeaveButton();
     }
@@ -134,12 +146,14 @@ public class CircleMemberActivity  extends Activity implements CircleMembersRece
             memberListAdapter.set(members);
             memberListAdapter.notifyDataSetInvalidated();
         }
+        refreshButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onError(HttpStatus status) {
         Toast.makeText(CircleMemberActivity.this,"vos amis n'ont pu être  retrouvés:".concat(status.getErrorMessage()),
                 Toast.LENGTH_LONG).show();
+        refreshButton.setVisibility(View.VISIBLE);
     }
 
     @Override

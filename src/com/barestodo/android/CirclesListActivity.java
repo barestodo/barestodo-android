@@ -24,6 +24,7 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
 
     private ListView listView;
     private ImageButton addButton;
+    private ImageButton refreshButton;
     private CircleListAdapteur circleListAdapter;
     private int nbTry=0;
 
@@ -31,7 +32,7 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
     @Override
     public void onResume(){
         super.onResume();
-        retrieveCircles();
+        refresh();
     }
 
     @Override
@@ -51,9 +52,19 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
                 startActivityForResult(intent, RETURN_CIRCLE_ID);
             }
         });
+
+        refreshButton = (ImageButton) findViewById(R.id.refreshCircleListImageButton);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
     }
 
-    private void retrieveCircles() {
+    private void refresh() {
+        refreshButton.setVisibility(View.INVISIBLE);
         new AsyncRetrieveCirclesOperation(this).execute();
     }
 
@@ -74,6 +85,7 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
 
     @Override
     public void receiveCircles(List<Circle> result) {
+        refreshButton.setVisibility(View.VISIBLE);
         if(!result.isEmpty()){
             findViewById(R.id.tipsAddCircleLabel).setVisibility(View.INVISIBLE);
             circleListAdapter.set(result);
@@ -83,12 +95,10 @@ public class CirclesListActivity extends Activity implements CirclesReceiver {
 
     @Override
     public void onError(HttpStatus status) {
+        refreshButton.setVisibility(View.VISIBLE);
         Toast.makeText(CirclesListActivity.this, "Problème de communication avec le server",
                 Toast.LENGTH_LONG).show();
-       if(nbTry<3){
-        retrieveCircles();
-        nbTry++;
-       }
+
     }
 
 }

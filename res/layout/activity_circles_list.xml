@@ -30,17 +30,39 @@
                  android:paddingTop="20px"
                  android:textStyle="italic"
                  />
-
-     <ImageButton
-             android:id="@+id/createCircleImageButton"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="5dp"
-             android:paddingBottom="15dp"
-             android:background="@null"
-             android:contentDescription="@string/check_img_desc"
-             android:gravity="center_horizontal"
-             android:src="@drawable/add_circle" />
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+         <ImageButton
+                 android:id="@+id/createCircleImageButton"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:contentDescription="@string/check_img_desc"
+                 android:paddingRight="15dp"
+                 android:paddingLeft="15dp"
+                 android:paddingBottom="5px"
+                 android:background="@null"
+                 android:gravity="center_horizontal"
+                 android:src="@drawable/add_circle" />
+         <ImageButton
+                 android:id="@+id/refreshCircleListImageButton"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:paddingRight="15dp"
+                 android:paddingLeft="15dp"
+                 android:paddingBottom="5px"
+                 android:background="@null"
+                 android:contentDescription="@string/check_img_desc"
+                 android:gravity="center_horizontal"
+                 android:src="@drawable/refresh" />
      </LinearLayout>
-
+     </LinearLayout>
 </RelativeLayout>

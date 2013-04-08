@@ -49,6 +49,18 @@
                  android:contentDescription="@string/leave_circle"
                  android:gravity="center_horizontal"
                  android:src="@drawable/leave" />
+             <ImageButton
+                     android:id="@+id/refreshPlaceListImageButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="5dp"
+                     android:paddingRight="15dp"
+                     android:paddingLeft="15dp"
+                     android:paddingBottom="5px"
+                     android:background="@null"
+                     android:contentDescription="@string/check_img_desc"
+                     android:gravity="center_horizontal"
+                     android:src="@drawable/refresh" />
      </LinearLayout>
 
      </LinearLayout>

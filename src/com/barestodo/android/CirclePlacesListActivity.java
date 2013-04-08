@@ -33,8 +33,9 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     private ImageButton addButton;
     private ImageButton leaveCircleButton;
+    private ImageButton refreshButton;
 
-	private ListView listView;
+    private ListView listView;
 	private Circle circle;
 	private CirclePlaceListAdapter placeListAdapter;
 
@@ -50,7 +51,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 	protected void onResume() {
 		try{
             super.onResume();
-            new AsyncRetrievePlacesOperation(circle.getId(),this).execute();
+            refresh();
             placeListAdapter.notifyDataSetInvalidated();
         }catch(Exception e){
 			Toast.makeText(CirclePlacesListActivity.this,e.getMessage(),
@@ -58,11 +59,13 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 		}
 	}
 
+    private void refresh() {
+        refreshButton.setVisibility(View.INVISIBLE);
+        new AsyncRetrievePlacesOperation(circle.getId(),this).execute();
+    }
 
 
-
-
-	private void initAddButton() {
+    private void initAddButton() {
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -104,7 +107,13 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 		initAddButton();
         leaveCircleButton = (ImageButton) findViewById(R.id.leaveCircleImageButton);
         initLeaveButton();
-
+        refreshButton = (ImageButton) findViewById(R.id.refreshPlaceListImageButton);
+        refreshButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                   refresh();
+            }
+        });
     }
 
     private void initLeaveButton() {
@@ -137,6 +146,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     @Override
     public void receivePlaces(List<Place> places) {
+        refreshButton.setVisibility(View.VISIBLE);
         if(places!=null && !places.isEmpty()){
             placeListAdapter.set(places);
             //listView.invalidateViews();
@@ -146,6 +156,7 @@ public class CirclePlacesListActivity extends Activity implements CirclePlacesRe
 
     @Override
     public void onError(HttpStatus status) {
+        refreshButton.setVisibility(View.VISIBLE);
         Toast.makeText(CirclePlacesListActivity.this,"création interrompue:"+status.getErrorMessage(),
                 Toast.LENGTH_LONG).show();
     }
