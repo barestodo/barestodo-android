@@ -153,6 +153,7 @@ public class CirclePlaceListAdapter extends BaseAdapter {
                             //datePicker.updateDate(year, monthOfYear, dayOfMonth);
                            // Toast.makeText(castedDialog.getWindow().getContext(), "Scheduling de la place " + place.getName() + "au" + sendDT, Toast.LENGTH_SHORT).show();
                             new AsyncSchedulePlaceOperation(place.getId(), sendDT).execute().get();
+                            place.setScheduleDate(sendDT);
                             CirclePlaceListAdapter.this.notifyDataSetInvalidated();
                         } catch (NoSuchFieldException e) {
                             Toast.makeText(castedDialog.getWindow().getContext(), "problem occured during datepicker manipulation", Toast.LENGTH_SHORT).show();

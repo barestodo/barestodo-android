@@ -68,4 +68,8 @@ public class Place implements Serializable{
         PrettyTime p = new PrettyTime();
         return isPlaned()?p.format(scheduleDate.withHourOfDay(20).toDate()):"";
     }
+
+    public void setScheduleDate(DateTime scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
 }
