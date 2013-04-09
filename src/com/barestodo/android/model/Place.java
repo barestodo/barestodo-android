@@ -66,6 +66,6 @@ public class Place implements Serializable{
 
     public String getRelativeScheduledDateLabel() {
         PrettyTime p = new PrettyTime();
-        return isPlaned()?p.format(scheduleDate.toDate()):"";
+        return isPlaned()?p.format(scheduleDate.withHourOfDay(20).toDate()):"";
     }
 }
