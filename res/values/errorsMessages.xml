@@ -19,5 +19,6 @@
     <string name="not_found">Notre server ne connait pas cet objet</string>
     <!-- bug coté android -->
     <string name="application_error">Un bug s\'est faufilé dans l\'application, veuillez nous en excuser</string>
+    <string name="conflict">opération non valide</string>
 
 </resources>

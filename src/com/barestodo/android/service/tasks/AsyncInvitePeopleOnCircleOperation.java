@@ -1,5 +1,7 @@
 package com.barestodo.android.service.tasks;
 
+import android.widget.Toast;
+import com.barestodo.android.app.MyApplication;
 import com.barestodo.android.model.User;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -38,8 +40,10 @@ public class AsyncInvitePeopleOnCircleOperation extends AbstractAsyncTask<String
         HttpPost httpPost = getPostOperation(constructSafeUrl(circleId, email));
         HttpResponse response = httpClient.execute(httpPost, localContext);
         checkResponseStatus(response.getStatusLine().getStatusCode());
+        if(hasFail()){
+          return User.EMPTY;
+        }
         HttpEntity entity = response.getEntity();
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
         String json = reader.readLine();
         JSONObject jsonResponse = new JSONObject(json);
@@ -49,7 +53,13 @@ public class AsyncInvitePeopleOnCircleOperation extends AbstractAsyncTask<String
     @Override
     protected void onPostExecute(User result){
         if(hasFail()){
-            circleReceiver.onError(getRequestStatus());
+            if(HttpStatus.CONFLICT.equals(getRequestStatus())){
+                Toast.makeText(MyApplication.getAppContext(), "Utilisateur déjà présent dans le cercle",
+                        Toast.LENGTH_LONG).show();
+            }else{
+            Toast.makeText(MyApplication.getAppContext(), "Invitation impossible:"+getRequestStatus().getErrorMessage(),
+                    Toast.LENGTH_LONG).show();
+            }
         }else{
             circleReceiver.receiveCompleteUser(result);
         }

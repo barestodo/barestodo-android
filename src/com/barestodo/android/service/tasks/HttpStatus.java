@@ -5,7 +5,7 @@ import com.barestodo.android.app.MyApplication;
 
 
 public enum HttpStatus {
-    OK(0),NOT_FOUND(R.string.not_found),BAD_REQUEST(R.string.invalid_request),FORBIDEN(R.string.authentication_problem),SERVER_ERROR(R.string.service_unavailable),CONNECTION_LOST(R.string.connection_problem), CLIENT_ERROR(R.string.application_error);
+    OK(0),NOT_FOUND(R.string.not_found),CONFLICT(R.string.conflict),BAD_REQUEST(R.string.invalid_request),FORBIDEN(R.string.authentication_problem),SERVER_ERROR(R.string.service_unavailable),CONNECTION_LOST(R.string.connection_problem), CLIENT_ERROR(R.string.application_error);
 
 
     private int labelId;

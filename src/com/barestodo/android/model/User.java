@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 
+    public static final User EMPTY=new User();
+
     private String pseudo;
     private String email;
 

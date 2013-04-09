@@ -48,6 +48,8 @@ public abstract class AbstractAsyncTask<Params,Progress,Results> extends AsyncTa
             case 404:
                 requestStatus=HttpStatus.NOT_FOUND;
                 break;
+            case 409: requestStatus=HttpStatus.CONFLICT;
+                break;
             default:
                 requestStatus=HttpStatus.SERVER_ERROR;
         }
